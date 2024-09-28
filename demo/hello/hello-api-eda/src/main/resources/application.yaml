@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    function:
+      definition: send-hello-message;receive-hello-message
+    stream:
+      bindings:
+        send-hello-message-out-0:
+          destination: event.hello.v1
+        receive-hello-message-in-0:
+          destination: event.hello.v1
+      kafka:
+        binder:
+          brokers: 'localhost:9092'
+server:
+    port: 8080
+    error:
+        include-message: always
+        include-binding-errors: always
+        include-stacktrace: never
+        include-exception: false
+springdoc:
+    show-actuator: false
+    api-docs:
+        version: openapi_3_0
+        enabled: true
+    swagger-ui:
+        enabled: true
+# TODO: Ajouter le Management de actuator
+management:
+    info:
+        git:
+            mode: full
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - health
+                    - info
+    endpoint:
+        health:
+            show-details: always
+        info:
+            application:
+                # TODO : Aller chercher la version dans le pom.xml
+                version: "@version@"

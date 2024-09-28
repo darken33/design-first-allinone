@@ -1,0 +1,66 @@
+asyncapi: 3.0.0
+info:
+  title: Hello Kafka API
+  version: 1.0.0
+  description: |
+    Simple Hello Message API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+defaultContentType: application/json
+servers:
+  local:
+    host: localhost:9092
+    protocol: kafka
+    tags:
+      - name: local
+        description: 'This environment is meant for running internal tests '
+channels:
+  event.hello.v1:
+    address: event.hello.v1
+    messages:
+      helloMessage:
+        $ref: '#/components/messages/helloMessage'
+    description: The topic on which hello messages may be produced and consumed.
+operations:
+  receiveHelloMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/event.hello.v1'
+    traits:
+      - $ref: '#/components/operationTraits/kafka'
+    messages:
+      - $ref: '#/channels/event.hello.v1/messages/helloMessage'
+  sendHelloMessage:
+    action: send
+    channel:
+      $ref: '#/channels/event.hello.v1'
+    traits:
+      - $ref: '#/components/operationTraits/kafka'
+    messages:
+      - $ref: '#/channels/event.hello.v1/messages/helloMessage'
+components:
+  messages:
+    helloMessage:
+      name: helloMessage
+      title: Hello Message
+      summary: Hello Message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/HelloMessagePayload'
+  schemas:
+    HelloMessagePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          pattern: ^Hello .+$
+          descriptin: Message.
+  operationTraits:
+    kafka:
+      bindings:
+        kafka:
+          groupId:
+            type: string
+            enum:
+              - my-group-id

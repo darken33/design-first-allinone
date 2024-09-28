@@ -1,0 +1,7 @@
+node() {
+
+    stage('CLEAN WORKSPACE') {
+        sh "rm -rf ${workspace}/*"
+    }
+
+}

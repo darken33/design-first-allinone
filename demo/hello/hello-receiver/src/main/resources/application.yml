@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    function:
+      definition: receive-hello-message
+    stream:
+      bindings:
+        receive-hello-message-in-0:
+          destination: event.hello.v1
+      kafka:
+        binder:
+          brokers: 'localhost:9092'
+logging:
+  level:
+    root: info
+    org:
+      springframework: info
+server:
+  port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+

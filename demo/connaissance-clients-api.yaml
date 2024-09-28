@@ -1,0 +1,437 @@
+openapi: 3.0.1
+info:
+  title: Connaissance Client API
+  description: Documentation de l'API Connaissance Client
+  version: "1.0.0"
+  contact:
+    name: SQLI
+    url: http://sqli.com/
+    email: pbousquet@sqli.com
+  license:
+    name: Copyright (c) SQLI
+servers:
+  - url: http://localhost:8080/
+    description: DEV Server
+    variables: { }
+  - url: https://jenesaispas/
+    description: Azure Cloud
+    variables: { }
+tags:
+  - name: ConnaissanceClient
+    description: opérations de lecture / écriture sur les fiches de connaissance client
+security:
+    - bearerAuth: [ ]
+paths:
+  '/v1/connaissance-clients':
+    get:
+      security: [ ]
+      tags:
+        - ConnaissanceClient
+      summary: Liste des fiches de connaissance client
+      operationId: getConnaissanceClients
+      description: |
+        liste des fiches de connaissance client
+      responses:
+        200:
+          description: Réponse pour une requête valide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnaissanceClients'
+        400:
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        401:
+          description: Access forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        403:
+          description: Access denied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+    post:
+      tags:
+        - ConnaissanceClient
+      summary: Accès en écriture à une fiche de connaissance client
+      operationId: saveConnaissanceClient
+      description: |
+        Ecriture d'une fiche de connaissance client (création ou mise à jour).
+      responses:
+        201:
+          description: Réponse pour une requête valide (création ou mise à jour d'une fiche de connaissance client)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnaissanceClient'
+        400:
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        401:
+          description: Access forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        403:
+          description: Access denied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnaissanceClientIn'
+        description: La fiche de connaissance client à enregister
+  '/v1/connaissance-clients/{id}':
+    get:
+      tags:
+        - ConnaissanceClient
+      summary: Accès en lecture à une fiche de connaissance client
+      operationId: getConnaissanceClient
+      description: |
+        Accès à une fiche de connaissance client via son id
+      parameters:
+        - in: path
+          name: id
+          description: identifiant
+          required: true
+          schema:
+            type: string
+            example: "8a9204f5-aa42-47bc-9f04-17caab5deeee"
+            format: UUID
+      responses:
+        200:
+          description: Réponse pour une requête valide (retour d'une fiche de connaissance client)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnaissanceClient'
+        400:
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+    delete:
+      tags:
+        - ConnaissanceClient
+      summary: Suppression d'une fiche de connaissance client
+      operationId: deleteConnaissanceClient
+      description: |
+        Suppression d'une fiche de connaissance client via son id
+      parameters:
+        - in: path
+          name: id
+          description: identifiant
+          required: true
+          schema:
+            type: string
+            example: "8a9204f5-aa42-47bc-9f04-17caab5deeee"
+            format: UUID
+      responses:
+        200:
+            description: Suppression de la fiche effectuée
+        400:
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  '/v1/connaissance-clients/{id}/adresse':
+    put:
+      tags:
+        - ConnaissanceClient
+      summary: Changement d'addresse du client
+      operationId: changerAdresse
+      description: |
+        Changement d'addresse du client
+      parameters:
+        - in: path
+          name: id
+          description: identifiant
+          required: true
+          schema:
+            type: string
+            example: "8a9204f5-aa42-47bc-9f04-17caab5deeee"
+            format: UUID
+      responses:
+        200:
+          description: Réponse pour une requête valide (retour d'une fiche de connaissance client)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnaissanceClient'
+        400:
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Adresse'
+  '/v1/connaissance-clients/{id}/situation':
+    put:
+      tags:
+        - ConnaissanceClient
+      summary: Changement de situation du client
+      operationId: changerSituation
+      description: |
+        Changement de situation du client
+      parameters:
+        - in: path
+          name: id
+          description: identifiant
+          required: true
+          schema:
+            type: string
+            example: "8a9204f5-aa42-47bc-9f04-17caab5deeee"
+            format: UUID
+      responses:
+        200:
+          description: Réponse pour une requête valide (retour d'une fiche de connaissance client)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnaissanceClient'
+        400:
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Situation'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: "2017-07-21T17:32:28.437+00:00"
+          format: date-time
+        status:
+          type: integer
+          example: 400
+          format: int32
+        error:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "Validation failed for object='connaissanceClientInDto'. Error count: 1"
+        path:
+          type: string
+          example: "/connaissance-clients"
+    ConnaissanceClients:
+      type: array
+      items:
+        $ref: '#/components/schemas/ConnaissanceClient'
+    ConnaissanceClient:
+      type: object
+      required:
+        - nom
+        - prenom
+        - ligne1
+        - codePostal
+        - ville
+        - situationFamilialle
+        - nombreEnfants
+      properties:
+        id:
+          type: string
+          example: "8a9204f5-aa42-47bc-9f04-17caab5deeee"
+          format: UUID
+        nom:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Bousquet"
+        prenom:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Philippe"
+        ligne1:
+          $ref: "#/components/schemas/LigneAdresse"
+          example: "48 rue bauducheu"
+        ligne2:
+          $ref: "#/components/schemas/LigneAdresse"
+          example: "maison individuelle"
+        codePostal:
+          $ref: "#/components/schemas/CodePostal"
+        ville:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Bordeaux"
+        situationFamilialle:
+          $ref: "#/components/schemas/SituationFamilialle"
+        nombreEnfants:
+          $ref: "#/components/schemas/NombreEnfants"
+    ConnaissanceClientIn:
+      type: object
+      required:
+        - nom
+        - prenom
+        - ligne1
+        - codePostal
+        - ville
+        - situationFamilialle
+        - nombreEnfants
+      properties:
+        nom:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Bousquet"
+        prenom:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Philippe"
+        ligne1:
+          $ref: "#/components/schemas/LigneAdresse"
+          example: "48 rue bauducheu"
+        ligne2:
+          $ref: "#/components/schemas/LigneAdresse"
+          example: "maison individuelle"
+        codePostal:
+          $ref: "#/components/schemas/CodePostal"
+        ville:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Bordeaux"
+        situationFamilialle:
+          $ref: "#/components/schemas/SituationFamilialle"
+        nombreEnfants:
+          $ref: "#/components/schemas/NombreEnfants"
+    Adresse:
+      type: object
+      required:
+        - ligne1
+        - codePostal
+        - ville
+      properties:
+        ligne1:
+          $ref: "#/components/schemas/LigneAdresse"
+          example: "48 rue bauducheu"
+        ligne2:
+          $ref: "#/components/schemas/LigneAdresse"
+          example: "maison individuelle"
+        codePostal:
+          $ref: "#/components/schemas/CodePostal"
+        ville:
+          $ref: "#/components/schemas/ChaineAlpha"
+          example: "Bordeaux"
+    Situation:
+      type: object
+      required:
+        - situationFamilialle
+        - nombreEnfants
+      properties:
+        situationFamilialle:
+          $ref: "#/components/schemas/SituationFamilialle"
+        nombreEnfants:
+          $ref: "#/components/schemas/NombreEnfants"
+    ChaineAlpha:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: "^[a-zA-Z ,.'-]+$"
+      example: "Test Abc"
+    SituationFamilialle:
+      type: string
+      enum: [CELIBATAIRE, MARIE]
+    LigneAdresse:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: "^[a-zA-Z0-9 ,.'-]+$"
+      example: "48 rue bauducheu"
+    CodePostal:
+      type: string
+      minLength: 5
+      maxLength: 5
+      pattern: "^[A-Z0-9]+$"
+      example: "33800"
+    NombreEnfants:
+      type: integer
+      minimum: 0
+      maximum: 20
+      example: 1  

@@ -1,0 +1,1019 @@
+:classification: C0 - Public
+:source-highlighter: pygments
+:sectanchors:
+:sectlinks:
+:customcss: style/prez.css
+:version: 1.0
+
+[background-image=style/title-bg-jug.png, state=title]
+== Design First API 
+
+OpenApi et AsyncApi en action !!!
+
+[background-image=style/background/history.png, transition=none]
+== Les APIs ?
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/history.png, transition=none]
+=== Les APIs ?
+
+image:style/img-space.png[height=50]
+
+[.text-left]
+* Les débuts : génération HTML
+
+image:style/history-api-2000.png[]
+
+image:style/img-space.png[height=600]
+
+[.notes]
+--
+Lorsque j'ai embrassé le développement Java en 2001, tout était généré côté serveur on génrait alors du HTML (via des JSP) qui était transmis au navigateur web.
+Pour ce qui était de la communication entre applications ou entreprises il était coutume de s'échanger des fichiers contenant les données via FTP (ou autre) qui étaient traité essentiellement par batch.
+--
+
+[background-image=style/background/history.png, transition=none]
+=== Les APIs ?
+
+image:style/img-space.png[height=50]
+
+[.text-left]
+* On progresse : AJAX et SOAP
+
+image:style/history-api-2010.png[]
+
+image:style/img-space.png[height=600]
+
+[.notes]
+--
+Les technologies ont peu à peu évolués et l'apparition d'AJAX à permeis de mettre en place de premières APIs, une partie de l'écran était alors rafraichie par un appel serveur qui ne renvoyait que les données nécessaires.
+Dans les années 2005 la technologie SOAP commenaçait à faire son apparition dans les entreprises pour des échanges synchrones de données entres applications.
+--
+
+[background-image=style/background/history.png, transition=none]
+=== Les APIs ?
+
+image:style/img-space.png[height=50]
+
+[.text-left]
+* La maturité ? API REST et EDA
+
+image:style/history-api-2020.png[]
+
+image:style/img-space.png[height=600]
+
+[.notes]
+--
+Aujourd'hui les framework tels que Angular, VueJs ou React permettent de découper les applications en deux blocs (front et backend) l'un soccupant exclusivement de l'IHM et le backend exposant des APIs REST où seules les données nécessaires transitent.
+Ces APIs peuvent être utilisées pour un échange synchrone entre applications, et nous voyons égalment se développer des technologies asynchrone comme Kafka ou RabbitMQ par exemple.
+--
+
+[background-image=style/background/demarche.jpg, transition=none]
+== Démarche API
+
+[%step]
+image:style/demarche-api-gbl.png[]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Pour ma part je travaille autour des APIs depuis les années 2010, et fort de cette expérience j'ai mis en place dans ma société une démarche pour la mise en place d'APIs.
+
+Cela part de la définition de standard, jusqu'à l'observabilité et le monitoring, en passant par l'architecture, les bonnes pratiques de développement et...
+--
+
+[background-image=style/background/demarche.jpg, transition=none]
+=== Démarche API
+
+image:style/demarche-api-dsg.png[]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Ce qui nous intéresse aujourd'hui l'approche Design First...
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+== Code First
+
+[%step]
+[.text-left]
+* Coder directement dans son IDE
+
+[%step]
+[source,java]
+----
+@RestController
+public class HelloApi {
+
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/hello",
+        produces = { "application/json" }
+    )
+    public ResponseEntity<HelloDto> hello() {
+        HelloDto result = new HelloDto();
+        result.setMessage("Hello World");
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/hello/{name}",
+        produces = { "application/json" }
+    )
+    public ResponseEntity<HelloDto> helloWithName(String name) {
+        HelloDto result = new HelloDto();
+        result.setMessage("Hello "+name);
+        return ResponseEntity.ok(result);
+    }
+}
+----
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Avant de parler de Design First voyons l'approche Code First.
+
+Il s'agit de développer directement son API dans son IDE préféré
+
+Pour tester on s'appuie sur des outils comme Postman, vu que c'est nous qui avons développé on sait de facto comment appler notre API
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Code First
+
+image:style/hello-test.png[]
+
+image:style/img-space.png[height=300]
+
+[.notes]
+--
+Cependant cela manque de Documentation, un développeur comprendra ce code et saura comment appeler l'API, mais les autres ?
+
+D'ailleurs lorsqu'on expose une API c'est pour qu'elle soit consommée par quelqu'un, il faut donc pouvoir expliquer à celu-ci comment appeler notre APIs.
+
+Cela se faisait souvent via un document annexe, et cela se passait souvent dans la douleur, fautes de frappes, erreurs dans la documentation.
+
+Bilan c'est grandement perfectible
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Swagger-UI
+
+[%step]
+[.text-left]
+* SpringDoc : une documentation minimaliste
+
+[%step]
+[source,xml]
+----
+<!-- Swagger / OpenAPI -->
+<dependency>
+  <groupId>org.openapitools</groupId>
+  <artifactId>jackson-databind-nullable</artifactId>
+  <version>0.2.4</version>
+</dependency>
+<dependency>
+  <groupId>org.springdoc</groupId>
+  <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+  <version>${springdoc-openapi.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.springdoc</groupId>
+  <artifactId>springdoc-openapi-starter-common</artifactId>
+  <version>${springdoc-openapi.version}</version>
+</dependency>
+----
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Nous pouvons cependant bénéficier d'une documentation minimaliste en ajoutant des librairies comme springfox (dépréciées) ou springdoc.
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Swagger-UI
+
+image:style/hello-springdoc.png[]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Mais nous n'auront alors qu'une documentation minimaliste
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Les Annotations
+
+[%step]
+[.text-left]
+* Annotations OpenApi : une meilleure documentation 
+
+[%step]
+[source,java]
+----
+@RestController
+public class HelloApi {
+
+// [...]
+
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/v1/hello/{name}",
+        produces = { "application/json" }
+    )
+    @Operation(
+        operationId = "helloWithName",
+        summary = "Saluer une personne en particulier",
+        tags = { "Hello" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "application/json", 
+                schema = @Schema(implementation = HelloDto.class))
+            }),
+        }
+    )
+    public ResponseEntity<HelloDto> helloWithName(
+    	@Parameter(
+    		name = "name", 
+    		description = "Nom de la personne à saluer", 
+    		required = true
+    	) 
+    	@PathVariable("name") 
+    	String name) {
+	        HelloDto result = new HelloDto();
+        	result.setMessage("Hello "+name);
+	      	return ResponseEntity.ok(result);
+    }
+}
+----
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Les annotations fournies par OpenApi permettent tout de même d'ajouter de la documentation,
+Cependant le code utile est vite noyé au milieu d'annotations documentaires.
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Les Annotations
+
+image:style/hello-with-annotations.png[height=600]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Et cette documentation n'est au final disponible qu'une fois l'API impléménté.
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== La Documentation
+
+[source,json]
+----
+{
+   "openapi":"3.0.1",
+   "info":{
+      "title":"Hello API",
+      "version":"v1"
+   },
+   "servers":[
+      {
+         "url":"http://localhost:8080",
+         "description":"Generated server url"
+      }
+   ],
+   "paths":{
+      "/api/v1/hello":{
+         "get":{
+            "tags":[
+               "Hello"
+            ],
+            "summary":"Saluer le monde",
+            "operationId":"hello",
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HelloDto"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/v1/hello/{name}":{
+         "get":{
+            "tags":[
+               "Hello"
+            ],
+            "summary":"Saluer une personne en particulier",
+            "operationId":"helloWithName",
+            "parameters":[
+               {
+                  "name":"name",
+                  "in":"path",
+                  "description":"Nom de la personne à saluer",
+                  "required":true,
+                  "schema":{
+                     "type":"string"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HelloDto"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "components":{
+      "schemas":{
+         "HelloDto":{
+            "type":"object",
+            "properties":{
+               "message":{
+                  "type":"string"
+               }
+            }
+         }
+      }
+   }
+}
+----
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/design-first.jpg, transition=none]
+== Le Design First
+
+image:style/img-space.png[height=50]
+
+[%step]
+[.text-left]
+* IL S'AGIT DE SPÉCIFIER L'API EN AMONT
+* IMPLÉMENTER PLUS EFFICACEMENT VOS APIS
+* INTÉGRER PLUS FACILEMENT LES APPELS À VOS APIS
+* POSSIBILITÉ DE SIMULER VOS APIS
+* DOCUMENTATION EN ADÉQUATION AVEC L'IMPLÉMENTATION
+
+image:style/img-space.png[height=200]
+
+[.notes]
+--
+N'y a t'il pas moyen de proposer un contrat d'interface, lorsque nous exposions des Webservices SOAP nous échangiosn avec le consommateur un contrat le fameux WSDL.
+
+Le Design First va nous aider ​t doit nous permettre : 
+
+D'implementer plus efficacement nos APIs 
+Permettre aux consomateurs d'intégrer plus facilement des appels APIs
+Ces deux points grâce à de la génération de code à partir du contrat d'interface
+
+Mais ce contrat offre d'autres possibilité comme 
+La possibilité de simuler une API ou servir de documentation technique qui est de facto en adéquation avec ce qui a été implémenté.
+--
+
+[background-image=style/background/openapi.jpg, transition=none]
+== OpenApi et AsyncApi
+
+[%step]
+image:style/historique.png[height=400]
+
+image:style/img-space.png[height=200]
+
+[background-image=style/background/openapi.jpg, transition=none]
+=== Les Initiatives
+
+[%step]
+image:style/comparatif-initiatives.png[]
+
+image:style/img-space.png[height=200]
+
+[background-image=style/background/openapi.jpg, transition=none]
+=== Les Spécifications
+
+[%step]
+image:style/openapi-asyncapi.drawio.png[height=600]
+
+[background-image=style/background/demo.jpg, transition=none]
+== Notre Cas d'Usage
+
+[%step]
+image:style/hello-c4-Hello-Architecture.drawio.png[]
+
+[.notes]
+--
+Pour tenter de vous démontrer tout cela nous allons prendre un cas d'usage simple
+
+* Front qui permettra d'aficher le résultat de notre API (Angular) 
+* Un backend qui expose une API Hello World (Spring Boot)
+* Il émettra également un message dans un topic Kafka
+* Qui sera consommé par une application qui l'affichera dans la console
+--
+
+[background-image=style/background/designer.jpg, transition=none]
+== Définir son API REST
+
+[%step]
+image:style/swagger-editor.png[height=480]
+
+image:style/img-space.png[height=10]
+
+[%step]
+https://editor.swagger.io/[https://editor.swagger.io/]
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/designer.jpg, transition=none]
+=== Des outils
+
+[%step]
+image:style/openapi-tools.png[]
+
+image:style/img-space.png[height=25]
+
+[%step]
+https://openapi.tools/[https://openapi.tools/]
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/demo.jpg, transition=none]
+=== Démo
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+== Génération Client
+
+[%step]
+image:style/c4-hello-front.drawio.png[height=400]
+
+[%step]
+[source, json]
+----
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "scripts": {
+    "generate:api": "openapi-generator-cli generate -i ../../hello.yaml -g typescript-angular -o src/app/hello-api"
+  },
+  ...
+}  
+----
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Intégrer l'appel API
+
+image:style/img-space.png[height=50]
+
+[%step]
+[source,typescript]
+----
+import { Component } from '@angular/core';
+import { HelloService } from './hello-api/api/hello.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent { 
+  title = 'Appel de l\'api hello';
+  result = this.helloService.helloUsingGET1()
+  		.subscribe(helloDto => (this.title = helloDto.message!));
+  constructor(private helloService: HelloService){}
+}
+----
+
+image:style/img-space.png[height=25]
+
+[%step]
+http://localhost:4200/[http://localhost:4200/]
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/demo.jpg, transition=none]
+=== Démo
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+== Génération Serveur
+
+[%step]
+image:style/c4-hello-back-api.drawio.png[height=480]
+
+image:style/img-space.png[height=10]
+
+[%step]
+https://github.com/OpenAPITools/openapi-generator[Open API Generator]
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+=== Pluggin Maven
+
+image:style/img-space.png[height=25]
+
+[%step]
+[source, xml]
+----
+<plugin>
+  <groupId>org.openapitools</groupId>
+  <artifactId>openapi-generator-maven-plugin</artifactId>
+  <version>${openapi-generator-maven.version}</version>
+  <executions>
+    <execution>
+        <id>spring-boot-api-server</id>
+        <goals>
+            <goal>generate</goal>
+        </goals>
+        <configuration>
+            <!-- <inputSpec>${project.basedir}/src/main/resources/api/hello.yaml</inputSpec> -->
+            <inputSpec>${project.basedir}/../../hello.yaml</inputSpec>
+            <generatorName>spring</generatorName>
+            <generateApis>true</generateApis>
+            <generateApiDocumentation>true</generateApiDocumentation>
+            <generateApiTests>true</generateApiTests>
+            <generateModels>true</generateModels>
+            <generateModelDocumentation>true</generateModelDocumentation>
+            <generateModelTests>true</generateModelTests>
+            <generateSupportingFiles>true</generateSupportingFiles>
+            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+            <apiPackage>com.sqli.pbousquet.helloapi.generated.api.server</apiPackage>
+            <modelPackage>com.sqli.pbousquet.helloapi.generated.api.model</modelPackage>
+            <configOptions>
+                <useTags>true</useTags>
+                <useBeanValidation>true</useBeanValidation>
+                <performBeanValidation>true</performBeanValidation>
+                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                <dateLibrary>java8</dateLibrary>
+                <delegatePattern>true</delegatePattern>
+            </configOptions>
+            <output>${project.build.directory}/generated-sources</output>
+        </configuration>
+    </execution>
+  </executions>
+</plugin>
+----
+
+image:style/img-space.png[height=250]
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Implémenter
+
+image:style/img-space.png[height=25]
+
+[%step]
+[source, java]
+----
+@Component
+public class HelloApiDelegateImpl implements HelloApiDelegate {
+
+    private final HelloService helloService;
+
+    public HelloApiDelegateImpl(HelloService helloService) {
+        this.helloService = helloService;
+    }
+
+    @Override
+    public ResponseEntity<HelloDto> helloUsingGET1() {
+        HelloDto result = new HelloDto();
+        result.setMessage(helloService.sayHello("World"));
+        return ResponseEntity.ok(result);
+    }
+
+    @Override
+    public ResponseEntity<HelloDto> helloUsingGET(String name) {
+        HelloDto result = new HelloDto();
+        result.setMessage(helloService.sayHello(name));
+        return ResponseEntity.ok(result);
+    }
+
+}
+----
+
+image:style/img-space.png[height=25]
+
+[%step]
+http://localhost:8080/swagger-ui.html[http://localhost:8080/swagger-ui.html]
+
+image:style/img-space.png[height=250]
+
+[background-image=style/background/demo.jpg, transition=none]
+=== Démo
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/demo.jpg, transition=none]
+== Notre Cas d'Usage
+
+image:style/hello-c4-Hello-Architecture.drawio.png[]
+
+[.notes]
+--
+Pour tenter de vous démontrer tout cela nous allons prendre un cas d'usage simple
+
+* Front qui permettra d'aficher le résultat de notre API (Angular) 
+* Un backend qui expose une API Hello World (Spring Boot)
+* Il émettra également un message dans un topic Kafka
+* Qui sera consommé par une application qui l'affichera dans la console
+--
+
+[background-image=style/background/designer.jpg, transition=none]
+== Définir son API EDA
+
+[%step]
+image:style/studio-asyncapi.png[height=480]
+
+image:style/img-space.png[height=10]
+
+[%step]
+https://studio.asyncapi.com/[https://studio.asyncapi.com/]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Comme pour OpenAPI nous alons donc commencer par designer une API Asynchrone : un simple Hello World.
+
+AsyncAPI propose l'outil studio.asyncapi, mais il existe également des plugins IDE (comme pour VSCode).
+--
+
+[background-image=style/background/designer.jpg, transition=none]
+=== Des outils
+
+[%step]
+[.text-left]
+* https://www.asyncapi.com/tools[https://www.asyncapi.com/tools]
+* https://github.com/springwolf/springwolf-core[Springwolf]
+* https://github.com/asyncapi/html-template[HTML Documentation]
+* https://github.com/sngular/scs-multiapi-plugin[MultiAPI Generator]
+* https://github.com/zenwave360/zenwave-sdk[ZenWave SDK]
+* https://github.com/udamir/api-diff-viewer[Diff-Viewer]
+* ...
+
+[%step]
+[source,bash]
+----
+ag /home/pbousquet/Workspaces/SQLI/talks/asyncapi-design-first/demo/asyncapi-2/hello-asyncapi.yaml \
+   @asyncapi/html-template \
+   -p singleFile=true \
+   -p outFilename=doc-hello-asyncapi.html
+----
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+AsyncAPI propose un grand nombre d'outils pour de la génération soit documentaire, soit de code.
+
+L'exemple présenté ici permet notamment de générer une documentation HTML à parti de la spécification AsyncAPI.
+
+À noter que les outils de génération de code permettent de générer des applications complètes, alors que nous recherchons plus un outil comme le plugin maven openapi-generator qui permet de s'intégrer dans un projet existant.
+
+----
+ag /home/pbousquet/Workspaces/SQLI/talks/asyncapi-design-first/demo/asyncapi-2/hello-asyncapi.yaml \
+   @asyncapi/java-spring-template \
+   -p maven=true \
+   -p javaPackage=com.sqli.pbousquet.hello.asyncapi \
+   -p springBoot2=true
+----
+--
+
+[background-image=style/background/demo.jpg, transition=none]
+=== Démo
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/zenwave-sdk.jpg, transition=none]
+== ZenWave SDK
+
+[%step]
+[.text-left]
+* Accélérer le developpement API
+
+[%step]
+image:style/zenwave.png[height=400]
+
+[%step]
+https://zenwave360.github.io/[https://zenwave360.github.io/]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Iván García Sainz-Aja développe de son coté un SDK proposant diverses chose :
+
+* API First (OpenAPI, Async API)
+* DDD (à partir d'un DSL)
+* API Testing
+* ...
+
+Et notemment deux plugins maven : https://zenwave360.github.io/zenwave-sdk/zenwave-sdk-maven-plugin/
+
+* générer les DTOs depuis une spécification AsyncAPI
+* générer le code producer/consumer basé sur spring-cloud-streams (compatible notamment Kafka et RabbitMQ)
+--
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+=== Generation DTOs
+
+[%step]
+[source,xml]
+----
+<plugin>
+  <groupId>io.github.zenwave360.zenwave-sdk</groupId>
+  <artifactId>zenwave-sdk-maven-plugin</artifactId>
+  <version>${zenwave.version}</version>
+  <executions>
+    <execution>
+      <id>generate-asyncapi-producer-dtos</id>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>generate</goal>
+      </goals>
+      <configuration>
+        <generatorName>jsonschema2pojo</generatorName>
+        <inputSpec>..../hello-asyncapi.yaml</inputSpec>
+        <targetFolder>${project.build.directory}/generated-sources</targetFolder>
+        <configOptions>
+          <modelPackage>com.sqli.pbousquet.hello.model</modelPackage>
+          <jsonschema2pojo.includeJsr303Annotations>true</jsonschema2pojo.includeJsr303Annotations>
+          <jsonschema2pojo.isUseJakartaValidation>true</jsonschema2pojo.isUseJakartaValidation>
+        </configOptions>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>            
+----
+
+[%step]
+[.text-left]
+* modelPackage : package pour le DTO
+* isUseJakartaValidation : pour Java 17+ / Spring Boot 3
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+=== Le Producer
+
+[%step]
+[source,xml]
+----
+<plugin>
+  <groupId>io.github.zenwave360.zenwave-sdk</groupId>
+  <artifactId>zenwave-sdk-maven-plugin</artifactId>
+  <version>${zenwave.version}</version>
+  <executions>
+    <execution>
+      <id>generate-asyncapi-producer</id>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>generate</goal>
+      </goals>
+      <configuration>
+        <generatorName>spring-cloud-streams3</generatorName>
+        <inputSpec>..../hello-asyncapi.yaml</inputSpec>
+        <targetFolder>${project.build.directory}/generated-sources</targetFolder>
+        <configOptions>
+          <operationIds>sendHelloMessage</operationIds>
+          <apiPackage>com.sqli.pbousquet.hello.producer</apiPackage>
+          <modelPackage>com.sqli.pbousquet.hello.model</modelPackage>
+        </configOptions>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>            
+----
+
+[%step]
+[.text-left]
+* apiPackage : package pour le code
+* modelPackage : package du DTO
+* operationIds : operations à générer
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+=== Code Généré
+
+[%step]
+image:style/c4-hello-back-api-kafka.drawio.png[height=600]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Ici il génère : 
+
+* L'interface et l'implémentation de production
+* Le DTO : la structure du message
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Implémenter
+
+image:style/img-space.png[height=30]
+
+[%step]
+[source,java]
+----
+package com.sqli.pbousquet.hello.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import com.sqli.pbousquet.hello.producer.IDefaultServiceEventsProducer;
+import com.sqli.pbousquet.hello.model.HelloMessagePayload;
+@Component
+public class HelloService {
+    
+    @Autowired
+    IDefaultServiceEventsProducer service;
+
+    @Scheduled(fixedRate = 5000)
+    public void sendHelloMessage() {
+        HelloMessagePayload helloMessage = new HelloMessagePayload();
+        helloMessage.setMessage("Hello fifi");
+        service.sendHelloMessage(helloMessage, null);
+    }
+}
+----
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Le développeur lui n'a plus qu'à implémenter :
+
+* L'adapter faisant l'appel à la couche technique
+* Éventuellement un mappeur Objet Métier / DTO 
+--
+
+[background-image=style/background/demo.jpg, transition=none]
+=== Démo
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+== Le Consumer
+
+[%step]
+[source,xml]
+----
+<plugin>
+  <groupId>io.github.zenwave360.zenwave-sdk</groupId>
+  <artifactId>zenwave-sdk-maven-plugin</artifactId>
+  <version>${zenwave.version}</version>
+  <executions>
+    <execution>
+      <id>generate-asyncapi-receiveir</id>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>generate</goal>
+      </goals>
+      <configuration>
+        <generatorName>spring-cloud-streams3</generatorName>
+        <inputSpec>..../hello-asyncapi.yaml</inputSpec>
+        <targetFolder>${project.build.directory}/generated-sources</targetFolder>
+        <configOptions>
+          <operationIds>readHelloMessage</operationIds>
+          <apiPackage>com.sqli.pbousquet.hello.receiver</apiPackage>
+          <modelPackage>com.sqli.pbousquet.hello.model</modelPackage>
+        </configOptions>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>            
+----
+
+[%step]
+[.text-left]
+* apiPackage : package pour le code
+* modelPackage : package du DTO
+* operationIds : operations à générer
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/slide_generate.jpg, transition=none]
+=== Code Généré
+
+[%step]
+image:style/c4-hello-console.drawio.png[]
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Ici il génère : 
+
+* L'interface et l'implémentation de production
+* Le DTO : la structure du message
+--
+
+[background-image=style/background/implementer.jpg, transition=none]
+=== Implémenter
+
+image:style/img-space.png[height=50]
+
+[%step]
+[source,java]
+----
+package com.sqli.pbousquet.hello.service;
+
+import org.springframework.stereotype.Component;
+import com.sqli.pbousquet.hello.model.HelloMessagePayload;
+import com.sqli.pbousquet.hello.receiver.IReadHelloMessageConsumerService;
+@Component
+public class HelloService implements IReadHelloMessageConsumerService {
+    
+    @Override
+    public void readHelloMessage(HelloMessagePayload payload, HelloMessagePayloadHeaders headers) {
+        System.out.println(payload.getMessage());
+    }
+
+}
+----
+
+image:style/img-space.png[height=150]
+
+[.notes]
+--
+Le développeur lui n'a plus qu'à implémenter :
+
+* L'implémentation du délegate 
+* Éventuellement un mappeur DTO / Objet Métier 
+--
+
+[background-image=style/background/demo.jpg, transition=none]
+=== Démo
+
+image:style/img-space.png[height=800]
+
+[background-image=style/background/demo.jpg, transition=none]
+== Notre Cas d'Usage
+
+image:style/hello-c4-Hello-Architecture.drawio.png[]
+
+
+[background-image=style/background/conclusion.jpg, transition=none]
+== Pour conclure
+
+image:style/img-space.png[height=50]
+
+[%step]
+[.text-left]
+* OPENAPI ET ASYNCAPI
+* IMPLÉMENTER PLUS EFFICACEMENT VOS APIS
+* INTÉGRER PLUS FACILEMENT LES APPELS À VOS APIS
+* POSSIBILITÉ DE SIMULER VOS APIS
+* DOCUMENTATION EN ADÉQUATION AVEC L'IMPLÉMENTATION RÉELLE
+
+image:style/img-space.png[height=150]
+
+[background-image=style/background/thanks.jpg, transition=none]
+== Merci
+
+image:style/img-space.png[height=30]
+
+[%step]
+image:style/fifi-sqli.png[]
+
+[%step]
+https://github.com/darken33/design-first-allinone[Retrouvez la présentation ici]
+
+[%step]
+image:style/prez-allinone.png[width=200]
+
+[%step]
+https://www.youtube.com/watch?v=DIuCVGkG9HA[La vidéo youtube]
+
+image:style/img-space.png[height=150]
+
+
+
+
+

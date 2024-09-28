@@ -1,0 +1,32 @@
+server:
+    port: 8080
+    error:
+        include-message: always
+        include-binding-errors: always
+        include-stacktrace: never
+        include-exception: false
+springdoc:
+    show-actuator: false
+    api-docs:
+        version: openapi_3_0
+        enabled: true
+    swagger-ui:
+        enabled: true
+# TODO: Ajouter le Management de actuator
+management:
+    info:
+        git:
+            mode: full
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - health
+                    - info
+    endpoint:
+        health:
+            show-details: always
+        info:
+            application:
+                # TODO : Aller chercher la version dans le pom.xml
+                version: "@version@"
