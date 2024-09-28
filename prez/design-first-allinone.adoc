@@ -1008,9 +1008,6 @@ https://github.com/darken33/design-first-allinone[Retrouvez la présentation ici
 [%step]
 image:style/prez-allinone.png[width=200]
 
-[%step]
-https://www.youtube.com/watch?v=DIuCVGkG9HA[La vidéo youtube]
-
 image:style/img-space.png[height=150]
 
 
