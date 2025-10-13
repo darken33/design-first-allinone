@@ -15,14 +15,14 @@ public class HelloApiDelegateImplTest {
 
     @Test
     public void getHello_must_return_Hello_World() {
-        ResponseEntity<HelloDto> result = helloApi.helloUsingGET1();
+        ResponseEntity<HelloDto> result = helloApi.helloWorld();
         Assert.assertTrue(HttpStatus.OK.equals(result.getStatusCode()));
         Assert.assertTrue("Hello World".equals(result.getBody().getMessage()));
     }
 
     @Test
     public void getHello_Philippe_must_return_Hello_Philippe() {
-        ResponseEntity<HelloDto> result = helloApi.helloUsingGET("Philippe");
+        ResponseEntity<HelloDto> result = helloApi.helloWithName("Philippe");
         Assert.assertTrue(HttpStatus.OK.equals(result.getStatusCode()));
         Assert.assertTrue("Hello Philippe".equals(result.getBody().getMessage()));
     }

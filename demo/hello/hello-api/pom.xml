@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.1</version>
+		<version>4.0.0-M1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sqli.pbousquet</groupId>
@@ -15,27 +15,20 @@
 	<description>API de Hello World</description>
 
 	<properties>
-		<java.version>21</java.version>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
-        <springdoc-openapi.version>2.0.2</springdoc-openapi.version>
+		<java.version>25</java.version>
+		<maven.compiler.source>25</maven.compiler.source>
+		<maven.compiler.target>25</maven.compiler.target>
+        <springdoc-openapi.version>2.8.9</springdoc-openapi.version>
 		<openapi-generator-maven.version>6.2.1</openapi-generator-maven.version>
 		<swagger-annotations.version>2.2.7</swagger-annotations.version>
-		<hibernate-validation.version>8.0.0.Final</hibernate-validation.version>
-        <jackson-databind-nullable.version>0.2.4</jackson-databind-nullable.version>
-		<spring.boot.version>3.0.0</spring.boot.version>
-        <spring-native.version>0.12.1</spring-native.version>
-		<lombok.version>1.18.22</lombok.version>
-		<mapstruct.version>1.4.2.Final</mapstruct.version>
+		<hibernate-validation.version>9.0.1.Final</hibernate-validation.version>
+        <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+		<spring.boot.version>4.0.0-M1</spring.boot.version>
+		<lombok.version>1.18.38</lombok.version>
 		<build.helper.maven.plugin.version>3.0.0</build.helper.maven.plugin.version>
     </properties>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.crac</groupId>
-            <artifactId>crac</artifactId>
-            <version>1.4.0</version>
-        </dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -69,7 +62,7 @@
         </dependency>
         <!-- Validation -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validation.version}</version>
         </dependency>
@@ -77,19 +70,14 @@
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
-			<version>0.2.4</version>
+			<version>${jackson-databind-nullable.version}</version>
 		</dependency>
  		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${springdoc-openapi.version}</version>
 		</dependency>
-      <dependency>
-          <groupId>org.springdoc</groupId>
-          <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-          <version>${springdoc-openapi.version}</version>
-      </dependency>
-      <dependency>
+        <dependency>
           <groupId>org.springdoc</groupId>
           <artifactId>springdoc-openapi-starter-common</artifactId>
           <version>${springdoc-openapi.version}</version>
@@ -162,58 +150,33 @@
                     </execution>
                 </executions>
             </plugin>
-<!--
             <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
--->            
             <plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.sqli.pbousquet.helloapi.HelloApiApplication</mainClass>
-                    <image>
-                        <builder>paketobuildpacks/builder:base</builder>
-                        <env>
-                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                            <BP_JVM_VERSION>17.*</BP_JVM_VERSION>
-                        </env>
-                    </image>
                 </configuration>
                 <executions>
                     <execution>
                     <goals>
-                            <goal>repackage</goal>
+                        <goal>repackage</goal>
                     </goals>
                     </execution>
                 </executions>
 			</plugin>
-
-        <plugin>
-            <groupId>org.owasp</groupId>
-            <artifactId>dependency-check-maven</artifactId>
-            <version>9.0.8</version>
-            <configuration>
-                <formats>
-                    <format>html</format>
-                    <format>xml</format>
-                    <format>json</format>
-                </formats>
-                <nvdDatafeedUrl>http://nist-mirror2.lan.bdx.sqli.com/nvdcve-{0}.json.gz</nvdDatafeedUrl>
-                <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-                <nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
-                <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
-            </configuration>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>aggregate</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-
 		</plugins>
 	</build>
 

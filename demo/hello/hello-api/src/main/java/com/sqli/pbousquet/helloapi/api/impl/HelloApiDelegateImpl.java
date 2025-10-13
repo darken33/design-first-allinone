@@ -19,14 +19,14 @@ public class HelloApiDelegateImpl implements HelloApiDelegate {
     }
 
     @Override
-    public ResponseEntity<HelloDto> helloUsingGET1() {
+    public ResponseEntity<HelloDto> helloWorld() {
         HelloDto result = new HelloDto();
         result.setMessage(service.sayHello("World"));
         return ResponseEntity.ok(result);
     }
 
     @Override
-    public ResponseEntity<HelloDto> helloUsingGET(String name) {
+    public ResponseEntity<HelloDto> helloWithName(String name) {
         HelloDto result = new HelloDto();
         result.setMessage(service.sayHello(name));
         return ResponseEntity.ok(result);

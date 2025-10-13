@@ -2,11 +2,10 @@
 :source-highlighter: pygments
 :sectanchors:
 :sectlinks:
-:customcss: style/prez.css
+//:customcss: style/prez.css
 :version: 1.0
 
-[background-image=style/title-bg-jug.png, state=title]
-== Design First API 
+= Design First API 
 
 OpenApi et AsyncApi en action !!!
 

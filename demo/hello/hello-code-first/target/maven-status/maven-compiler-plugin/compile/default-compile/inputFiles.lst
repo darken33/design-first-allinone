@@ -1,0 +1,5 @@
+/home/pbousquet/Workspaces/SQLI/talks/design-first-allinone/demo/hello/hello-code-first/src/main/java/com/sqli/pbousquet/helloapi/HelloApiApplication.java
+/home/pbousquet/Workspaces/SQLI/talks/design-first-allinone/demo/hello/hello-code-first/src/main/java/com/sqli/pbousquet/helloapi/api/HelloApi.java
+/home/pbousquet/Workspaces/SQLI/talks/design-first-allinone/demo/hello/hello-code-first/src/main/java/com/sqli/pbousquet/helloapi/api/HelloDto.java
+/home/pbousquet/Workspaces/SQLI/talks/design-first-allinone/demo/hello/hello-code-first/src/main/java/com/sqli/pbousquet/helloapi/config/CustomErrorHandler.java
+/home/pbousquet/Workspaces/SQLI/talks/design-first-allinone/demo/hello/hello-code-first/src/main/java/com/sqli/pbousquet/helloapi/config/WebSecurityConfig.java

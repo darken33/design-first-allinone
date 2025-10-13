@@ -21,17 +21,18 @@ paths:
     get:
       tags:
       - Hello
+      description: Retourne un message de salutation générique.
       summary: Saluer le monde
-      operationId: helloUsingGET_1
+      operationId: helloWorld
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloDto'
-        500:
-          description: Unauthorized
+        "500":
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -41,8 +42,9 @@ paths:
     get:
       tags:
       - Hello
+      description: Retourne un message de salutation personalisé.
       summary: Saluer une personne en particulier
-      operationId: helloUsingGET
+      operationId: helloWithName
       parameters:
       - name: name
         in: path
@@ -55,14 +57,20 @@ paths:
           pattern: "^[a-zA-Z ,.'-]+$"
           example: "fifi"
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloDto'
-        500:
-          description: Unauthorized
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        "500":
+          description: Internal Server Error
           content:
             application/json:
               schema:
