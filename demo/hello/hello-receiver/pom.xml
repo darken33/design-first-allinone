@@ -81,7 +81,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>generate-asyncapi-producer</id>
+                        <id>generate-asyncapi-receiver</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>

@@ -4,9 +4,16 @@ info:
   version: 1.0.0
   description: |
     Simple Hello Message API
+  contact:
+    name: Philippe Bousquet
+    url: https://sqli.com
+    email: philippe.bousquet@sqli.com
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  tags:
+    - name: KafkaApi
+      description: 'This is a sample API for demonstrating AsyncAPI with Kafka'
 defaultContentType: application/json
 servers:
   local:
@@ -25,6 +32,7 @@ channels:
 operations:
   receiveHelloMessage:
     action: receive
+    description: Receive a hello message
     channel:
       $ref: '#/channels/event.hello.v1'
     traits:
@@ -33,6 +41,7 @@ operations:
       - $ref: '#/channels/event.hello.v1/messages/helloMessage'
   sendHelloMessage:
     action: send
+    description: Send a hello message
     channel:
       $ref: '#/channels/event.hello.v1'
     traits:

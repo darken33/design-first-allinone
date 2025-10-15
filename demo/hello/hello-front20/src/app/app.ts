@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-//import { HelloService } from './hello-api/api/hello.service';
+import { HelloService } from './hello-api/api/hello.service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,9 @@ import { RouterOutlet } from '@angular/router';
 export class App {
   title = 'Appel de l\'api hello';
 
-  // constructor(private helloService: HelloService) {
-  //     this.helloService.helloWorld().subscribe(helloDto => {
-  //     this.title = helloDto.message!;
-  //   });
-  // }
+  constructor(private helloService: HelloService) {
+      this.helloService.helloWorld().subscribe(helloDto => {
+      this.title = helloDto.message!;
+    });
+  }
 }
