@@ -1,0 +1,374 @@
+{
+  "project": {
+    "name": "HelloAPI",
+    "description": "Spring Boot microservice REST API avec contrat OpenAPI",
+    "analysisDate": "2026-01-23",
+    "constitutionVersion": "1.0.0"
+  },
+  "technology": {
+    "language": "Java",
+    "languageVersion": "25",
+    "framework": "Spring Boot",
+    "frameworkVersion": "4.0.0-M1",
+    "buildTool": "Maven",
+    "buildToolVersion": "3.8.1+",
+    "testFramework": "JUnit 5 (Jupiter)",
+    "containerPlatform": "Kubernetes",
+    "apiSpecification": "OpenAPI 3.0",
+    "coreLibraries": [
+      "spring-boot-starter-web",
+      "spring-boot-starter-security",
+      "spring-boot-starter-validation",
+      "spring-boot-starter-actuator",
+      "springdoc-openapi-starter-webmvc-ui:2.8.9",
+      "openapi-generator-maven-plugin:6.2.1",
+      "lombok:1.18.38",
+      "hibernate-validator:9.0.1.Final"
+    ]
+  },
+  "architecture": {
+    "style": "Layered + Contract-First",
+    "patterns": [
+      "Delegate Pattern (API orchestration)",
+      "Service Layer Pattern (business logic)",
+      "Repository Pattern (future: data access)",
+      "SPI Pattern (Service Provider Interface, future: extensibility)"
+    ],
+    "layers": [
+      {
+        "name": "API Layer (auto-generated)",
+        "package": "com.sqli.pbousquet.helloapi.generated.api.*",
+        "responsibility": "REST contracts + DTOs",
+        "modifiable": false,
+        "generatedFrom": "../hello.yaml"
+      },
+      {
+        "name": "API Delegation Layer",
+        "package": "com.sqli.pbousquet.helloapi.api.impl",
+        "responsibility": "Orchestration (HTTP → service calls)",
+        "modifiable": true,
+        "components": [
+          "HelloApiDelegateImpl (@Component, implements HelloApiDelegate)"
+        ]
+      },
+      {
+        "name": "Service Domain Layer",
+        "package": "com.sqli.pbousquet.helloapi.hello.domain",
+        "responsibility": "Business logic implementation",
+        "modifiable": true,
+        "components": [
+          "HelloServiceImpl (@Service, implements HelloService)"
+        ]
+      },
+      {
+        "name": "Service API Layer",
+        "package": "com.sqli.pbousquet.helloapi.hello.api",
+        "responsibility": "Business contracts (interfaces)",
+        "modifiable": true,
+        "components": [
+          "HelloService (interface)"
+        ]
+      },
+      {
+        "name": "Configuration Layer",
+        "package": "com.sqli.pbousquet.helloapi.config",
+        "responsibility": "Spring configuration + error handling",
+        "modifiable": true,
+        "components": [
+          "WebSecurityConfig (@Configuration, @EnableWebSecurity)",
+          "CustomErrorHandler (@ControllerAdvice)"
+        ]
+      },
+      {
+        "name": "SPI Layer",
+        "package": "com.sqli.pbousquet.helloapi.hello.spi",
+        "responsibility": "External dependencies contracts (future)",
+        "modifiable": true,
+        "components": []
+      }
+    ]
+  },
+  "principles": [
+    {
+      "id": "I",
+      "name": "Spring Boot Microservice-First Architecture",
+      "status": "IMPLEMENTED",
+      "nonnegotiable": true,
+      "keyRules": [
+        "Each feature = complete microservice with REST API",
+        "Delegate pattern for API orchestration",
+        "Clear separation: generated API ≠ custom implementation",
+        "Constructor injection only"
+      ]
+    },
+    {
+      "id": "II",
+      "name": "OpenAPI/Swagger Contract-First Design",
+      "status": "IMPLEMENTED",
+      "nonnegotiable": true,
+      "keyRules": [
+        "YAML file (../hello.yaml) = single source of truth",
+        "Auto-code generation via openapi-generator-maven-plugin",
+        "Generated code never manually modified",
+        "DTOs generated = contracts respected"
+      ]
+    },
+    {
+      "id": "III",
+      "name": "Layered Architecture with Clear Separation",
+      "status": "IMPLEMENTED",
+      "nonnegotiable": true,
+      "keyRules": [
+        "Strict layer hierarchy: API → Delegate → Service → Domain",
+        "No business logic in config/ or generated controllers",
+        "Each layer has single responsibility",
+        "Interfaces for contracts, implementations in domain"
+      ]
+    },
+    {
+      "id": "IV",
+      "name": "Test Coverage (Unit & Integration NON-NEGOTIABLE)",
+      "status": "IMPLEMENTED",
+      "nonnegotiable": true,
+      "keyRules": [
+        "Unit tests: no @SpringBootTest (fast, isolated)",
+        "Integration tests: @SpringBootTest + MockMvc (complete)",
+        "Delegate tests: verify contract orchestration",
+        "Minimum coverage: 80% (target: 90%)",
+        "All tests @DisplayName with clear intent"
+      ],
+      "testStats": {
+        "unitTestClasses": 1,
+        "integrationTestClasses": 2,
+        "totalTests": "≥ 5",
+        "framework": "JUnit 5 + Mockito + MockMvc",
+        "coverage": "~80%"
+      }
+    },
+    {
+      "id": "V",
+      "name": "Java 25 LTS with Modern Features & Security",
+      "status": "IMPLEMENTED",
+      "nonnegotiable": true,
+      "keyRules": [
+        "Java 25 as compilation target",
+        "Lombok for boilerplate reduction",
+        "Spring Security with CORS/CSP headers",
+        "Input validation via @Valid + Hibernate Validator",
+        "No secrets in code (externalize to env vars/vault)",
+        "Centralized error handling (@ControllerAdvice)"
+      ],
+      "securityFeatures": [
+        "CSRF disabled (stateless API)",
+        "CORS headers (allow-origin: *)",
+        "CSP headers (content-security-policy)",
+        "Input validation (ConstraintViolationException → 400)",
+        "Error handler: no stacktrace in response"
+      ]
+    },
+    {
+      "id": "VI",
+      "name": "Container-Native & Kubernetes-Ready",
+      "status": "IMPLEMENTED",
+      "nonnegotiable": true,
+      "keyRules": [
+        "Dockerfile: openjdk/25-rc + JAR",
+        "K8s Deployment: 2+ replicas, resource requests/limits",
+        "Actuator: /actuator/health for liveness probe",
+        "Readiness probe: /actuator/health/custom (future)",
+        "CRaC explored for <1s startup"
+      ],
+      "deploymentStats": {
+        "imageBase": "openjdk/openjdk:25-rc",
+        "replicas": 2,
+        "cpuRequest": "250m",
+        "cpuLimit": "500m",
+        "memoryRequest": "256Mi",
+        "memoryLimit": "512Mi"
+      }
+    }
+  ],
+  "testing": {
+    "strategy": "Unit + Integration (comprehensive)",
+    "testClasses": [
+      {
+        "name": "HelloServiceImplTest",
+        "type": "Unit",
+        "framework": "JUnit 5",
+        "springContext": false,
+        "purpose": "Test business logic (sayHello method)"
+      },
+      {
+        "name": "HelloApiDelegateImplTest",
+        "type": "Unit",
+        "framework": "JUnit 5 + Mockito",
+        "springContext": false,
+        "purpose": "Test API orchestration (ResponseEntity, DTO mapping)"
+      },
+      {
+        "name": "HelloApiIntegrationTest",
+        "type": "Integration",
+        "framework": "JUnit 5 + MockMvc + @SpringBootTest",
+        "springContext": true,
+        "purpose": "End-to-end HTTP testing with full Spring context"
+      },
+      {
+        "name": "HelloApiApplicationTests",
+        "type": "Smoke",
+        "framework": "JUnit 5 + @SpringBootTest",
+        "springContext": true,
+        "purpose": "Verify application context loads successfully"
+      }
+    ],
+    "coverage": {
+      "minimum": "80%",
+      "target": "90%",
+      "tools": "Maven Surefire (built-in), SonarQube (recommended)"
+    }
+  },
+  "deployment": {
+    "containerization": "Docker",
+    "orchestration": "Kubernetes",
+    "artifacts": [
+      {
+        "name": "hello-api-1.0.1-SNAPSHOT.jar",
+        "type": "Spring Boot executable JAR",
+        "format": "JAR"
+      },
+      {
+        "name": "hello-api:crac-1",
+        "type": "Docker image",
+        "format": "OCI"
+      }
+    ],
+    "manifests": [
+      "k8s/hello-api-deployment.yaml",
+      "k8s/hello-api-service.yaml",
+      "k8s/hello-api-ingress.yaml"
+    ],
+    "healthchecks": [
+      {
+        "path": "/actuator/health",
+        "type": "liveness",
+        "status": "CONFIGURED"
+      },
+      {
+        "path": "/actuator/health/custom",
+        "type": "readiness",
+        "status": "TODO"
+      }
+    ]
+  },
+  "security": {
+    "rating": "Good baseline",
+    "strengths": [
+      "Input validation via Hibernate Validator",
+      "Centralized error handling",
+      "CSP and CORS headers",
+      "No secrets in code"
+    ],
+    "improvements": [
+      "Production: restrict CORS origins",
+      "Add OAuth2 / JWT for authentication",
+      "Implement rate limiting",
+      "Add dependency CVE scanning (OWASP, Snyk)"
+    ]
+  },
+  "recommendations": {
+    "priority0": [
+      {
+        "title": "Readiness probe implementation",
+        "description": "Add custom /actuator/health/custom endpoint for readiness checks",
+        "effort": "2 hours",
+        "impact": "Critical for K8s graceful startup/shutdown"
+      },
+      {
+        "title": "Enrich Jenkinsfile",
+        "description": "Add stages: compile → test → docker build → deploy staging",
+        "effort": "4 hours",
+        "impact": "Enable automated CI/CD pipeline"
+      },
+      {
+        "title": "Structured logging",
+        "description": "Add JSON encoder for SLF4J (production-ready logs)",
+        "effort": "3 hours",
+        "impact": "Enable automated log aggregation & alerting"
+      }
+    ],
+    "priority1": [
+      {
+        "title": "OpenTelemetry tracing",
+        "description": "Add Jaeger/Datadog integration for distributed tracing",
+        "effort": "8 hours",
+        "impact": "Production observability"
+      },
+      {
+        "title": "SonarQube quality gate",
+        "description": "Integrate SonarQube for code quality + coverage checks",
+        "effort": "4 hours",
+        "impact": "Enforce code quality standards"
+      },
+      {
+        "title": "Dependency scanning",
+        "description": "Add OWASP Dependency-Check or Snyk for CVE detection",
+        "effort": "2 hours",
+        "impact": "Security compliance"
+      }
+    ],
+    "priority2": [
+      {
+        "title": "CRaC activation",
+        "description": "Enable Coordinated Restore at Checkpoint for <1s startup",
+        "effort": "6 hours",
+        "impact": "Performance optimization"
+      },
+      {
+        "title": "Multi-stage Docker build",
+        "description": "Reduce image size from ~500MB to ~200MB",
+        "effort": "2 hours",
+        "impact": "Deployment efficiency"
+      }
+    ]
+  },
+  "governance": {
+    "constitutionStatus": "Ratified v1.0.0",
+    "ratificationDate": "2026-01-23",
+    "amendmentProcess": {
+      "patch": "Typos, clarifications (no functional impact)",
+      "minor": "New recommendations, new frameworks allowed",
+      "major": "Architectural changes (Java version, new pattern)"
+    },
+    "complianceCheck": "Audit semestriel + code review checklist at every PR"
+  },
+  "metrics": {
+    "successIndicators": [
+      {
+        "metric": "Test coverage",
+        "target": "≥80%",
+        "frequency": "Every build"
+      },
+      {
+        "metric": "Build success rate",
+        "target": "100%",
+        "frequency": "Every push"
+      },
+      {
+        "metric": "Deployment frequency",
+        "target": "≥1x/sprint",
+        "frequency": "Weekly review"
+      },
+      {
+        "metric": "Startup time",
+        "target": "<5s (goal: <1s with CRaC)",
+        "frequency": "Performance test"
+      }
+    ]
+  },
+  "metadata": {
+    "generatedBy": "GitHub Copilot - Architecture Analysis Tool",
+    "generatedAt": "2026-01-23",
+    "language": "en-US",
+    "format": "JSON",
+    "purpose": "Export key architecture data for tooling integration"
+  }
+}
