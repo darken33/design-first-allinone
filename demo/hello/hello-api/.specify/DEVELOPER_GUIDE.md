@@ -828,3 +828,208 @@ ls -lh target/hello-api-*.jar  # Should be similar size & structure
 - `permission denied` sur `gradlew` → `chmod +x gradlew`.
 - Version Java non trouvée → vérifier `sdkman`, `jEnv` ou `JAVA_HOME`; Gradle toolchain tentera une installation si disponible.
 - Conflits IDE (indexation `build/` vs `target/`) → invalider caches IDE si nécessaire.
+
+---
+
+## 📂 Directory Structure: Maven vs Gradle (Avoiding Confusion – T026)
+
+### Key Differences
+
+| Aspect | Maven | Gradle | Notes |
+|--------|-------|--------|-------|
+| **Output Directory** | `target/` | `build/` | Both ignored in `.gitignore` |
+| **Generated Sources** | `target/generated-sources/` | `build/generated-sources/` | Location varies by build tool |
+| **Compiled Classes** | `target/classes/` | `build/classes/java/main/` | Structure differs slightly |
+| **Test Classes** | `target/test-classes/` | `build/classes/java/test/` | Similar organization |
+| **Test Reports** | `target/surefire-reports/` | `build/test-results/test/` | XML format identical (JUnit) |
+| **JAR Location** | `target/hello-api-*.jar` | `build/libs/hello-api-*.jar` | Final artifact path |
+| **Cache Directory** | `.m2/repository/` | `.gradle/` | Local dependency cache |
+
+### IDE Configuration to Avoid Confusion
+
+**If IDE indexes both `target/` and `build/`:**
+
+1. **IntelliJ IDEA / VS Code:**
+   - Go to `.idea/` or VS Code settings
+   - Add to `files.exclude` and `search.exclude`:
+     ```json
+     {
+       "files.exclude": {
+         "**/target": true,
+         "**/build": false  // Whichever you're actively using
+       },
+       "search.exclude": {
+         "**/target": true
+       }
+     }
+     ```
+
+2. **Remove IDE Cache:**
+   ```bash
+   rm -rf .idea .gradle target build
+   
+   # Rebuild from scratch
+   mvn clean install  # Or ./gradlew clean build
+   ```
+
+### Coexistence Strategy
+
+Since we support **dual build** (Maven + Gradle), follow this convention:
+
+- **Primary (CI/Docker):** Maven (`mvn clean package`)
+- **Development:** Either tool (your choice)
+- **Test Locally:** Both tools should produce identical results
+  ```bash
+  mvn clean test
+  ./gradlew clean test
+  # Both should pass with 11 tests, 0 failures
+  ```
+
+---
+
+## 🧹 Troubleshooting Gradle vs Maven (T027 – Optimization & Tips)
+
+### Common Issues
+
+**Issue: IDE shows duplicate classes/errors**
+- **Cause:** IDE indexes both `target/` and `build/` simultaneously
+- **Fix:**
+  1. Close IDE
+  2. `rm -rf target build .gradle .idea`
+  3. Run `mvn clean install` (or `./gradlew clean build`)
+  4. Reopen IDE → let it re-index
+
+**Issue: "File already exists" when running build**
+- **Cause:** Leftovers from other build tool
+- **Fix:**
+  ```bash
+  # Clean both outputs
+  mvn clean
+  ./gradlew clean
+  # Retry
+  ./gradlew build
+  ```
+
+**Issue: Tests pass in Maven but fail in Gradle (or vice versa)**
+- **Cause:** Different classpath/dependencies or Java version mismatch
+- **Fix:**
+  1. Verify both use same Java version: `javac -version`
+  2. Compare dependency versions in `pom.xml` vs `gradle/libs.versions.toml`
+  3. Sync versions if mismatch found
+  4. Run `./gradlew dependencies` to inspect Gradle's resolved tree
+
+### Gradle Wrapper Permissions
+
+**Issue: `./gradlew: Permission denied`**
+
+```bash
+chmod +x gradlew
+```
+
+### Java Toolchain Issues
+
+**Issue: "Java version 25 not installed"**
+
+Gradle can auto-download JDK if configured:
+
+```kotlin
+// Already configured in build.gradle.kts:
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+        // Gradle will try to use installed JDK 25, or download it
+    }
+}
+```
+
+**Workaround:**
+```bash
+# Use explicit JAVA_HOME
+export JAVA_HOME=/path/to/jdk25
+./gradlew build
+```
+
+### Configuration Cache (Performance Boost)
+
+```bash
+# Enable configuration cache (after first run, subsequent builds ~2x faster)
+./gradlew build --configuration-cache
+
+# Check cache status
+./gradlew build --configuration-cache=on
+```
+
+### Gradle Daemon Management
+
+```bash
+# View daemon status
+./gradlew status
+
+# Stop all daemons
+./gradlew --stop
+
+# Disable daemon (single-use process, slower but cleaner)
+./gradlew build --no-daemon
+```
+
+### Memory Configuration
+
+If Gradle runs out of memory:
+
+```bash
+# Increase heap size
+export GRADLE_OPTS="-Xmx2048m"
+./gradlew build
+```
+
+Or create `gradle.properties` in project root:
+```properties
+org.gradle.jvmargs=-Xmx2048m
+```
+
+---
+
+## ✅ Verification: No Functional Diffs (T028 – Maven vs Gradle Parity Test)
+
+### Strategy: Verify Parity
+
+Run builds with both tools and compare results:
+
+```bash
+# Phase A: Maven build and test
+mvn clean package
+MAVEN_JAR=$(ls -1 target/hello-api-*.jar | grep -v "\.original" | tail -1)
+echo "Maven JAR: $MAVEN_JAR"
+
+# Phase B: Gradle build and test
+./gradlew clean build
+GRADLE_JAR=$(ls -1 build/libs/hello-api-*.jar | grep -v "\.plain" | tail -1)
+echo "Gradle JAR: $GRADLE_JAR"
+
+# Phase C: Compare JAR sizes (should be similar)
+echo "=== JAR Size Comparison ==="
+ls -lh "$MAVEN_JAR" "$GRADLE_JAR"
+
+# Phase D: Extract and compare manifests
+echo "=== Maven Manifest ==="
+unzip -p "$MAVEN_JAR" META-INF/MANIFEST.MF | head -20
+
+echo "=== Gradle Manifest ==="
+unzip -p "$GRADLE_JAR" META-INF/MANIFEST.MF | head -20
+
+# Phase E: Compare test results
+echo "=== Maven Test Summary ==="
+grep -E "tests|errors|failures" target/surefire-reports/TEST-*.xml | head -5
+
+echo "=== Gradle Test Summary ==="
+grep -E "tests|errors|failures" build/test-results/test/TEST-*.xml | head -5
+```
+
+### Expected Results
+
+- **Test Count:** Both should report **11 tests**
+- **Pass Rate:** Both should report **0 failures**
+- **JAR Functionality:** Both JARs should start and respond to `/api/v1/hello`
+
+---
+
