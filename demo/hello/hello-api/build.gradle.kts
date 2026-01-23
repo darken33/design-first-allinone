@@ -22,6 +22,11 @@ repositories {
     mavenCentral()
 }
 
+// Enable dependency locking for reproducible builds
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 dependencies {
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.security)
