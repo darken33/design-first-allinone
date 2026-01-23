@@ -1,7 +1,83 @@
-node() {
-
-    stage('CLEAN WORKSPACE') {
-        sh "rm -rf ${workspace}/*"
+pipeline {
+    agent any
+    
+    stages {
+        stage('CLEAN WORKSPACE') {
+            steps {
+                sh '''
+                    echo "Cleaning workspace..."
+                    rm -rf ${WORKSPACE}/* || true
+                '''
+            }
+        }
+        
+        stage('CHECKOUT') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('BUILD & TEST (Maven - Primary)') {
+            steps {
+                sh '''
+                    echo "Building and testing with Maven..."
+                    mvn clean package
+                '''
+            }
+        }
+        
+        stage('BUILD & TEST (Gradle - Optional)') {
+            when {
+                branch 'develop'  // Only on develop branch
+                // Or manually trigger: optional step
+            }
+            steps {
+                sh '''
+                    echo "Building and testing with Gradle (v9.1.0)..."
+                    ./gradlew clean build
+                '''
+            }
+        }
+        
+        stage('PUBLISH TEST REPORTS') {
+            steps {
+                script {
+                    // Publish Maven test results
+                    junit testResults: 'target/surefire-reports/TEST-*.xml', allowEmptyResults: true
+                    
+                    // Publish Gradle test results (if available)
+                    junit testResults: 'build/test-results/test/TEST-*.xml', allowEmptyResults: true
+                }
+            }
+        }
+        
+        stage('PUBLISH JAR ARTIFACT') {
+            steps {
+                sh '''
+                    echo "Maven JAR:"
+                    ls -lh target/hello-api-*.jar 2>/dev/null || echo "Maven JAR not found"
+                    
+                    echo "Gradle JAR:"
+                    ls -lh build/libs/hello-api-*.jar 2>/dev/null || echo "Gradle JAR not found"
+                '''
+                // Optionally archive artifacts
+                // archiveArtifacts artifacts: 'target/hello-api-*.jar', allowEmptyArchive: true
+            }
+        }
     }
-
+    
+    post {
+        always {
+            script {
+                echo "Pipeline completed."
+                // Cleanup or notifications can go here
+            }
+        }
+        success {
+            echo "Build SUCCESSFUL!"
+        }
+        failure {
+            echo "Build FAILED!"
+        }
+    }
 }
