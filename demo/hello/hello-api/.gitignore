@@ -15,6 +15,15 @@ build/
 # Logs
 *.log
 
+# Environment
+.env*
+
+# Editor
+.vscode/
+
+# Java
+*.class
+
 # OS
 .DS_Store
 Thumbs.db

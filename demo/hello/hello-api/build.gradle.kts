@@ -12,6 +12,11 @@ springBoot {
 group = "com.sqli.pbousquet"
 version = "1.0.1-SNAPSHOT"
 
+// Ensure predictable bootable JAR naming
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    archiveBaseName.set("hello-api")
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))
