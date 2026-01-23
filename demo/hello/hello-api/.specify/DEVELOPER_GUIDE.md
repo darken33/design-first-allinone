@@ -635,6 +635,183 @@ git push origin feature/...
 
 ---
 
+## 🛠️ Gradle v9.1.0 Setup (Phase 1: Production Ready)
+
+### ✅ What's Included
+
+- **Gradle Wrapper**: Automatic download of Gradle 9.1.0 (no manual installation needed)
+- **Java 25 Toolchain**: Gradle automatically uses JDK 25 or downloads it
+- **OpenAPI Generation**: Plugin v7.11.0 wired to `compileJava` (task dependency)
+- **Version Catalog**: `gradle/libs.versions.toml` for dependency version management
+- **Spring Boot Integration**: Plugin configured with explicit main class
+
+### 🚀 Quick Start with Gradle
+
+```bash
+# Build JAR (no tests - safer for first Gradle run)
+./gradlew build -x test
+
+# Build with tests (requires Java 25 tmpdir setup - see troubleshooting)
+./gradlew build
+
+# Run tests only
+./gradlew test
+
+# Clean build
+./gradlew clean build -x test
+
+# Generate OpenAPI sources manually (integrated into build)
+./gradlew openApiGenerate
+
+# Run app directly from Gradle
+./gradlew bootRun
+```
+
+### 📁 Gradle Directory Structure
+
+```
+hello-api/
+├── build/                          # Generated artifacts (ignored in VCS)
+│   ├── generated-sources/          # OpenAPI-generated Java code
+│   ├── libs/hello-api-*.jar        # Packaged JAR
+│   └── test-results/               # Test reports
+├── gradle/
+│   └── wrapper/                    # Gradle distribution files
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew                         # UNIX wrapper script (commit to VCS!)
+├── gradlew.bat                     # Windows wrapper script (commit to VCS!)
+├── settings.gradle.kts             # Project settings (Kotlin DSL)
+├── build.gradle.kts                # Build configuration (Kotlin DSL)
+└── gradle/libs.versions.toml       # Centralized dependency versions
+```
+
+### 🔧 Key Gradle Configuration
+
+**build.gradle.kts Highlights:**
+
+```kotlin
+// Spring Boot app main class (resolves ambiguity with OpenAPI generator)
+springBoot {
+    mainClass.set("com.sqli.pbousquet.helloapi.HelloApiApplication")
+}
+
+// OpenAPI generation wired to compilation
+tasks.named("compileJava") {
+    dependsOn("openApiGenerate")
+}
+tasks.named("processResources") {
+    dependsOn("openApiGenerate")
+}
+
+// Java 25 toolchain
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+```
+
+### 🧪 Gradle vs Maven: Build Comparison
+
+| Operation | Maven | Gradle |
+|-----------|-------|--------|
+| Full Build | `mvn clean package` | `./gradlew build` |
+| Compile Only | `mvn clean compile` | `./gradlew compileJava` |
+| Run Tests | `mvn test` | `./gradlew test` |
+| Skip Tests | `mvn clean package -DskipTests` | `./gradlew build -x test` |
+| Run App JAR | `java -jar target/*.jar` | `java -jar build/libs/*.jar` |
+| IDE Integration | Maven > Gradle in most IDEs | Native support in modern IDEs |
+| Incremental Builds | Slower (full recompile) | Faster (task-based incremental) |
+
+### ⚙️ Gradle Performance Tips
+
+1. **Configuration Cache** (speeds up repeated builds):
+   ```bash
+   ./gradlew build --configuration-cache
+   ```
+
+2. **Parallel Builds**:
+   ```bash
+   ./gradlew build -x test --parallel
+   ```
+
+3. **Daemon Reuse** (default – faster):
+   ```bash
+   ./gradlew build  # Uses daemon (2x faster after first run)
+   ./gradlew --no-daemon build  # Single-use process
+   ```
+
+### 🐛 Troubleshooting Gradle
+
+**Issue: "Task ':test' encountered an unexpected problem"**
+
+- **Cause**: Java 25 tmpdir configuration issue with test executor
+- **Workaround**: 
+  ```bash
+  ./gradlew build -x test  # Skip tests initially
+  # Or set tmpdir explicitly:
+  ./gradlew test -Djava.io.tmpdir=/tmp
+  ```
+
+**Issue: "Unable to find a single main class"**
+
+- **Cause**: OpenAPI Generator creates `org.openapitools.OpenApiGeneratorApplication`
+- **Solution**: Already configured in `build.gradle.kts`:
+  ```kotlin
+  springBoot { mainClass.set("com.sqli.pbousquet.helloapi.HelloApiApplication") }
+  ```
+
+**Issue: "Task X uses output of task Y without declaring dependency"**
+
+- **Cause**: Task dependency missing for generated sources
+- **Solution**: Already configured:
+  ```kotlin
+  tasks.named("compileJava") { dependsOn("openApiGenerate") }
+  tasks.named("processResources") { dependsOn("openApiGenerate") }
+  ```
+
+**Issue: "Gradle executable not found"**
+
+- **Solution**: Use wrapper scripts (included in VCS):
+  ```bash
+  # On Unix/Mac/Linux:
+  ./gradlew build
+  
+  # On Windows:
+  gradlew.bat build
+  ```
+
+### 📊 JAR Verification
+
+After `./gradlew build -x test`:
+
+```bash
+# Check JAR exists and size
+ls -lh build/libs/hello-api-*.jar
+
+# Verify JAR can start (stops after 5 seconds)
+timeout 5 java -jar build/libs/hello-api-*.jar || true
+
+# Compare to Maven JAR:
+ls -lh target/hello-api-*.jar  # Should be similar size & structure
+```
+
+### ✅ Phase 1 Status
+
+- [x] Gradle 9.1.0 Wrapper generated (supports Java 25)
+- [x] `build.gradle.kts` with Kotlin DSL
+- [x] Version Catalog (`gradle/libs.versions.toml`) synced to Maven
+- [x] OpenAPI Generation plugin v7.11.0 (fixed from 6.2.1)
+- [x] Task dependencies for generated sources
+- [x] JAR builds successfully
+- [x] App starts from Gradle-generated JAR
+- [ ] Tests pass (Phase 2 - Java 25 tmpdir config)
+- [ ] Dependency lockfiles enabled (Phase 2)
+- [ ] CI/CD Gradle stage added (Phase 2)
+
+---
+
 ## 🛠️ Notes Gradle vs Maven (étude)
 
 - Sorties: Maven → `target/`, Gradle → `build/` (tous deux ignorés en VCS).
