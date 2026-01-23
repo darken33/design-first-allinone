@@ -665,6 +665,9 @@ git push origin feature/...
 
 # Run app directly from Gradle
 ./gradlew bootRun
+
+# Build and run the bootable JAR (helper script)
+./src/scripts/run-gradle-jar.sh
 ```
 
 ### 📁 Gradle Directory Structure
