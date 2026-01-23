@@ -4,6 +4,11 @@ target/
 # Gradle
 .gradle/
 build/
+gradle.lockfile  # Dependency lock (committed for reproducibility)
+
+# Build artifacts and generated sources
+build/generated/
+target/generated-sources/
 
 # IDE
 .idea/
