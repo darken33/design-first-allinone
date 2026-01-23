@@ -15,6 +15,11 @@ mvn clean install
 
 # Vérifier que ça build
 mvn clean package
+
+# Option Gradle (étude) – nécessite Gradle Wrapper
+# Une fois le wrapper ajouté, utiliser:
+# ./gradlew clean build
+# ./gradlew test
 ```
 
 ### 2. Créer une Feature Branch
@@ -627,3 +632,19 @@ git push origin feature/...
 ---
 
 **LastUpdated:** 2026-01-23 | **Version:** 1.0.0
+
+---
+
+## 🛠️ Notes Gradle vs Maven (étude)
+
+- Sorties: Maven → `target/`, Gradle → `build/` (tous deux ignorés en VCS).
+- Java toolchain: configuré sur Java 25 dans Gradle (`java.toolchain`).
+- OpenAPI: tâche Gradle `openApiGenerate` régénère vers `build/generated-sources` et est câblée à `compileJava`.
+- Wrapper: ajouter `gradlew`/`gradlew.bat` et `gradle/wrapper/*` pour exécuter sans installation préalable.
+- Rapports tests: disponibles sous `build/test-results/test` (Gradle) et `target/surefire-reports` (Maven).
+
+### Dépannage
+
+- `permission denied` sur `gradlew` → `chmod +x gradlew`.
+- Version Java non trouvée → vérifier `sdkman`, `jEnv` ou `JAVA_HOME`; Gradle toolchain tentera une installation si disponible.
+- Conflits IDE (indexation `build/` vs `target/`) → invalider caches IDE si nécessaire.
