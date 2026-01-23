@@ -2,7 +2,11 @@ plugins {
     id("java")
     id("org.springframework.boot") version "4.0.0-M1"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.openapi.generator") version "6.2.1"
+    id("org.openapi.generator") version "7.11.0"
+}
+
+springBoot {
+    mainClass.set("com.sqli.pbousquet.helloapi.HelloApiApplication")
 }
 
 group = "com.sqli.pbousquet"
@@ -31,6 +35,9 @@ dependencies {
     implementation(libs.jackson.databind.nullable)
 
     implementation(libs.hibernate.validator)
+    
+    // Explicit SnakeYAML to match Maven resolution
+    implementation("org.yaml:snakeyaml:2.4")
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
@@ -77,5 +84,9 @@ sourceSets {
 }
 
 tasks.named("compileJava") {
+    dependsOn("openApiGenerate")
+}
+
+tasks.named("processResources") {
     dependsOn("openApiGenerate")
 }
