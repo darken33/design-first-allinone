@@ -621,13 +621,19 @@ git push origin feature/...
 
 ## 🎓 Resources
 
+### Internal Documentation
 - 📖 **Constitution:** `.specify/memory/constitution.md` (source unique vérité)
 - 📖 **Architecture Detailée:** `.specify/ARCHITECTURE_ANALYSIS.md` (deep dive)
 - 📖 **Code Review Checklist:** `.specify/CODE_REVIEW_CHECKLIST.md` (PR validation)
+- 📖 **Gradle Introduction:** `.specify/GRADLE_FOR_MAVEN_DEVELOPERS.md` (for Maven developers learning Gradle)
 - 📖 **JVM Config:** `JVM-CONFIG.md` (debugging/performance)
+
+### External Resources
 - 🔗 **Spring Boot Docs:** https://spring.io/projects/spring-boot
 - 🔗 **OpenAPI 3.0 Spec:** https://swagger.io/specification/
 - 🔗 **JUnit 5 Guide:** https://junit.org/junit5/docs/
+- 🔗 **Gradle User Manual:** https://docs.gradle.org/current/userguide/
+- 🔗 **Gradle Kotlin DSL:** https://docs.gradle.org/current/userguide/kotlin_dsl.html
 
 ---
 
