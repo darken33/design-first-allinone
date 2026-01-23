@@ -8,7 +8,7 @@ Feature: Support Gradle (in addition to Maven) for build/test/OpenAPI, with Kotl
 - [x] T002 Add settings.gradle.kts in demo/hello/hello-api/settings.gradle.kts
 - [x] T003 Add build.gradle.kts baseline in demo/hello/hello-api/build.gradle.kts — OpenAPI v7.11.0 fixed
 - [x] T004 Add version catalog file in demo/hello/hello-api/gradle/libs.versions.toml
-- [ ] T005 Enable dependency locking in demo/hello/hello-api/gradle.lockfile — [DEFERRED to Phase 2]
+- [x] T005 Enable dependency locking in demo/hello/hello-api/gradle.lockfile — gradle.lockfile + settings-gradle.lockfile committed
 - [x] T006 Update .gitignore for Gradle outputs in demo/hello/hello-api/.gitignore
 
 ## Phase 2: Foundational
@@ -20,7 +20,7 @@ Feature: Support Gradle (in addition to Maven) for build/test/OpenAPI, with Kotl
 - [x] T011 Configure openapi generator plugin/task (org.openapi.generator) in demo/hello/hello-api/build.gradle.kts — v7.11.0
 - [x] T012 Add generated sources to sourceSets in demo/hello/hello-api/build.gradle.kts
 - [x] T013 Document Gradle commands in .specify/DEVELOPER_GUIDE.md — Phase 1 comprehensive guide added
-- [ ] T014 Update docs parity section in .specify/RETROSPECIFICATION.md — [DEFERRED to Phase 2]
+- [x] T014 Update docs parity section in .specify/RETROSPECIFICATION.md — Maven vs Gradle parity section added
 
 ## Phase 3: User Story 1 – Build JAR with Gradle (P1)
 
@@ -40,9 +40,9 @@ Goal: `./gradlew test` runs the exact same test suite and produces JUnit XML.
 Independent Test Criteria:
 - `./gradlew test` exits 0 and generates reports under build/test-results/test.
 
-- [ ] T018 [US2] Add test dependencies alignment in demo/hello/hello-api/build.gradle.kts
-- [ ] T019 [P] [US2] Ensure JUnit platform enabled and reports configured in demo/hello/hello-api/build.gradle.kts
-- [ ] T020 [US2] Validate parity by comparing `mvn test` vs `./gradlew test` in demo/hello/hello-api
+- [x] T018 [US2] Add test dependencies alignment in demo/hello/hello-api/build.gradle.kts — JUnit 5.13.4 aligned
+- [x] T019 [P] [US2] Ensure JUnit platform enabled and reports configured in demo/hello/hello-api/build.gradle.kts — junit-platform-commons/-engine/-launcher added
+- [x] T020 [US2] Validate parity by comparing `mvn test` vs `./gradlew test` in demo/hello/hello-api — 11 tests, 0 failures in both
 
 ## Phase 5: User Story 3 – OpenAPI generation (P2)
 
