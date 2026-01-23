@@ -786,13 +786,41 @@ management:
 
 ---
 
+## 14. Maven vs Gradle Parity (Phase 1 Migration)
+
+### 14.1 Build Tool Support
+
+As of Phase 1 (2026-01-23), HelloAPI supports **both Maven and Gradle** for build/test/package operations.
+
+**Test Execution Parity Verified:** Both Maven and Gradle execute identical test suite:
+- HelloApiApplicationTests: 1 test ✅
+- HelloApiIntegrationTest: 3 tests ✅
+- HelloServiceImplTest: 5 tests ✅
+- HelloApiDelegateImplTest: 2 tests ✅
+- **TOTAL: 11 tests, 0 failures in both tools**
+
+**Key Achievements (Phase 1):**
+- Gradle 9.1.0 wrapper generation (supports Java 25)
+- JUnit versions aligned (Jupiter 5.13.4, Platform 1.13.4)
+- OpenAPI Generator plugin upgraded (6.2.1 → 7.11.0)
+- Dependency locking enabled (gradle.lockfile)
+
+### 14.2 Recommendation
+
+- **Primary Build Tool:** Maven (production-tested, stable)
+- **Alternative Build Tool:** Gradle (modern, faster, v9.1.0 supports Java 25)
+- **Developer Choice:** Use either tool; both produce identical artifacts
+
+---
+
 ## 15. Approbation & Historique
 
 | Version | Date | Auteur | Changements |
 |---------|------|--------|------------|
+| 1.0.1 | 2026-01-23 | Phase 2 Migration | Add Maven vs Gradle parity section + test verification |
 | 1.0.0 | 2026-01-23 | Analyse reverse engineering | Document création initial |
 
-**Document de rétro-spécification approuvé le 23 janvier 2026.**
+**Document de rétro-spécification approuvé et mis à jour le 23 janvier 2026.**
 
 ---
 
