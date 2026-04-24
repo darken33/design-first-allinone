@@ -1,0 +1,165 @@
+openapi: 3.0.1
+info:
+  title: Hello API
+  description: Hello API - Node.js Design-First démonstration pour BordeauxJS
+  termsOfService: http://localhost:3000/docs
+  contact:
+    name: Philippe Bousquet
+    url: http://sqli.com
+    email: pbousquet@sqli.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+  description: Development server
+tags:
+- name: Hello
+  description: Hello API - Greeting endpoints
+- name: Health
+  description: Operational health checks
+paths:
+  /api/hello:
+    get:
+      tags:
+      - Hello
+      description: Returns a generic greeting message.
+      summary: Greet the world
+      operationId: helloWorld
+      responses:
+        "200":
+          description: OK - Generic greeting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloDto'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      deprecated: false
+      x-codegen-description: "No parameters required - returns generic 'Hello World' greeting"
+  /api/hello/{name}:
+    get:
+      tags:
+      - Hello
+      description: Returns a personalized greeting message.
+      summary: Greet a specific person
+      operationId: helloWithName
+      parameters:
+      - name: name
+        in: path
+        description: Name of the person to greet - must be 2-25 chars, alphanumeric + spaces/punctuation
+        required: true
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 25
+          pattern: "^[a-zA-Z ,.'-]+$"
+          example: "Philippe"
+      responses:
+        "200":
+          description: OK - Personalized greeting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloDto'
+        "400":
+          description: Bad Request - Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      deprecated: false
+      x-codegen-description: "Personalized greeting - name parameter validated against pattern/length constraints"
+  /health:
+    get:
+      tags:
+      - Health
+      description: Kubernetes liveness probe - returns service health status.
+      summary: Health check endpoint
+      operationId: health
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthDto'
+        "503":
+          description: Service unavailable or degraded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthDto'
+      deprecated: false
+      x-codegen-description: "No external dependencies - returns immediately"
+components:
+  schemas:
+    HelloDto:
+      title: HelloDto
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Hello World"
+          description: Greeting message
+      required:
+      - message
+    HealthDto:
+      title: HealthDto
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - healthy
+          - degraded
+          - unhealthy
+          example: "healthy"
+          description: Service health status
+        uptime:
+          type: number
+          format: int64
+          example: 12345
+          description: Uptime in seconds (optional)
+      required:
+      - status
+    ApiErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: "2026-04-24T10:30:00.000Z"
+          format: date-time
+          description: Error timestamp
+        status:
+          type: integer
+          example: 400
+          format: int32
+          description: HTTP status code
+        error:
+          type: string
+          example: "Bad Request"
+          description: Error type
+        message:
+          type: string
+          example: "name must match pattern: ^[a-zA-Z ,.'-]+$"
+          description: Error message explaining what failed
+        path:
+          type: string
+          example: "/api/hello/123-invalid"
+          description: The request path
+      required:
+      - status
+      - error
+      - message

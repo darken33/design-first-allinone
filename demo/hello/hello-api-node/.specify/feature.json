@@ -1,0 +1,8 @@
+{
+  "feature_directory": "specs/001-hello-api-node",
+  "feature_name": "HelloAPI Node.js – Design-First REST API",
+  "short_name": "hello-api-node",
+  "created": "2026-04-24",
+  "conference_context": "BordeauxJS – Design-First APIs avec OpenAPI & AsyncAPI",
+  "status": "specification-draft"
+}
