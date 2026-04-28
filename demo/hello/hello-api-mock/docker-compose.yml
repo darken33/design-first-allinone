@@ -1,0 +1,8 @@
+services:
+  prism:
+    image: stoplight/prism:5
+    command: mock /tmp/hello-api-openapi.yaml -h 0.0.0.0 --multiprocess=false
+    ports:
+      - "8080:4010"
+    volumes:
+      - .:/tmp:ro

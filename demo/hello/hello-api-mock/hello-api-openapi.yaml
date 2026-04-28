@@ -1,0 +1,129 @@
+openapi: 3.0.1
+info:
+  title: Hello API
+  description: Hello API
+  termsOfService: http://localhost:8080/swagger-ui.html
+  contact:
+    name: Philippe Bousquet
+    url: http://sqli.com
+    email: pbousquet@sqli.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+tags:
+- name: Hello
+  description: Hello API
+paths:
+  /api/v1/hello:
+    get:
+      tags:
+      - Hello
+      description: Retourne un message de salutation générique.
+      summary: Saluer le monde
+      operationId: helloWorld
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloDto'
+              example:
+                message: "Hello World!"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              example:
+                timestamp: "2023-10-10T08:17:11.441+00:00"
+                status: 500
+                error: "Internal Server Error"
+                message: "An unexpected error occurred"
+                path: "/api/v1/hello"
+      deprecated: false
+  /api/v1/hello/{name}:
+    get:
+      tags:
+      - Hello
+      description: Retourne un message de salutation personalisé.
+      summary: Saluer une personne en particulier
+      operationId: helloWithName
+      parameters:
+      - name: name
+        in: path
+        description: Nom de la personne à saluer
+        required: true
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 25
+          pattern: "^[a-zA-Z ,.'-]+$"
+          example: "fifi"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloDto'
+              example:
+                message: "Hello fifi!"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              example:
+                timestamp: "2023-10-10T08:17:11.441+00:00"
+                status: 400
+                error: "Bad Request"
+                message: "helloUsingGET.name: size must be between 2 and 25"
+                path: "/api/v1/hello/i"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              example:
+                timestamp: "2023-10-10T08:17:11.441+00:00"
+                status: 500
+                error: "Internal Server Error"
+                message: "An unexpected error occurred"
+                path: "/api/v1/hello/fifi"
+      deprecated: false
+components:
+  schemas:
+    HelloDto:
+      title: HelloDto
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Hello World"
+    ApiErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: "2023-10-10T08:17:11.441+00:00"
+          format: date-time
+        status:
+          type: integer
+          example: 500
+          format: int32
+        error:
+          type: string
+          example: "Internal Server Error"
+        message:
+          type: string
+          example: "helloUsingGET.name: size must be between 2 and 25"
+        path:
+          type: string
+          example: "/api/v1/hello/i"
