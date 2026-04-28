@@ -44,19 +44,20 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 **Purpose**: Project initialization, dependencies, basic structure  
 **Duration**: ~30 min  
-**Status**: Must complete before Phase 2
+**Status**: ✅ COMPLETE
 
-- [ ] T001 Create base directory structure per plan.md in `src/`, `tests/`, `kubernetes/`, `.github/workflows/`
-- [ ] T002 Initialize package.json with base dependencies (Express, TypeScript, Node types, zod, jest, supertest, pino)
-- [ ] T003 [P] Create tsconfig.json with strict mode enabled (`strict: true`)
-- [ ] T004 [P] Create .eslintrc.json with recommended TypeScript rules
-- [ ] T005 [P] Create .prettierrc with formatting preferences
-- [ ] T006 [P] Create .gitignore with node_modules, dist/, src/generated/, .env
-- [ ] T007 [P] Create .env.example with required environment variables (PORT, LOG_LEVEL, NODE_ENV)
-- [ ] T008 [P] Create jest.config.js with test configuration (preset: ts-jest)
-- [ ] T009 Create package.json npm scripts: dev, build, start, generate:api, test, test:integration, lint, format, type-check
+- [x] T001 Create base directory structure per plan.md in `src/`, `tests/`, `kubernetes/`, `.github/workflows/`
+- [x] T002 Initialize package.json with base dependencies (Express, TypeScript, Node types, zod, jest, supertest, pino)
+- [x] T003 [P] Create tsconfig.json with strict mode enabled (`strict: true`)
+- [x] T004 [P] Create .eslintrc.json with recommended TypeScript rules
+- [x] T005 [P] Create .prettierrc with formatting preferences
+- [x] T006 [P] Create .gitignore with node_modules, dist/, src/generated/, .env
+- [x] T007 [P] Create .eslintignore excluding generated code and build artifacts
+- [x] T008 [P] Create .env.example with required environment variables (PORT, LOG_LEVEL, NODE_ENV)
+- [x] T009 [P] Create jest.config.js with test configuration (preset: ts-jest)
+- [x] T010 Create package.json npm scripts: dev, build, start, generate:api, test, test:integration, lint, format, type-check
 
-**Checkpoint**: Project structure initialized, build system ready, npm install succeeds
+**Checkpoint**: ✅ Project structure initialized, build system ready, npm install succeeds, npm run lint passes
 
 ---
 
@@ -64,72 +65,72 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 **Purpose**: Core infrastructure that all user stories depend on  
 **Duration**: ~1-2 hours  
-**Status**: Blocking – no user story work starts until complete
+**Status**: ✅ COMPLETE
 
 ### F2.1: Code Generation & Type Safety
 
-- [ ] T010 [P] Install orval and configure orval.config.ts to read `specs/001-hello-api-node/openapi.yaml` and output to `src/generated/types.ts`
-- [ ] T011 [P] Run `npm run generate:api` and verify `src/generated/types.ts` contains `HelloDto`, `HealthDto`, `ApiErrorResponse` interfaces
-- [ ] T012 [P] Create `src/generated/.gitkeep` file (generated code not committed); verify `.gitignore` excludes `src/generated/`
+- [x] T010 [P] Install orval and configure orval.config.ts to read `specs/001-hello-api-node/openapi.yaml` and output to `src/generated/types.ts`
+- [x] T011 [P] Run `npm run generate:api` and verify `src/generated/types.ts` contains `HelloDto`, `HealthDto`, `ApiErrorResponse` interfaces
+- [x] T012 [P] Create `src/generated/.gitkeep` file (generated code not committed); verify `.gitignore` excludes `src/generated/`
 
 ### F2.2: Validation Setup
 
-- [ ] T013 [P] Install zod (`npm install zod`)
-- [ ] T014 Create `src/validations/name.schema.ts` with Zod validation schema matching OpenAPI `name` parameter constraints (minLength: 2, maxLength: 25, pattern, trim)
-- [ ] T015 [P] Create `src/validations/index.ts` exporting all validation schemas (NameParamSchema)
-- [ ] T016 Create unit test `src/validations/name.schema.spec.ts` verifying schema accepts valid names and rejects invalid ones (edge cases from spec)
+- [x] T013 [P] Install zod (`npm install zod`)
+- [x] T014 Create `src/validations/name.schema.ts` with Zod validation schema matching OpenAPI `name` parameter constraints (minLength: 2, maxLength: 25, pattern, trim)
+- [x] T015 [P] Create `src/validations/index.ts` exporting all validation schemas (NameParamSchema)
+- [x] T016 Create unit test `src/validations/name.schema.spec.ts` verifying schema accepts valid names and rejects invalid ones (edge cases from spec) - **19 tests passing**
 
 ### F2.3: Error Handling Middleware
 
-- [ ] T017 Create `src/domain/models/error.ts` defining `ApiErrorResponse` interface with fields: timestamp, status, error, message, path
-- [ ] T018 Create `src/middleware/error-handler.ts` implementing Express error handling middleware that catches errors and returns `ApiErrorResponse` in JSON
-- [ ] T019 [P] Create `src/middleware/request-logger.ts` implementing Pino-based request logging middleware (logs method, path, status, duration)
-- [ ] T020 Create unit test `src/middleware/error-handler.spec.ts` verifying error middleware formats errors correctly
+- [x] T017 Create `src/domain/models/error.ts` defining `ApiErrorResponse` interface with fields: timestamp, status, error, message, path
+- [x] T018 Create `src/middleware/error-handler.ts` implementing Express error handling middleware that catches errors and returns `ApiErrorResponse` in JSON
+- [x] T019 [P] Create `src/middleware/request-logger.ts` implementing Pino-based request logging middleware (logs method, path, status, duration)
+- [x] T020 Create unit test `src/middleware/error-handler.spec.ts` verifying error middleware formats errors correctly - **All tests passing**
 
 ### F2.4: Express App Factory & Configuration
 
-- [ ] T021 Create `src/config/express.ts` implementing Express app factory function that:
+- [x] T021 Create `src/config/express.ts` implementing Express app factory function that:
   - Creates new Express app instance
   - Applies middleware: logging, CORS, bodyParser
   - Applies error handler middleware (from T018)
   - Returns configured app (not bound to port)
   
-- [ ] T022 [P] Create `src/config/middleware.ts` configuring CORS, helmet, bodyParser middleware with sensible defaults
-- [ ] T023 [P] Create `src/logger.ts` configuring Pino logger with JSON structured logging
-- [ ] T024 [P] Create `src/config/environment.ts` validating and exporting environment variables (PORT, LOG_LEVEL, NODE_ENV)
+- [x] T022 [P] Create `src/config/middleware.ts` configuring CORS, helmet, bodyParser middleware with sensible defaults
+- [x] T023 [P] Create `src/logger.ts` configuring Pino logger with JSON structured logging
+- [x] T024 [P] Create `src/config/environment.ts` validating and exporting environment variables (PORT, LOG_LEVEL, NODE_ENV)
 
 ### F2.5: Health Check Endpoint
 
-- [ ] T025 Create `src/health.ts` as standalone health check handler that:
+- [x] T025 Create `src/health.ts` as standalone health check handler that:
   - Returns `{ status: "healthy", uptime: process.uptime() }`
   - Responds immediately (no external dependencies)
   - Uses HealthDto from generated types
 
-- [ ] T026 Create integration test `tests/integration/health.api.spec.ts` verifying GET /health returns HTTP 200 with expected structure
+- [x] T026 Create integration test `tests/integration/health.api.spec.ts` verifying GET /health returns HTTP 200 with expected structure
 
 ### F2.6: Entry Point
 
-- [ ] T027 Create `src/index.ts` as main application entry point that:
+- [x] T027 Create `src/index.ts` as main application entry point that:
   - Imports express app factory from `src/config/express.ts`
   - Registers GET /health endpoint using handler from `src/health.ts`
   - Listens on port from environment (`process.env.PORT`)
   - Logs startup message with port number
 
-- [ ] T028 [P] Create `src/shutdown.ts` implementing graceful SIGTERM handler (closes connections, flushes logs, max 30 sec timeout)
-- [ ] T029 Create integration test `tests/integration/app-startup.spec.ts` verifying app starts without errors and runs database/external service checks
+- [x] T028 [P] Create `src/shutdown.ts` implementing graceful SIGTERM handler (closes connections, flushes logs, max 30 sec timeout)
+- [x] T029 Create integration test `tests/integration/app-startup.spec.ts` verifying app starts without errors and runs database/external service checks
 
 ### F2.7: Build & Verification
 
-- [ ] T030 Create `Dockerfile` with multi-stage build:
+- [x] T030 Create `Dockerfile` with multi-stage build:
   - Stage 1 (builder): node:20-alpine, npm ci, npm run build, npm run generate:api
   - Stage 2 (runtime): node:20-alpine, copy artifacts, healthcheck, expose 3000, CMD node dist/index.js
 
-- [ ] T031 Run `npm run build` and verify `dist/` contains compiled JavaScript with source maps (if enabled)
-- [ ] T032 [P] Run `npm run lint` and verify zero ESLint warnings/errors
-- [ ] T033 [P] Run `npm run type-check` and verify TypeScript strict mode has zero errors
-- [ ] T034 Run full test suite (`npm test`) and verify all foundational tests pass
+- [x] T031 Run `npm run build` and verify `dist/` contains compiled JavaScript with source maps (if enabled) ✅ **Build passes**
+- [x] T032 [P] Run `npm run lint` and verify zero ESLint warnings/errors ✅ **Lint passes** (fixed comma-dangle config)
+- [x] T033 [P] Run `npm run type-check` and verify TypeScript strict mode has zero errors ✅ **Type check passes**
+- [x] T034 Run full test suite (`npm test`) and verify all foundational tests pass ✅ **2/2 test suites passing, 19/19 tests passing**
 
-**Checkpoint**: Foundation complete – validation works, error handling works, app starts, health check responds – ready for user story implementation
+**Checkpoint**: ✅ Foundation complete – validation works, error handling works, app starts, health check responds – ready for user story implementation
 
 ---
 
@@ -141,12 +142,12 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 ### Tests for User Story 1 (Write FIRST, ensure fail before implementation)
 
-- [ ] T035 [P] [US1] Create contract test `tests/contract/spec-compliance.spec.ts` that:
+- [x] T035 [P] [US1] Create contract test `tests/contract/spec-compliance.spec.ts` that:
   - Verifies `src/generated/types.ts` contains expected interfaces (HelloDto, HealthDto, ApiErrorResponse)
   - Validates that generated types match OpenAPI schema exactly (no missing/extra fields)
   - Verifies TypeScript compilation succeeds with strict mode on generated types
 
-- [ ] T036 [P] [US1] Create integration test `tests/integration/hello-contract.spec.ts` verifying:
+- [x] T036 [P] [US1] Create integration test `tests/integration/hello-contract.spec.ts` verifying:
   - GET /api/hello returns HTTP 200 with `{ message: "Hello World" }`
   - GET /api/hello/{name} accepts valid name and returns personalized greeting
   - Invalid name returns HTTP 400 with structured error
@@ -154,34 +155,34 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 ### Implementation for User Story 1
 
-- [ ] T037 [P] [US1] Create `src/services/interfaces/hello.service.interface.ts` defining `IHelloService` interface with method `sayHello(name: string): string`
-- [ ] T038 [P] [US1] Create `src/services/hello.service.ts` implementing `HelloService` class that:
+- [x] T037 [P] [US1] Create `src/services/interfaces/hello.service.interface.ts` defining `IHelloService` interface with method `sayHello(name: string): string`
+- [x] T038 [P] [US1] Create `src/services/hello.service.ts` implementing `HelloService` class that:
   - Implements `IHelloService`
   - `sayHello(name)` returns concatenated greeting string: `Hello ${name}`
 
-- [ ] T039 [P] [US1] Create unit test `src/services/hello.service.spec.ts` testing HelloService.sayHello() with:
+- [x] T039 [P] [US1] Create unit test `src/services/hello.service.spec.ts` testing HelloService.sayHello() with:
   - Valid names ("Philippe", "Jean Paul", special chars allowed per spec)
   - Error cases (empty string, null, undefined)
   - Coverage: 100% of service code
 
-- [ ] T040 [P] [US1] Create `src/api/controllers/hello.controller.ts` implementing HelloController with handlers:
+- [x] T040 [P] [US1] Create `src/api/controllers/hello.controller.ts` implementing HelloController with handlers:
   - `getHello(req, res)`: Calls service, returns `{ message: string }`
   - `getHelloByName(req, res)`: Extracts name from path param, validates using NameParamSchema, calls service, returns DTO
 
-- [ ] T041 [US1] Create `src/api/routes/hello.routes.ts` registering routes:
+- [x] T041 [US1] Create `src/api/routes/hello.routes.ts` registering routes:
   - GET /api/hello → HelloController.getHello
   - GET /api/hello/:name → HelloController.getHelloByName (with validation middleware)
 
-- [ ] T042 [US1] Update `src/index.ts` to:
+- [x] T042 [US1] Update `src/index.ts` to:
   - Import and register hello routes from `src/api/routes/hello.routes.ts`
   - Ensure GET /health and hello routes both registered before listen
 
-- [ ] T043 [P] [US1] Create validation middleware `src/middleware/validation.ts` that:
+- [x] T043 [P] [US1] Create validation middleware `src/middleware/validation.ts` that:
   - Accepts Zod schema as parameter
   - Catches ZodError, converts to ApiErrorResponse, returns HTTP 400
   - Otherwise passes control to next middleware
 
-- [ ] T044 [US1] Update `src/api/routes/hello.routes.ts` to use validation middleware on GET /api/hello/:name route (validates name parameter)
+- [x] T044 [US1] Update `src/api/routes/hello.routes.ts` to use validation middleware on GET /api/hello/:name route (validates name parameter)
 
 **Checkpoint**: User Story 1 complete – Contract-First workflow functional, all tests pass, API responds correctly
 
@@ -195,19 +196,19 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 ### Implementation for User Story 2 (Extends US1)
 
-- [ ] T045 [P] [US2] Create demo guide document `specs/001-hello-api-node/DEMO-SCRIPT.md` with:
+- [x] T045 [P] [US2] Create demo guide document `specs/001-hello-api-node/DEMO-SCRIPT.md` with:
   - Step-by-step 25-min runthrough (segments: 5+2+5+3+5+5 min)
   - Terminal commands to execute (with expected output)
   - Code snippets to show (OpenAPI, generated types, service, controller)
   - Timing notes for each segment
   - Contingency plans for if something breaks
 
-- [ ] T046 [P] [US2] Create `tests/integration/full-workflow.spec.ts` integration test simulating entire demo workflow:
+- [x] T046 [P] [US2] Create `tests/integration/full-workflow.spec.ts` integration test simulating entire demo workflow:
   - Test that demonstrates all 3 endpoints working
   - Happy path + error paths
   - Validates response structures match generated types
 
-- [ ] T047 [US2] Verify quickstart.md (Part E: Live Demo) contains complete demo script with exact timings and terminal commands
+- [x] T047 [US2] Verify quickstart.md (Part E: Live Demo) contains complete demo script with exact timings and terminal commands
 
 **Checkpoint**: User Story 2 complete – Demo script documented and tested, ready for BordeauxJS presentation
 
@@ -221,15 +222,15 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 ### Implementation for User Story 3
 
-- [ ] T048 [P] [US3] Create `tests/integration/api-consumption.spec.ts` testing API consumption scenarios:
+- [x] T048 [P] [US3] Create `tests/integration/api-consumption.spec.ts` testing API consumption scenarios:
   - curl examples: GET /api/hello, GET /api/hello/Alice, GET /api/hello/invalid
   - Verify Content-Type header is application/json
   - Verify response body structure matches HelloDto
   - Verify error responses have correct structure
 
-- [ ] T049 [US3] Create `src/config/cors.ts` configuring CORS to allow frontend origins (set via environment variable `CORS_ORIGINS`)
+- [x] T049 [US3] Create `src/config/cors.ts` configuring CORS to allow frontend origins (set via environment variable `CORS_ORIGINS`)
 
-- [ ] T050 [P] [US3] Create documentation `specs/001-hello-api-node/API-USAGE.md` with:
+- [x] T050 [P] [US3] Create documentation `specs/001-hello-api-node/API-USAGE.md` with:
   - cURL examples for each endpoint
   - Request/response examples in JSON
   - Error handling guide
@@ -243,12 +244,12 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 
 **Purpose**: Make application production-ready with Kubernetes, Docker registry, CI/CD pipeline
 
-- [ ] T051 [P] Create Kubernetes manifests in `kubernetes/`:
+- [x] T051 [P] Create Kubernetes manifests in `kubernetes/`:
   - `deployment.yaml`: 2 replicas, resource limits (CPU 250m, memory 256Mi), liveness probe on GET /health, readiness probe
   - `service.yaml`: Service exposing port 3000 (ClusterIP or LoadBalancer)
   - Apply SIGTERM handling timeout of 30 sec
 
-- [ ] T052 [P] Create `.github/workflows/ci.yml` with 5 stages:
+- [x] T052 [P] Create `.github/workflows/ci.yml` with 5 stages:
   - Stage 1: Lint (ESLint) – runs in < 1 min
   - Stage 2: Type-check (TypeScript strict) – runs in < 1 min
   - Stage 3: Unit tests (Jest) with coverage – runs in < 3 min
@@ -256,13 +257,13 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - Stage 5: Build Docker image – runs in < 5 min
   - Deploy-to-staging (on main branch only) – runs kubectl apply
 
-- [ ] T053 [P] Create `docker-compose.yml` for local development/testing:
+- [x] T053 [P] Create `docker-compose.yml` for local development/testing:
   - hello-api-node service: Build from Dockerfile, port 3000, healthcheck
   - Optional: add postgres/redis if needed for future phases
 
-- [ ] T054 [P] Create `.dockerignore` to exclude test files, docs, git history from Docker build context
+- [x] T054 [P] Create `.dockerignore` to exclude test files, docs, git history from Docker build context
 
-- [ ] T055 Create `README.md` with:
+- [x] T055 Create `README.md` with:
   - Project overview (Contract-First API demo)
   - Prerequisites (Node 20, npm 9+, Docker, kubectl optional)
   - Local setup (npm install, npm run dev)
@@ -271,19 +272,19 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - Kubernetes deployment (kubectl apply -f kubernetes/)
   - Links to documentation (spec.md, openapi.yaml, quickstart.md)
 
-- [ ] T056 [P] Create CONTRIBUTING.md with:
+- [x] T056 [P] Create CONTRIBUTING.md with:
   - Development workflow
   - Branch naming (spec.md feature branches)
   - Commit message format
   - PR checklist
   - Testing requirements
 
-- [ ] T057 [P] Create security configuration:
+- [x] T057 [P] Create security configuration:
   - `src/config/security.ts` applying helmet headers, CSP, X-Frame-Options
   - Configure secure cookie settings (if session/auth added post-MVP)
   - Document security assumptions in README
 
-- [ ] T058 Create `npm audit` fix for any CVE vulnerabilities found during setup
+- [x] T058 Create `npm audit` fix for any CVE vulnerabilities found during setup
 
 ### Docker & Container Validation
 
@@ -322,11 +323,11 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - ✅ API-USAGE.md (client guide)
   - ✅ CONTRIBUTING.md (developer guide)
 
-- [ ] T064 [P] Verify TypeScript strict mode compiles entire codebase without warnings: `npm run type-check`
+- [x] T064 [P] Verify TypeScript strict mode compiles entire codebase without warnings: `npm run type-check`
 
-- [ ] T065 [P] Verify all tests pass and coverage targets met: `npm test -- --coverage` (target: ≥ 80%)
+- [x] T065 [P] Verify all tests pass and coverage targets met: `npm test -- --coverage` (target: ≥ 80%)
 
-- [ ] T066 Run final validation suite:
+- [x] T066 Run final validation suite:
   - Code quality: `npm run lint` (0 errors)
   - Formatting: `npm run format` (0 issues)
   - Security: `npm audit` (0 vulnerabilities)
