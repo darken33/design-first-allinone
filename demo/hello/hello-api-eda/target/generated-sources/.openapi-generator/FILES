@@ -1,6 +1,0 @@
-src/main/java/com/sqli/pbousquet/helloapi/generated/api/model/ApiErrorResponse.java
-src/main/java/com/sqli/pbousquet/helloapi/generated/api/model/HelloDto.java
-src/main/java/com/sqli/pbousquet/helloapi/generated/api/server/ApiUtil.java
-src/main/java/com/sqli/pbousquet/helloapi/generated/api/server/HelloApi.java
-src/main/java/com/sqli/pbousquet/helloapi/generated/api/server/HelloApiController.java
-src/main/java/com/sqli/pbousquet/helloapi/generated/api/server/HelloApiDelegate.java
