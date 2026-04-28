@@ -1,0 +1,16 @@
+node_modules/
+.git/
+Dockerfile*
+.dockerignore
+*.md
+README.md
+.env*
+specs/
+.vscode/
+.idea/
+.github/
+tests/
+jest.config.js
+coverage/
+.specify/
+hello-api-java/

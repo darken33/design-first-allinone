@@ -1,0 +1,38 @@
+# Reduce Docker build context for Java/Spring Boot project
+
+# VCS and metadata
+.git/
+.github/
+
+# IDE/editor
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# Build outputs
+build/
+target/
+.gradle/
+gradle/
+
+# Docker files
+Dockerfile*
+.dockerignore
+
+# Logs and temp
+*.log*
+*.tmp
+*.swp
+
+# Environment and secrets
+.env*
+secrets/
+*.key
+*.crt
+.kube/
+
+# Tests and reports (optional)
+coverage/

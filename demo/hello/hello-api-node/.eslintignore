@@ -1,0 +1,6 @@
+# Generated code - handled by orval
+src/generated/
+dist/
+node_modules/
+coverage/
+tests/setup.d.ts
