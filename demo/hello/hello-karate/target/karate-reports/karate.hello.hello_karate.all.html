@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="res/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="res/karate-report.css" type="text/css"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <script type="text/javascript" src="res/jquery.min.js"></script>
+    <script type="text/javascript" src="res/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="res/bootstrap.min.js"></script>
+    <script type="text/javascript" src="res/karate-report.js"></script>
+    <title>karate.hello.hello_karate.all</title>  
+  </head>
+  <body>   
+    <div id="root-container">
+      <div id="leftnav">
+                
+        <div>
+  <div class="nav-logo">
+    <a href="karate-summary.html">
+      <img src="karate-logo.svg" alt="Karate"/>
+    </a>
+    <div class="nav-count">
+      <div id="nav-pass" class="bg-success">0</div>
+      <div id="nav-fail" class="bg-danger">2</div>
+    </div>
+  </div>
+  <div id="nav-type">
+    <div>Scenarios</div>
+  </div>         
+  <div id="nav-date">
+    <div>2025-10-30 02:40:44 PM</div>
+  </div>        
+</div>
+
+        <div class="nav-container">
+          <div class="nav-item failed">
+            <a href="#[1:10]"><span>[1:10]</span> <span>hello - api-v1-hello-GET</span></a>
+          </div>
+          <div class="nav-item failed">
+            <a href="#[2:14]"><span>[2:14]</span> <span>hello - api-v1-hello-{name}-GET</span></a>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="page-heading alert alert-primary">
+          <a href="karate-summary.html">Summary</a><span class="feature-label">|</span>
+          <a href="karate-tags.html">Tags</a><span class="feature-label">|</span>
+          <span class="feature-label">Feature:</span>
+          <span class="feature-path">karate/hello/hello_karate/all.feature</span><span class="feature-label">|</span>
+          <span class="feature-name">Test all APIs</span>
+          <span class="feature-description"></span>
+        </div>
+        <div class="scenario">
+          <div class="scenario-heading" id="[1:10]">
+            <div class="heading-container">
+              <div class="scenario-tags">
+                
+              </div>
+              <div class="scenario-keyword">
+                Scenario: <span>[1:10]</span>
+                <span class="scenario-name">hello - api-v1-hello-GET</span>
+                <span></span>
+              </div>
+            </div>
+            <div class="scenario-time failed">
+              <span>ms:</span>&nbsp;<span>10</span>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-container" id="[1:10]bg">
+              <div class="step-ref bg-step">&gt;&gt;</div>
+              <div class="step-cell passed">Background:</div>
+            </div>
+            <div class="time-cell passed"></div>
+          </div>
+          <div data-parent="[1:10]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.4">
+      <div class="step-ref bg-step">4</div>
+      
+      <div class="step-cell passed">
+        <span>*</span>&nbsp;<span>url baseUrl</span>
+      </div>
+    </div>
+    <div class="time-cell passed">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div data-parent="[1:10]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.5">
+      <div class="step-ref bg-step">5</div>
+      
+      <div class="step-cell failed">
+        <span>*</span>&nbsp;<span>def authUser1 = callonce read(&#39;classpath:features/all-users.feature@auth_user1&#39;)</span>
+      </div>
+    </div>
+    <div class="time-cell failed">10</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.5">14:40:44.516 classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read(&#39;classpath:features/all-users.feature@auth_user1&#39;)
+&gt;&gt;&gt;&gt; js failed:
+01: read(&#39;classpath:features/all-users.feature@auth_user1&#39;)
+&lt;&lt;&lt;&lt;
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- &lt;js&gt;.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+</div>   
+
+  
+
+</div>
+</div>
+          <div data-parent="[1:10]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.6">
+      <div class="step-ref bg-step">6</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>def jwtToken = authUser1.response.access_token</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div data-parent="[1:10]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.7">
+      <div class="step-ref bg-step">7</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>def refreshToken = authUser1.response.refresh_token</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div data-parent="[1:10]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.8">
+      <div class="step-ref bg-step">8</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>configure headers = { &#39;header_1&#39;: &#39;header_1_value&#39; }</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.12">
+      <div class="step-ref skipped">12</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>call read(&#39;classpath:features/unit/hello/api-v1-hello-GET.feature&#39;) {jwtToken: #(jwtToken), expectedStatusList: [200]}</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+        </div>
+        <div class="scenario">
+          <div class="scenario-heading" id="[2:14]">
+            <div class="heading-container">
+              <div class="scenario-tags">
+                
+              </div>
+              <div class="scenario-keyword">
+                Scenario: <span>[2:14]</span>
+                <span class="scenario-name">hello - api-v1-hello-{name}-GET</span>
+                <span></span>
+              </div>
+            </div>
+            <div class="scenario-time failed">
+              <span>ms:</span>&nbsp;<span>1</span>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-container" id="[2:14]bg">
+              <div class="step-ref bg-step">&gt;&gt;</div>
+              <div class="step-cell passed">Background:</div>
+            </div>
+            <div class="time-cell passed"></div>
+          </div>
+          <div data-parent="[2:14]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.4">
+      <div class="step-ref bg-step">4</div>
+      
+      <div class="step-cell passed">
+        <span>*</span>&nbsp;<span>url baseUrl</span>
+      </div>
+    </div>
+    <div class="time-cell passed">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div data-parent="[2:14]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.5">
+      <div class="step-ref bg-step">5</div>
+      
+      <div class="step-cell failed">
+        <span>*</span>&nbsp;<span>def authUser1 = callonce read(&#39;classpath:features/all-users.feature@auth_user1&#39;)</span>
+      </div>
+    </div>
+    <div class="time-cell failed">1</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.5">14:40:44.522 classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read(&#39;classpath:features/all-users.feature@auth_user1&#39;)
+&gt;&gt;&gt;&gt; js failed:
+01: read(&#39;classpath:features/all-users.feature@auth_user1&#39;)
+&lt;&lt;&lt;&lt;
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- &lt;js&gt;.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+</div>   
+
+  
+
+</div>
+</div>
+          <div data-parent="[2:14]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.6">
+      <div class="step-ref bg-step">6</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>def jwtToken = authUser1.response.access_token</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div data-parent="[2:14]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.7">
+      <div class="step-ref bg-step">7</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>def refreshToken = authUser1.response.refresh_token</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div data-parent="[2:14]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.8">
+      <div class="step-ref bg-step">8</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>configure headers = { &#39;header_1&#39;: &#39;header_1_value&#39; }</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.16">
+      <div class="step-ref skipped">16</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>call read(&#39;classpath:features/unit/hello/api-v1-hello-{name}-GET.feature&#39;) {jwtToken: #(jwtToken), expectedStatusList: [200]}</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

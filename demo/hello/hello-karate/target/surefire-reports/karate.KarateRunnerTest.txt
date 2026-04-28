@@ -1,0 +1,70 @@
+-------------------------------------------------------------------------------
+Test set: karate.KarateRunnerTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 2.599 s <<< FAILURE! - in karate.KarateRunnerTest
+hello[1][1]  Time elapsed: 0.776 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: 
+{"timestamp":"2025-10-30T14:40:43.523+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye.","path":"/api/v1/goodbye"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:12
+
+hello[1][2]  Time elapsed: 0.669 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: 
+{"timestamp":"2025-10-30T14:40:43.619+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye/fifi.","path":"/api/v1/goodbye/fifi"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:22
+
+hello[3][1]  Time elapsed: 0.093 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+status code was: 404, expected: 200, response time in milliseconds: 13, url: http://localhost:8080/api/auth/login, response: 
+{"timestamp":"2025-10-30T14:40:44.457+00:00","status":404,"error":"Not Found","message":"No static resource api/auth/login.","path":"/api/auth/login"}
+classpath:karate/hello/hello_karate/all-users.feature:15
+
+hello[4][1]  Time elapsed: 0.014 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+
+hello[4][2]  Time elapsed: 0.044 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+
+hello[7][1]  Time elapsed: 0.045 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: expectedStatusList
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "expectedStatusList" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+
+hello[8][1]  Time elapsed: 0.131 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+

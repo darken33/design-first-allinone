@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="res/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="res/karate-report.css" type="text/css"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <script type="text/javascript" src="res/jquery.min.js"></script>
+    <script type="text/javascript" src="res/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="res/bootstrap.min.js"></script>
+    <script type="text/javascript" src="res/karate-report.js"></script>
+    <title>karate.goodbye.ITGOODBYE-API</title>  
+  </head>
+  <body>   
+    <div id="root-container">
+      <div id="leftnav">
+                
+        <div>
+  <div class="nav-logo">
+    <a href="karate-summary.html">
+      <img src="karate-logo.svg" alt="Karate"/>
+    </a>
+    <div class="nav-count">
+      <div id="nav-pass" class="bg-success">0</div>
+      <div id="nav-fail" class="bg-danger">2</div>
+    </div>
+  </div>
+  <div id="nav-type">
+    <div>Scenarios</div>
+  </div>         
+  <div id="nav-date">
+    <div>2025-10-30 02:40:43 PM</div>
+  </div>        
+</div>
+
+        <div class="nav-container">
+          <div class="nav-item failed">
+            <a href="#[1:7]"><span>[1:7]</span> <span>ITGOODBYE-UC01 - Get /api/v1/goodbye</span></a>
+          </div>
+          <div class="nav-item failed">
+            <a href="#[2:17]"><span>[2:17]</span> <span>ITGOODBYE-UC02 - Get /api/v1/goodbye/fifi</span></a>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="page-heading alert alert-primary">
+          <a href="karate-summary.html">Summary</a><span class="feature-label">|</span>
+          <a href="karate-tags.html">Tags</a><span class="feature-label">|</span>
+          <span class="feature-label">Feature:</span>
+          <span class="feature-path">karate/goodbye/ITGOODBYE-API.feature</span><span class="feature-label">|</span>
+          <span class="feature-name">Goodbye</span>
+          <span class="feature-description"></span>
+        </div>
+        <div class="scenario">
+          <div class="scenario-heading" id="[1:7]">
+            <div class="heading-container">
+              <div class="scenario-tags">
+                <a class="badge badge-primary" href="karate-tags.html">ITGOODBYE-UC01</a>
+              </div>
+              <div class="scenario-keyword">
+                Scenario: <span>[1:7]</span>
+                <span class="scenario-name">ITGOODBYE-UC01 - Get /api/v1/goodbye</span>
+                <span></span>
+              </div>
+            </div>
+            <div class="scenario-time failed">
+              <span>ms:</span>&nbsp;<span>291</span>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-container" id="[1:7]bg">
+              <div class="step-ref bg-step">&gt;&gt;</div>
+              <div class="step-cell passed">Background:</div>
+            </div>
+            <div class="time-cell passed"></div>
+          </div>
+          <div data-parent="[1:7]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.4">
+      <div class="step-ref bg-step">4</div>
+      
+      <div class="step-cell passed">
+        <span>*</span>&nbsp;<span>url baseUrl</span>
+      </div>
+    </div>
+    <div class="time-cell passed">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.8">
+      <div class="step-ref passed">8</div>
+      
+      <div class="step-cell passed">
+        <span>*</span>&nbsp;<span>print &#39;ITGOODBYE-UC01 - Get /api/v1/goodbye&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">25</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.8">14:40:43.309 [print] ITGOODBYE-UC01 - Get /api/v1/goodbye 
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.9">
+      <div class="step-ref passed">9</div>
+      
+      <div class="step-cell passed">
+        <span>Given</span>&nbsp;<span>path &#39;/api/v1/goodbye&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">5</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.10">
+      <div class="step-ref passed">10</div>
+      
+      <div class="step-cell passed">
+        <span>And</span>&nbsp;<span>header Accept = &#39;application/json&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">1</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.11">
+      <div class="step-ref passed">11</div>
+      
+      <div class="step-cell passed">
+        <span>When</span>&nbsp;<span>method get</span>
+      </div>
+    </div>
+    <div class="time-cell passed">254</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.11">14:40:43.475 request:
+1 &gt; GET http://localhost:8080/api/v1/goodbye
+1 &gt; Accept: application/json
+1 &gt; Host: localhost:8080
+1 &gt; Connection: Keep-Alive
+1 &gt; User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 &gt; Accept-Encoding: gzip,deflate
+
+
+14:40:43.567 response time in milliseconds: 62
+1 &lt; 404
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-XSS-Protection: 0
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Pragma: no-cache
+1 &lt; Expires: 0
+1 &lt; X-Frame-Options: DENY
+1 &lt; Content-Security-Policy: default-src &#39;self&#39;; style-src &#39;self&#39; &#39;unsafe-inline&#39;; img-src &#39;self&#39; data:;
+1 &lt; Access-Control-Allow-Origin: *
+1 &lt; Content-Type: application/json
+1 &lt; Transfer-Encoding: chunked
+1 &lt; Date: Thu, 30 Oct 2025 14:40:43 GMT
+1 &lt; Keep-Alive: timeout=60
+1 &lt; Connection: keep-alive
+{&quot;path&quot;:&quot;\/api\/v1\/goodbye&quot;,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api\/v1\/goodbye.&quot;,&quot;timestamp&quot;:&quot;2025-10-30T14:40:43.523+00:00&quot;,&quot;status&quot;:404}
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.12">
+      <div class="step-ref failed">12</div>
+      
+      <div class="step-cell failed">
+        <span>Then</span>&nbsp;<span>status 200</span>
+      </div>
+    </div>
+    <div class="time-cell failed">5</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.12">14:40:43.577 classpath:karate/goodbye/ITGOODBYE-API.feature:12
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: 
+{&quot;timestamp&quot;:&quot;2025-10-30T14:40:43.523+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api/v1/goodbye.&quot;,&quot;path&quot;:&quot;/api/v1/goodbye&quot;}
+classpath:karate/goodbye/ITGOODBYE-API.feature:12
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.13">
+      <div class="step-ref skipped">13</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>match $.message == &#39;Goodbye World&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.14">
+      <div class="step-ref skipped">14</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>print &#39;END - ITGOODBYE-UC01 - Get /api/v1/goodbye&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+        </div>
+        <div class="scenario">
+          <div class="scenario-heading" id="[2:17]">
+            <div class="heading-container">
+              <div class="scenario-tags">
+                <a class="badge badge-primary" href="karate-tags.html">ITGOODBYE-UC02</a>
+              </div>
+              <div class="scenario-keyword">
+                Scenario: <span>[2:17]</span>
+                <span class="scenario-name">ITGOODBYE-UC02 - Get /api/v1/goodbye/fifi</span>
+                <span></span>
+              </div>
+            </div>
+            <div class="scenario-time failed">
+              <span>ms:</span>&nbsp;<span>21</span>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-container" id="[2:17]bg">
+              <div class="step-ref bg-step">&gt;&gt;</div>
+              <div class="step-cell passed">Background:</div>
+            </div>
+            <div class="time-cell passed"></div>
+          </div>
+          <div data-parent="[2:17]bg"><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.4">
+      <div class="step-ref bg-step">4</div>
+      
+      <div class="step-cell passed">
+        <span>*</span>&nbsp;<span>url baseUrl</span>
+      </div>
+    </div>
+    <div class="time-cell passed">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.18">
+      <div class="step-ref passed">18</div>
+      
+      <div class="step-cell passed">
+        <span>*</span>&nbsp;<span>print &#39;ITGOODBYE-UC01 - Get /api/v1/goodbye/fifi&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">2</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.18">14:40:43.605 [print] ITGOODBYE-UC01 - Get /api/v1/goodbye/fifi 
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.19">
+      <div class="step-ref passed">19</div>
+      
+      <div class="step-cell passed">
+        <span>Given</span>&nbsp;<span>path &#39;/api/v1/goodbye/fifi&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">1</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.20">
+      <div class="step-ref passed">20</div>
+      
+      <div class="step-cell passed">
+        <span>And</span>&nbsp;<span>header Accept = &#39;application/json&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.21">
+      <div class="step-ref passed">21</div>
+      
+      <div class="step-cell passed">
+        <span>When</span>&nbsp;<span>method get</span>
+      </div>
+    </div>
+    <div class="time-cell passed">18</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.21">14:40:43.607 request:
+1 &gt; GET http://localhost:8080/api/v1/goodbye/fifi
+1 &gt; Accept: application/json
+1 &gt; Host: localhost:8080
+1 &gt; Connection: Keep-Alive
+1 &gt; User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 &gt; Accept-Encoding: gzip,deflate
+
+
+14:40:43.622 response time in milliseconds: 14
+1 &lt; 404
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-XSS-Protection: 0
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Pragma: no-cache
+1 &lt; Expires: 0
+1 &lt; X-Frame-Options: DENY
+1 &lt; Content-Security-Policy: default-src &#39;self&#39;; style-src &#39;self&#39; &#39;unsafe-inline&#39;; img-src &#39;self&#39; data:;
+1 &lt; Access-Control-Allow-Origin: *
+1 &lt; Content-Type: application/json
+1 &lt; Transfer-Encoding: chunked
+1 &lt; Date: Thu, 30 Oct 2025 14:40:43 GMT
+1 &lt; Keep-Alive: timeout=60
+1 &lt; Connection: keep-alive
+{&quot;path&quot;:&quot;\/api\/v1\/goodbye\/fifi&quot;,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api\/v1\/goodbye\/fifi.&quot;,&quot;timestamp&quot;:&quot;2025-10-30T14:40:43.619+00:00&quot;,&quot;status&quot;:404}
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.22">
+      <div class="step-ref failed">22</div>
+      
+      <div class="step-cell failed">
+        <span>Then</span>&nbsp;<span>status 200</span>
+      </div>
+    </div>
+    <div class="time-cell failed">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.22">14:40:43.625 classpath:karate/goodbye/ITGOODBYE-API.feature:22
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: 
+{&quot;timestamp&quot;:&quot;2025-10-30T14:40:43.619+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api/v1/goodbye/fifi.&quot;,&quot;path&quot;:&quot;/api/v1/goodbye/fifi&quot;}
+classpath:karate/goodbye/ITGOODBYE-API.feature:22
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.23">
+      <div class="step-ref skipped">23</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>match $.message == &#39;Goodbye fifi&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.24">
+      <div class="step-ref skipped">24</div>
+      
+      <div class="step-cell skipped">
+        <span>*</span>&nbsp;<span>print &#39;END - ITGOODBYE-UC02 - Get /api/v1/goodbye/fifi&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell skipped">0</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,564 @@
+14:39:55.890 [main] DEBUG com.intuit.karate.Suite - [config] classpath:karate-config.js
+14:39:56.980 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye 
+14:39:57.252 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:57.314 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com: Aucune adresse associée avec le nom de l'hôte, http call failed after 321 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye
+14:39:57.315 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:11
+When method get
+http call failed after 321 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye
+classpath:karate/goodbye/ITGOODBYE-API.feature:11
+14:39:57.344 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye/fifi 
+14:39:57.348 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye/fifi
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:57.348 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye/fifi
+14:39:57.349 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:21
+When method get
+http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye/fifi
+classpath:karate/goodbye/ITGOODBYE-API.feature:21
+14:39:58.037 [main] DEBUG com.intuit.karate.Suite - [config] classpath:karate-config.js
+14:39:58.096 [main] INFO  com.intuit.karate - [print] ITHELLO-UC01 - Get /api/v1/hello 
+14:39:58.099 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:58.099 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+14:39:58.100 [main] ERROR com.intuit.karate - classpath:karate/hello/ITHELLO-API.feature:11
+When method get
+http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+classpath:karate/hello/ITHELLO-API.feature:11
+14:39:58.115 [main] INFO  com.intuit.karate - [print] ITHELLO-UC01 - Get /api/v1/hello/fifi 
+14:39:58.118 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/fifi
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:58.118 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/fifi
+14:39:58.119 [main] ERROR com.intuit.karate - classpath:karate/hello/ITHELLO-API.feature:21
+When method get
+http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/fifi
+classpath:karate/hello/ITHELLO-API.feature:21
+14:39:58.276 [main] DEBUG com.intuit.karate - request:
+1 > POST http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/auth/login
+1 > Content-Type: application/json; charset=UTF-8
+1 > Content-Length: 56
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+{"password":"user_1_password","email":"user_1@mail.com"}
+
+14:39:58.277 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 6 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/auth/login
+14:39:58.278 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all-users.feature:14
+When method POST
+http call failed after 6 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/auth/login
+classpath:karate/hello/hello_karate/all-users.feature:14
+14:39:58.362 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+14:39:58.372 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+14:39:58.457 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:58.457 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+14:39:58.458 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-GET.feature:10
+When method GET
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-GET.feature:10
+14:39:58.514 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/''
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:58.514 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/''
+14:39:58.514 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-{name}-GET.feature:10
+When method GET
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/''
+classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-{name}-GET.feature:10
+14:39:58.539 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.28)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:58.539 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+14:39:58.539 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:10
+When method GET
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:10
+14:39:58.576 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+Given path 'api','v1','hello',name
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+14:39:58.800 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye 
+14:39:59.034 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.057 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com: Aucune adresse associée avec le nom de l'hôte, http call failed after 242 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye
+14:39:59.058 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:11
+When method get
+http call failed after 242 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye
+classpath:karate/goodbye/ITGOODBYE-API.feature:11
+14:39:59.074 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye/fifi 
+14:39:59.075 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye/fifi
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.076 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye/fifi
+14:39:59.076 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:21
+When method get
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/goodbye/fifi
+classpath:karate/goodbye/ITGOODBYE-API.feature:21
+14:39:59.473 [main] INFO  com.intuit.karate - [print] ITHELLO-UC01 - Get /api/v1/hello 
+14:39:59.475 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.475 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+14:39:59.475 [main] ERROR com.intuit.karate - classpath:karate/hello/ITHELLO-API.feature:11
+When method get
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+classpath:karate/hello/ITHELLO-API.feature:11
+14:39:59.483 [main] INFO  com.intuit.karate - [print] ITHELLO-UC01 - Get /api/v1/hello/fifi 
+14:39:59.485 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/fifi
+1 > Accept: application/json
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.486 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/fifi
+14:39:59.486 [main] ERROR com.intuit.karate - classpath:karate/hello/ITHELLO-API.feature:21
+When method get
+http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/fifi
+classpath:karate/hello/ITHELLO-API.feature:21
+14:39:59.634 [main] DEBUG com.intuit.karate - request:
+1 > POST http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/auth/login
+1 > Content-Type: application/json; charset=UTF-8
+1 > Content-Length: 56
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+{"password":"user_1_password","email":"user_1@mail.com"}
+
+14:39:59.635 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 6 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/auth/login
+14:39:59.636 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all-users.feature:14
+When method POST
+http call failed after 6 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/auth/login
+classpath:karate/hello/hello_karate/all-users.feature:14
+14:39:59.721 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+14:39:59.728 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+14:39:59.777 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.778 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+14:39:59.778 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-GET.feature:10
+When method GET
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-GET.feature:10
+14:39:59.804 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/''
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.804 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/''
+14:39:59.804 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-{name}-GET.feature:10
+When method GET
+http call failed after 1 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello/''
+classpath:karate/hello/hello_karate/outline/hello/api-v1-hello-{name}-GET.feature:10
+14:39:59.869 [main] DEBUG com.intuit.karate - request:
+1 > GET http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+1 > Host: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:39:59.870 [main] ERROR com.intuit.karate - java.net.UnknownHostException: helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com, http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+14:39:59.870 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:10
+When method GET
+http call failed after 2 milliseconds for url: http://helloapi-env.eba-zf6asr5n.eu-west-1.elasticbeanstalk.com/api/v1/hello
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:10
+14:39:59.902 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+Given path 'api','v1','hello',name
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+14:40:42.794 [main] DEBUG com.intuit.karate.Suite - [config] classpath:karate-config.js
+14:40:43.308 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye 
+14:40:43.475 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/goodbye
+1 > Accept: application/json
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:43.566 [main] DEBUG com.intuit.karate - response time in milliseconds: 62
+1 < 404
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:43 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"path":"\/api\/v1\/goodbye","error":"Not Found","message":"No static resource api\/v1\/goodbye.","timestamp":"2025-10-30T14:40:43.523+00:00","status":404}
+14:40:43.577 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:12
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: 
+{"timestamp":"2025-10-30T14:40:43.523+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye.","path":"/api/v1/goodbye"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:12
+14:40:43.604 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye/fifi 
+14:40:43.607 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/goodbye/fifi
+1 > Accept: application/json
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:43.622 [main] DEBUG com.intuit.karate - response time in milliseconds: 14
+1 < 404
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:43 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"path":"\/api\/v1\/goodbye\/fifi","error":"Not Found","message":"No static resource api\/v1\/goodbye\/fifi.","timestamp":"2025-10-30T14:40:43.619+00:00","status":404}
+14:40:43.624 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:22
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: 
+{"timestamp":"2025-10-30T14:40:43.619+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye/fifi.","path":"/api/v1/goodbye/fifi"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:22
+14:40:44.275 [main] INFO  com.intuit.karate - [print] ITHELLO-UC01 - Get /api/v1/hello 
+14:40:44.278 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/hello
+1 > Accept: application/json
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:44.284 [main] DEBUG com.intuit.karate - response time in milliseconds: 6
+1 < 200
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"message":"Hello World"}
+14:40:44.312 [main] INFO  com.intuit.karate - [print] END - ITHELLO-UC01 - Get /api/v1/hello 
+14:40:44.320 [main] INFO  com.intuit.karate - [print] ITHELLO-UC01 - Get /api/v1/hello/fifi 
+14:40:44.322 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/hello/fifi
+1 > Accept: application/json
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:44.344 [main] DEBUG com.intuit.karate - response time in milliseconds: 22
+1 < 200
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"message":"Hello fifi"}
+14:40:44.348 [main] INFO  com.intuit.karate - [print] END - ITHELLO-UC02 - Get /api/v1/hello/fifi 
+14:40:44.445 [main] DEBUG com.intuit.karate - request:
+1 > POST http://localhost:8080/api/auth/login
+1 > Content-Type: application/json; charset=UTF-8
+1 > Content-Length: 56
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+{"password":"user_1_password","email":"user_1@mail.com"}
+
+14:40:44.460 [main] DEBUG com.intuit.karate - response time in milliseconds: 13
+1 < 404
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"path":"\/api\/auth\/login","error":"Not Found","message":"No static resource api\/auth\/login.","timestamp":"2025-10-30T14:40:44.457+00:00","status":404}
+14:40:44.462 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all-users.feature:15
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 13, url: http://localhost:8080/api/auth/login, response: 
+{"timestamp":"2025-10-30T14:40:44.457+00:00","status":404,"error":"Not Found","message":"No static resource api/auth/login.","path":"/api/auth/login"}
+classpath:karate/hello/hello_karate/all-users.feature:15
+14:40:44.515 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+14:40:44.522 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+14:40:44.571 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/hello
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:44.578 [main] DEBUG com.intuit.karate - response time in milliseconds: 6
+1 < 200
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"message":"Hello World"}
+14:40:44.610 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/hello/''
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:44.619 [main] DEBUG com.intuit.karate - response time in milliseconds: 8
+1 < 200
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"message":"Hello ''"}
+14:40:44.658 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/hello
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:44.663 [main] DEBUG com.intuit.karate - response time in milliseconds: 5
+1 < 200
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"message":"Hello World"}
+14:40:44.667 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+Then match expectedStatusList contains responseStatus
+>>>> js failed:
+01: expectedStatusList
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "expectedStatusList" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+14:40:44.706 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+Given path 'api','v1','hello',name
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9

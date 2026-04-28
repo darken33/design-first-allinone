@@ -1,0 +1,4 @@
+{
+    "karateRunner.buildSystem.useWrapper": true,
+    "karateRunner.karateRunner.default": "karate"
+}

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="karate.KarateRunnerTest" time="2.599" tests="11" errors="0" skipped="0" failures="7">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/test-classes:/home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/classes:/home/pbousquet/.m2/repository/com/intuit/karate/karate-junit5/1.0.1/karate-junit5-1.0.1.jar:/home/pbousquet/.m2/repository/com/intuit/karate/karate-core/1.0.1/karate-core-1.0.1.jar:/home/pbousquet/.m2/repository/org/graalvm/js/js-scriptengine/21.0.0/js-scriptengine-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/sdk/graal-sdk/21.0.0/graal-sdk-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/js/js/21.0.0/js-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/regex/regex/21.0.0/regex-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/truffle/truffle-api/21.0.0/truffle-api-21.0.0.jar:/home/pbousquet/.m2/repository/com/ibm/icu/icu4j/67.1/icu4j-67.1.jar:/home/pbousquet/.m2/repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar:/home/pbousquet/.m2/repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar:/home/pbousquet/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/pbousquet/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar:/home/pbousquet/.m2/repository/com/jayway/jsonpath/json-path/2.5.0/json-path-2.5.0.jar:/home/pbousquet/.m2/repository/net/minidev/json-smart/2.3/json-smart-2.3.jar:/home/pbousquet/.m2/repository/net/minidev/accessors-smart/1.2/accessors-smart-1.2.jar:/home/pbousquet/.m2/repository/org/ow2/asm/asm/5.0.4/asm-5.0.4.jar:/home/pbousquet/.m2/repository/info/cukes/cucumber-java/1.2.5/cucumber-java-1.2.5.jar:/home/pbousquet/.m2/repository/info/cukes/cucumber-core/1.2.5/cucumber-core-1.2.5.jar:/home/pbousquet/.m2/repository/org/yaml/snakeyaml/1.27/snakeyaml-1.27.jar:/home/pbousquet/.m2/repository/de/siegmar/fastcsv/1.0.4/fastcsv-1.0.4.jar:/home/pbousquet/.m2/repository/info/picocli/picocli/4.5.2/picocli-4.5.2.jar:/home/pbousquet/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar:/home/pbousquet/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/pbousquet/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/pbousquet/.m2/repository/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar:/home/pbousquet/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar:/home/pbousquet/.m2/repository/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="user.country" value="FR"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/home/pbousquet/Applications/java/openjdk-21.0.2_linux-x64_bin/lib"/>
+    <property name="sun.java.command" value="/home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/surefire/surefirebooter5006331903174728893.jar /home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/surefire 2025-10-30T14-40-41_770-jvmRun1 surefire786537194546712076tmp surefire_07347540368576564291tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="test" value="karate.KarateRunnerTest#hello"/>
+    <property name="surefire.test.class.path" value="/home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/test-classes:/home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/classes:/home/pbousquet/.m2/repository/com/intuit/karate/karate-junit5/1.0.1/karate-junit5-1.0.1.jar:/home/pbousquet/.m2/repository/com/intuit/karate/karate-core/1.0.1/karate-core-1.0.1.jar:/home/pbousquet/.m2/repository/org/graalvm/js/js-scriptengine/21.0.0/js-scriptengine-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/sdk/graal-sdk/21.0.0/graal-sdk-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/js/js/21.0.0/js-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/regex/regex/21.0.0/regex-21.0.0.jar:/home/pbousquet/.m2/repository/org/graalvm/truffle/truffle-api/21.0.0/truffle-api-21.0.0.jar:/home/pbousquet/.m2/repository/com/ibm/icu/icu4j/67.1/icu4j-67.1.jar:/home/pbousquet/.m2/repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar:/home/pbousquet/.m2/repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar:/home/pbousquet/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/pbousquet/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar:/home/pbousquet/.m2/repository/com/jayway/jsonpath/json-path/2.5.0/json-path-2.5.0.jar:/home/pbousquet/.m2/repository/net/minidev/json-smart/2.3/json-smart-2.3.jar:/home/pbousquet/.m2/repository/net/minidev/accessors-smart/1.2/accessors-smart-1.2.jar:/home/pbousquet/.m2/repository/org/ow2/asm/asm/5.0.4/asm-5.0.4.jar:/home/pbousquet/.m2/repository/info/cukes/cucumber-java/1.2.5/cucumber-java-1.2.5.jar:/home/pbousquet/.m2/repository/info/cukes/cucumber-core/1.2.5/cucumber-core-1.2.5.jar:/home/pbousquet/.m2/repository/org/yaml/snakeyaml/1.27/snakeyaml-1.27.jar:/home/pbousquet/.m2/repository/de/siegmar/fastcsv/1.0.4/fastcsv-1.0.4.jar:/home/pbousquet/.m2/repository/info/picocli/picocli/4.5.2/picocli-4.5.2.jar:/home/pbousquet/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar:/home/pbousquet/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/pbousquet/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/pbousquet/.m2/repository/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar:/home/pbousquet/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar:/home/pbousquet/.m2/repository/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/pbousquet"/>
+    <property name="user.language" value="fr"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-01-16"/>
+    <property name="java.home" value="/home/pbousquet/Applications/java/openjdk-21.0.2_linux-x64_bin"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/pbousquet/DevFestNantes/demo/hello/hello-karate"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="surefire.real.class.path" value="/home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/surefire/surefirebooter5006331903174728893.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.2+13-58"/>
+    <property name="user.name" value="pbousquet"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.8.0-86-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="maven.ext.class.path" value="/home/pbousquet/.vscode/extensions/oracle.oracle-java-24.1.2/nbcode/java/maven-nblib/netbeans-eventspy.jar"/>
+    <property name="localRepository" value="/home/pbousquet/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="21.0.2"/>
+    <property name="user.dir" value="/home/pbousquet/DevFestNantes/demo/hello/hello-karate"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="21.0.2+13-58"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="hello[1][1]" classname="karate.KarateRunnerTest" time="0.776">
+    <failure message="status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: &#10;{&quot;timestamp&quot;:&quot;2025-10-30T14:40:43.523+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api/v1/goodbye.&quot;,&quot;path&quot;:&quot;/api/v1/goodbye&quot;}&#10;classpath:karate/goodbye/ITGOODBYE-API.feature:12" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: 
+status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: 
+{"timestamp":"2025-10-30T14:40:43.523+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye.","path":"/api/v1/goodbye"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:12
+</failure>
+    <system-out><![CDATA[14:40:42.794 [main] DEBUG com.intuit.karate.Suite - [config] classpath:karate-config.js
+14:40:43.308 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye 
+14:40:43.475 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/goodbye
+1 > Accept: application/json
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:43.566 [main] DEBUG com.intuit.karate - response time in milliseconds: 62
+1 < 404
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:43 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"path":"\/api\/v1\/goodbye","error":"Not Found","message":"No static resource api\/v1\/goodbye.","timestamp":"2025-10-30T14:40:43.523+00:00","status":404}
+14:40:43.577 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:12
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: 
+{"timestamp":"2025-10-30T14:40:43.523+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye.","path":"/api/v1/goodbye"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:12
+]]></system-out>
+  </testcase>
+  <testcase name="hello[1][2]" classname="karate.KarateRunnerTest" time="0.669">
+    <failure message="status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: &#10;{&quot;timestamp&quot;:&quot;2025-10-30T14:40:43.619+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api/v1/goodbye/fifi.&quot;,&quot;path&quot;:&quot;/api/v1/goodbye/fifi&quot;}&#10;classpath:karate/goodbye/ITGOODBYE-API.feature:22" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: 
+status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: 
+{"timestamp":"2025-10-30T14:40:43.619+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye/fifi.","path":"/api/v1/goodbye/fifi"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:22
+</failure>
+    <system-out><![CDATA[14:40:43.604 [main] INFO  com.intuit.karate - [print] ITGOODBYE-UC01 - Get /api/v1/goodbye/fifi 
+14:40:43.607 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/goodbye/fifi
+1 > Accept: application/json
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:43.622 [main] DEBUG com.intuit.karate - response time in milliseconds: 14
+1 < 404
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:43 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"path":"\/api\/v1\/goodbye\/fifi","error":"Not Found","message":"No static resource api\/v1\/goodbye\/fifi.","timestamp":"2025-10-30T14:40:43.619+00:00","status":404}
+14:40:43.624 [main] ERROR com.intuit.karate - classpath:karate/goodbye/ITGOODBYE-API.feature:22
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: 
+{"timestamp":"2025-10-30T14:40:43.619+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye/fifi.","path":"/api/v1/goodbye/fifi"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:22
+---------------------------------------------------------
+feature: classpath:karate/goodbye/ITGOODBYE-API.feature
+scenarios:  2 | passed:  0 | failed:  2 | time: 0,3116
+---------------------------------------------------------
+
+]]></system-out>
+  </testcase>
+  <testcase name="hello[2][1]" classname="karate.KarateRunnerTest" time="0.049"/>
+  <testcase name="hello[2][2]" classname="karate.KarateRunnerTest" time="0.094"/>
+  <testcase name="hello[3][1]" classname="karate.KarateRunnerTest" time="0.093">
+    <failure message="status code was: 404, expected: 200, response time in milliseconds: 13, url: http://localhost:8080/api/auth/login, response: &#10;{&quot;timestamp&quot;:&quot;2025-10-30T14:40:44.457+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;No static resource api/auth/login.&quot;,&quot;path&quot;:&quot;/api/auth/login&quot;}&#10;classpath:karate/hello/hello_karate/all-users.feature:15" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: 
+status code was: 404, expected: 200, response time in milliseconds: 13, url: http://localhost:8080/api/auth/login, response: 
+{"timestamp":"2025-10-30T14:40:44.457+00:00","status":404,"error":"Not Found","message":"No static resource api/auth/login.","path":"/api/auth/login"}
+classpath:karate/hello/hello_karate/all-users.feature:15
+</failure>
+    <system-out><![CDATA[14:40:44.445 [main] DEBUG com.intuit.karate - request:
+1 > POST http://localhost:8080/api/auth/login
+1 > Content-Type: application/json; charset=UTF-8
+1 > Content-Length: 56
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+{"password":"user_1_password","email":"user_1@mail.com"}
+
+14:40:44.460 [main] DEBUG com.intuit.karate - response time in milliseconds: 13
+1 < 404
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"path":"\/api\/auth\/login","error":"Not Found","message":"No static resource api\/auth\/login.","timestamp":"2025-10-30T14:40:44.457+00:00","status":404}
+14:40:44.462 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all-users.feature:15
+Then status 200
+status code was: 404, expected: 200, response time in milliseconds: 13, url: http://localhost:8080/api/auth/login, response: 
+{"timestamp":"2025-10-30T14:40:44.457+00:00","status":404,"error":"Not Found","message":"No static resource api/auth/login.","path":"/api/auth/login"}
+classpath:karate/hello/hello_karate/all-users.feature:15
+---------------------------------------------------------
+feature: classpath:karate/hello/hello_karate/all-users.feature
+scenarios:  1 | passed:  0 | failed:  1 | time: 0,0465
+---------------------------------------------------------
+
+]]></system-out>
+  </testcase>
+  <testcase name="hello[4][1]" classname="karate.KarateRunnerTest" time="0.014">
+    <failure message="&gt;&gt;&gt;&gt; js failed:&#10;01: read(&apos;classpath:features/all-users.feature@auth_user1&apos;)&#10;&lt;&lt;&lt;&lt;&#10;org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature&#10;- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)&#10;- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)&#10;- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)&#10;- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)&#10;- &lt;js&gt;.:program(Unnamed:1)&#10;&#10;classpath:karate/hello/hello_karate/all.feature:5" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+]]></failure>
+    <system-out><![CDATA[14:40:44.515 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+]]></system-out>
+  </testcase>
+  <testcase name="hello[4][2]" classname="karate.KarateRunnerTest" time="0.044">
+    <failure message="&gt;&gt;&gt;&gt; js failed:&#10;01: read(&apos;classpath:features/all-users.feature@auth_user1&apos;)&#10;&lt;&lt;&lt;&lt;&#10;org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature&#10;- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)&#10;- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)&#10;- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)&#10;- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)&#10;- &lt;js&gt;.:program(Unnamed:1)&#10;&#10;classpath:karate/hello/hello_karate/all.feature:5" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+]]></failure>
+    <system-out><![CDATA[14:40:44.522 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/all.feature:5
+* def authUser1 = callonce read('classpath:features/all-users.feature@auth_user1')
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+---------------------------------------------------------
+feature: classpath:karate/hello/hello_karate/all.feature
+scenarios:  2 | passed:  0 | failed:  2 | time: 0,0113
+---------------------------------------------------------
+
+]]></system-out>
+  </testcase>
+  <testcase name="hello[5][1]" classname="karate.KarateRunnerTest" time="0.04"/>
+  <testcase name="hello[6][1]" classname="karate.KarateRunnerTest" time="0.05"/>
+  <testcase name="hello[7][1]" classname="karate.KarateRunnerTest" time="0.045">
+    <failure message="&gt;&gt;&gt;&gt; js failed:&#10;01: expectedStatusList&#10;&lt;&lt;&lt;&lt;&#10;org.graalvm.polyglot.PolyglotException: ReferenceError: &quot;expectedStatusList&quot; is not defined&#10;- &lt;js&gt;.:program(Unnamed:1)&#10;&#10;classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: expectedStatusList
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "expectedStatusList" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+]]></failure>
+    <system-out><![CDATA[14:40:44.658 [main] DEBUG com.intuit.karate - request:
+1 > GET http://localhost:8080/api/v1/hello
+1 > Host: localhost:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/21.0.2)
+1 > Accept-Encoding: gzip,deflate
+
+
+14:40:44.663 [main] DEBUG com.intuit.karate - response time in milliseconds: 5
+1 < 200
+1 < X-Content-Type-Options: nosniff
+1 < X-XSS-Protection: 0
+1 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 < Pragma: no-cache
+1 < Expires: 0
+1 < X-Frame-Options: DENY
+1 < Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+1 < Access-Control-Allow-Origin: *
+1 < Content-Type: application/json
+1 < Transfer-Encoding: chunked
+1 < Date: Thu, 30 Oct 2025 14:40:44 GMT
+1 < Keep-Alive: timeout=60
+1 < Connection: keep-alive
+{"message":"Hello World"}
+14:40:44.667 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+Then match expectedStatusList contains responseStatus
+>>>> js failed:
+01: expectedStatusList
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "expectedStatusList" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+---------------------------------------------------------
+feature: classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature
+scenarios:  1 | passed:  0 | failed:  1 | time: 0,0103
+---------------------------------------------------------
+
+]]></system-out>
+  </testcase>
+  <testcase name="hello[8][1]" classname="karate.KarateRunnerTest" time="0.131">
+    <failure message="&gt;&gt;&gt;&gt; js failed:&#10;01: [&apos;api&apos;,&apos;v1&apos;,&apos;hello&apos;,name]&#10;&lt;&lt;&lt;&lt;&#10;org.graalvm.polyglot.PolyglotException: ReferenceError: &quot;name&quot; is not defined&#10;- &lt;js&gt;.:program(Unnamed:1)&#10;&#10;classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+]]></failure>
+    <system-out><![CDATA[14:40:44.706 [main] ERROR com.intuit.karate - classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+Given path 'api','v1','hello',name
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+---------------------------------------------------------
+feature: classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature
+scenarios:  1 | passed:  0 | failed:  1 | time: 0,0012
+---------------------------------------------------------
+
+Karate version: 1.0.1
+======================================================
+elapsed:   2,09 | threads:    1 | thread time: 0,47 
+features:     8 | skipped:    0 | efficiency: 0,22
+scenarios:   11 | passed:     4 | failed: 7
+======================================================
+>>> failed features:
+status code was: 404, expected: 200, response time in milliseconds: 13, url: http://localhost:8080/api/auth/login, response: 
+{"timestamp":"2025-10-30T14:40:44.457+00:00","status":404,"error":"Not Found","message":"No static resource api/auth/login.","path":"/api/auth/login"}
+classpath:karate/hello/hello_karate/all-users.feature:15
+>>>> js failed:
+01: ['api','v1','hello',name]
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "name" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-{name}-GET.feature:9
+>>>> js failed:
+01: expectedStatusList
+<<<<
+org.graalvm.polyglot.PolyglotException: ReferenceError: "expectedStatusList" is not defined
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/unit/hello/api-v1-hello-GET.feature:11
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+>>>> js failed:
+01: read('classpath:features/all-users.feature@auth_user1')
+<<<<
+org.graalvm.polyglot.PolyglotException: not found: features/all-users.feature
+- com.intuit.karate.resource.ResourceUtils.getResource(ResourceUtils.java:120)
+- com.intuit.karate.core.ScenarioFileReader.toResource(ScenarioFileReader.java:128)
+- com.intuit.karate.core.ScenarioFileReader.readFile(ScenarioFileReader.java:63)
+- com.intuit.karate.core.ScenarioEngine.lambda$new$0(ScenarioEngine.java:118)
+- <js>.:program(Unnamed:1)
+
+classpath:karate/hello/hello_karate/all.feature:5
+status code was: 404, expected: 200, response time in milliseconds: 62, url: http://localhost:8080/api/v1/goodbye, response: 
+{"timestamp":"2025-10-30T14:40:43.523+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye.","path":"/api/v1/goodbye"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:12
+status code was: 404, expected: 200, response time in milliseconds: 14, url: http://localhost:8080/api/v1/goodbye/fifi, response: 
+{"timestamp":"2025-10-30T14:40:43.619+00:00","status":404,"error":"Not Found","message":"No static resource api/v1/goodbye/fifi.","path":"/api/v1/goodbye/fifi"}
+classpath:karate/goodbye/ITGOODBYE-API.feature:22
+<<<
+
+HTML report: (paste into browser to view) | Karate version: 1.0.1
+file:///home/pbousquet/DevFestNantes/demo/hello/hello-karate/target/karate-reports/karate-summary.html
+===================================================================
+
+]]></system-out>
+  </testcase>
+</testsuite>
