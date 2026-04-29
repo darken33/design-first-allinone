@@ -10,21 +10,21 @@ import type { Express } from 'express';
 import type { HelloDto } from '../../src/generated/schemas/helloDto';
 import type { HealthDto } from '../../src/generated/schemas/healthDto';
 import type { ApiErrorResponse } from '../../src/generated/schemas/apiErrorResponse';
+import { HelloService } from '../../src/services/hello.service';
+
+const mockProducer = { sendHelloMessage: jest.fn().mockResolvedValue(undefined) };
 
 describe('Full Workflow – Contract-First Demo', () => {
   let app: Express;
 
   beforeAll(async () => {
-    const module = await import('../../src/config/express');
-    app = module.createApp();
+    const { createApp } = await import('../../src/config/express');
+    app = createApp(new HelloService(mockProducer));
   });
 
   describe('Health check', () => {
     it('GET /health returns 200 with healthy status', async () => {
-      const response = await request(app)
-        .get('/health')
-        .expect(200)
-        .expect('Content-Type', /json/);
+      const response = await request(app).get('/health').expect(200).expect('Content-Type', /json/);
 
       const body = response.body as HealthDto;
       expect(body.status).toBe('healthy');
@@ -33,10 +33,10 @@ describe('Full Workflow – Contract-First Demo', () => {
     });
   });
 
-  describe('GET /api/hello – generic greeting', () => {
+  describe('GET /api/v1/hello – generic greeting', () => {
     it('returns Hello World with correct structure', async () => {
       const response = await request(app)
-        .get('/api/hello')
+        .get('/api/v1/hello')
         .expect(200)
         .expect('Content-Type', /json/);
 
@@ -45,14 +45,14 @@ describe('Full Workflow – Contract-First Demo', () => {
     });
   });
 
-  describe('GET /api/hello/:name – personalized greeting', () => {
+  describe('GET /api/v1/hello/:name – personalized greeting', () => {
     const validNames = ['Philippe', 'Jean Paul', 'Marie-Claire', 'Alice', 'Bob'];
 
     validNames.forEach((name) => {
       it(`accepts valid name "${name}" and returns greeting`, async () => {
         const encodedName = encodeURIComponent(name);
         const response = await request(app)
-          .get(`/api/hello/${encodedName}`)
+          .get(`/api/v1/hello/${encodedName}`)
           .expect(200)
           .expect('Content-Type', /json/);
 
@@ -63,7 +63,7 @@ describe('Full Workflow – Contract-First Demo', () => {
     });
 
     it('returns Content-Type application/json', async () => {
-      const response = await request(app).get('/api/hello/Test');
+      const response = await request(app).get('/api/v1/hello/Test');
       expect(response.headers['content-type']).toMatch(/application\/json/);
     });
   });
@@ -78,7 +78,7 @@ describe('Full Workflow – Contract-First Demo', () => {
     invalidCases.forEach(({ name, reason }) => {
       it(`rejects "${name}" (${reason}) with HTTP 400`, async () => {
         const response = await request(app)
-          .get(`/api/hello/${name}`)
+          .get(`/api/v1/hello/${name}`)
           .expect(400)
           .expect('Content-Type', /json/);
 
@@ -87,14 +87,12 @@ describe('Full Workflow – Contract-First Demo', () => {
         expect(body.error).toBeDefined();
         expect(body.message).toBeDefined();
         expect(body.timestamp).toBeDefined();
-        expect(body.path).toBe(`/api/hello/${name}`);
+        expect(body.path).toBe(`/api/v1/hello/${name}`);
       });
     });
 
     it('error response has ApiErrorResponse structure', async () => {
-      const response = await request(app)
-        .get('/api/hello/a')
-        .expect(400);
+      const response = await request(app).get('/api/v1/hello/a').expect(400);
 
       const body = response.body as ApiErrorResponse;
       expect(Object.keys(body)).toEqual(

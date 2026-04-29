@@ -1,0 +1,38 @@
+<main class="container">
+  <header>
+    <h1>Hello App</h1>
+    <app-health-status />
+  </header>
+
+  <section class="card">
+    <h2>Salutation générique</h2>
+    <app-greeting [state]="genericState()" />
+  </section>
+
+  <section class="card">
+    <h2>Salutation personnalisée</h2>
+    <form (ngSubmit)="onSubmit()" #nameForm="ngForm" class="name-form">
+      <div class="form-row">
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          required
+          minlength="2"
+          maxlength="25"
+          pattern="^[a-zA-Z ,.'\-]+$"
+          placeholder="Votre prénom"
+          #nameInput="ngModel"
+          class="name-input"
+        />
+        <button type="submit" [disabled]="!name.trim()" class="submit-btn">
+          Saluer
+        </button>
+      </div>
+      @if (nameInput.invalid && nameInput.dirty) {
+        <p class="validation-error">Le prénom doit contenir 2 à 25 lettres (pas de chiffres).</p>
+      }
+    </form>
+    <app-greeting [state]="personalizedState()" />
+  </section>
+</main>

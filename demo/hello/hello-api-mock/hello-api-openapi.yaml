@@ -32,7 +32,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HelloDto'
               example:
-                message: "Hello World!"
+                message: "Mock : Hello World!"
         "500":
           description: Internal Server Error
           content:
@@ -72,7 +72,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HelloDto'
               example:
-                message: "Hello fifi!"
+                message: "Mock : Hello fifi!"
         "400":
           description: Bad Request
           content:

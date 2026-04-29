@@ -48,7 +48,7 @@ describe('OpenAPI Contract Compliance', () => {
         error: 'Bad Request',
         message: 'Validation failed',
         timestamp: new Date().toISOString(),
-        path: '/api/hello/invalid'
+        path: '/api/v1/hello/invalid'
       };
       expect(error.status).toBe(400);
       expect(typeof error.error).toBe('string');

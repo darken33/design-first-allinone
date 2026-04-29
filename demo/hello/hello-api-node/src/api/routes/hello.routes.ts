@@ -1,34 +1,34 @@
 /**
  * Hello Routes
- * Registers GET /hello and GET /hello/:name endpoints
+ * Registers GET /v1/hello and GET /v1/hello/:name endpoints
  */
 import type { Router } from 'express';
 import { Router as ExpressRouter } from 'express';
 import { HelloController } from '../controllers/hello.controller';
-import { HelloService } from '../../services/hello.service';
+import type { IHelloService } from '../../services/interfaces/hello.service.interface';
 import { NameParamSchema } from '../../validations/index';
 import { validateRequest } from '../../middleware/validation';
 
-// Initialize service and controller
-const helloService = new HelloService();
-const helloController = new HelloController(helloService);
+export const createHelloRoutes = (helloService: IHelloService): Router => {
+  const helloController = new HelloController(helloService);
+  const router = ExpressRouter();
 
-// Create router
-export const helloRoutes: Router = ExpressRouter();
+  /**
+   * GET /v1/hello
+   * Returns generic "Hello World" greeting
+   */
+  router.get('/v1/hello', helloController.getHello);
 
-/**
- * GET /hello
- * Returns generic "Hello World" greeting
- */
-helloRoutes.get('/hello', helloController.getHello);
+  /**
+   * GET /v1/hello/:name
+   * Returns personalized greeting for the provided name
+   * Validates name against NameParamSchema (min 2 chars, max 25, pattern)
+   */
+  router.get(
+    '/v1/hello/:name',
+    validateRequest(NameParamSchema, 'params'),
+    helloController.getHelloByName
+  );
 
-/**
- * GET /hello/:name
- * Returns personalized greeting for the provided name
- * Validates name against NameParamSchema (min 2 chars, max 25, pattern)
- */
-helloRoutes.get(
-  '/hello/:name',
-  validateRequest(NameParamSchema, 'params'),
-  helloController.getHelloByName
-);
+  return router;
+};

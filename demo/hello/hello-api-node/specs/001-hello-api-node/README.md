@@ -58,8 +58,8 @@ Le fichier [openapi.yaml](./openapi.yaml) définit:
 
 | Path | Méthode | Description | Paramètres |
 |------|---------|-------------|-----------|
-| `/api/hello` | GET | Salutation générique | Aucun |
-| `/api/hello/{name}` | GET | Salutation personnalisée | `name` (2-25 chars, alphanum+ponctuation) |
+| `/api/v1/hello` | GET | Salutation générique | Aucun |
+| `/api/v1/hello/{name}` | GET | Salutation personnalisée | `name` (2-25 chars, alphanum+ponctuation) |
 | `/health` | GET | Probe santé (K8s liveness) | Aucun |
 
 ### Réponses
@@ -78,7 +78,7 @@ Le fichier [openapi.yaml](./openapi.yaml) définit:
   "status": 400,
   "error": "Bad Request",
   "message": "name must match pattern: ^[a-zA-Z ,.'-]+$",
-  "path": "/api/hello/123-invalid"
+  "path": "/api/v1/hello/123-invalid"
 }
 ```
 
@@ -112,8 +112,8 @@ La spécification définit **7 critères de succès** mesurables:
 
 ### API Endpoints (FR-001 à FR-007)
 
-- ✅ GET /api/hello MUST return `{ "message": "Hello World" }`
-- ✅ GET /api/hello/{name} MUST return `{ "message": "Hello {name}" }`
+- ✅ GET /api/v1/hello MUST return `{ "message": "Hello World" }`
+- ✅ GET /api/v1/hello/{name} MUST return `{ "message": "Hello {name}" }`
 - ✅ {name} MUST validate: minLength=2, maxLength=25, pattern=`^[a-zA-Z ,.'-]+$`
 - ✅ Invalid {name} MUST return HTTP 400 + structured error JSON
 - ✅ All responses MUST have `Content-Type: application/json`

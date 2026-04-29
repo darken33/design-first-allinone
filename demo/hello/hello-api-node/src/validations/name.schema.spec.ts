@@ -18,8 +18,8 @@ describe('NameParamSchema', () => {
     });
 
     it('should accept names with apostrophes', () => {
-      const result = NameParamSchema.parse({ name: 'O\'Brien' });
-      expect(result.name).toBe('O\'Brien');
+      const result = NameParamSchema.parse({ name: "O'Brien" });
+      expect(result.name).toBe("O'Brien");
     });
 
     it('should accept names with commas and periods', () => {
@@ -53,27 +53,19 @@ describe('NameParamSchema', () => {
 
     it('should reject names longer than 25 characters', () => {
       const name = 'A'.repeat(26);
-      expect(() => NameParamSchema.parse({ name })).toThrow(
-        'name must be at most 25 characters'
-      );
+      expect(() => NameParamSchema.parse({ name })).toThrow('name must be at most 25 characters');
     });
 
     it('should reject names with numbers', () => {
-      expect(() => NameParamSchema.parse({ name: 'John123' })).toThrow(
-        'name format is invalid'
-      );
+      expect(() => NameParamSchema.parse({ name: 'John123' })).toThrow('name format is invalid');
     });
 
     it('should reject names with special characters (@)', () => {
-      expect(() => NameParamSchema.parse({ name: 'Jean@Paul' })).toThrow(
-        'name format is invalid'
-      );
+      expect(() => NameParamSchema.parse({ name: 'Jean@Paul' })).toThrow('name format is invalid');
     });
 
     it('should reject names with special characters (#)', () => {
-      expect(() => NameParamSchema.parse({ name: 'John#Doe' })).toThrow(
-        'name format is invalid'
-      );
+      expect(() => NameParamSchema.parse({ name: 'John#Doe' })).toThrow('name format is invalid');
     });
 
     it('should reject empty string', () => {

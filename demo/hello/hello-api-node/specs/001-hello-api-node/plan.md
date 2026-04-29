@@ -8,7 +8,7 @@
 
 ## Summary
 
-**Objective**: Create a **production-grade, yet simple** REST API in Node.js/TypeScript that demonstrates Contract-First API design using OpenAPI 3.0. The API exposes two endpoints (`GET /api/hello` and `GET /api/hello/{name}`) plus health checks, entirely generated from an OpenAPI specification.
+**Objective**: Create a **production-grade, yet simple** REST API in Node.js/TypeScript that demonstrates Contract-First API design using OpenAPI 3.0. The API exposes two endpoints (`GET /api/v1/hello` and `GET /api/v1/hello/{name}`) plus health checks, entirely generated from an OpenAPI specification.
 
 **Technical Approach**:
 1. **Contract-First**: OpenAPI 3.0 YAML is the single source of truth
@@ -282,7 +282,7 @@ From the spec, entities identified:
 **Task: Finalize OpenAPI Specification**
 
 Contract already defined in `openapi.yaml` (see attachment). Includes:
-- 3 paths: `/api/hello`, `/api/hello/{name}`, `/health`
+- 3 paths: `/api/v1/hello`, `/api/v1/hello/{name}`, `/health`
 - Schemas: HelloDto, HealthDto, ApiErrorResponse
 - Validations: pattern, minLength, maxLength
 - HTTP codes: 200, 400, 500, 503
@@ -332,8 +332,8 @@ For demonstration purposes, contract tests are written as integration tests (sup
 
 4. Test endpoints:
    \`\`\`bash
-   curl http://localhost:3000/api/hello
-   curl http://localhost:3000/api/hello/Philippe
+   curl http://localhost:3000/api/v1/hello
+   curl http://localhost:3000/api/v1/hello/Philippe
    curl http://localhost:3000/health
    \`\`\`
 

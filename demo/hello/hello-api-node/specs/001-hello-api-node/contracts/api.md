@@ -18,14 +18,14 @@ HelloAPI exposes **3 REST endpoints** over HTTP. All endpoints:
 
 ## Endpoint 1: Generic Greeting
 
-### `GET /api/hello`
+### `GET /api/v1/hello`
 
 **Purpose**: Get default greeting message
 
 **Request**
 
 ```http
-GET /api/hello HTTP/1.1
+GET /api/v1/hello HTTP/1.1
 Host: api.example.com
 ```
 
@@ -51,7 +51,7 @@ Host: api.example.com
 
 ## Endpoint 2: Personalized Greeting
 
-### `GET /api/hello/{name}`
+### `GET /api/v1/hello/{name}`
 
 **Purpose**: Get greeting message for specific person
 
@@ -64,15 +64,15 @@ Host: api.example.com
 **Request Examples**
 
 ```http
-GET /api/hello/Philippe HTTP/1.1
+GET /api/v1/hello/Philippe HTTP/1.1
 Host: api.example.com
 ```
 
 ```bash
 # CLI Examples
-curl https://api.example.com/api/hello/Philippe
-curl https://api.example.com/api/hello/Jean-Marie
-curl https://api.example.com/api/hello/O'Brien
+curl https://api.example.com/api/v1/hello/Philippe
+curl https://api.example.com/api/v1/hello/Jean-Marie
+curl https://api.example.com/api/v1/hello/O'Brien
 ```
 
 **Response: 200 OK**
@@ -114,7 +114,7 @@ curl https://api.example.com/api/hello/O'Brien
   "status": 400,
   "error": "Bad Request",
   "message": "name must be at least 2 characters",
-  "path": "/api/hello/a"
+  "path": "/api/v1/hello/a"
 }
 ```
 
@@ -216,7 +216,7 @@ curl http://localhost:3000/health
   "status": 400,
   "error": "Bad Request",
   "message": "name must be at least 2 characters",
-  "path": "/api/hello/a"
+  "path": "/api/v1/hello/a"
 }
 ```
 
@@ -239,7 +239,7 @@ curl http://localhost:3000/health
 ```typescript
 // TypeScript client code
 try {
-  const response = await fetch('https://api.example.com/api/hello/a');
+  const response = await fetch('https://api.example.com/api/v1/hello/a');
   if (!response.ok) {
     const error = await response.json();
     console.error(`Error ${error.status}: ${error.message}`);
@@ -280,8 +280,8 @@ app.use(cors({
 **Phase 2+**: Can add `express-rate-limit` middleware
 
 **Proposed rates** (POST-MVP):
-- `/api/hello`: 100 requests per minute per IP
-- `/api/hello/{name}`: 100 requests per minute per IP
+- `/api/v1/hello`: 100 requests per minute per IP
+- `/api/v1/hello/{name}`: 100 requests per minute per IP
 - `/health`: 1000 requests per minute per IP (exclude from limits)
 
 ---
@@ -291,9 +291,9 @@ app.use(cors({
 ### Example 1: Valid Request
 
 ```bash
-$ curl -v https://api.example.com/api/hello/Alice
+$ curl -v https://api.example.com/api/v1/hello/Alice
 
-> GET /api/hello/Alice HTTP/1.1
+> GET /api/v1/hello/Alice HTTP/1.1
 > Host: api.example.com
 > User-Agent: curl/7.68.0
 > Accept: */*
@@ -308,9 +308,9 @@ $ curl -v https://api.example.com/api/hello/Alice
 ### Example 2: Validation Error
 
 ```bash
-$ curl -v https://api.example.com/api/hello/no
+$ curl -v https://api.example.com/api/v1/hello/no
 
-> GET /api/hello/no HTTP/1.1
+> GET /api/v1/hello/no HTTP/1.1
 > Host: api.example.com
 
 < HTTP/1.1 400 Bad Request
@@ -322,7 +322,7 @@ $ curl -v https://api.example.com/api/hello/no
   "status": 400,
   "error": "Bad Request",
   "message": "name must be at least 2 characters",
-  "path": "/api/hello/no"
+  "path": "/api/v1/hello/no"
 }
 ```
 
@@ -387,7 +387,7 @@ npm install swagger-ui-express swagger-jsdoc
 
 ### Future Versions (Phase 2+)
 - ⏳ API versioning (if breaking changes needed)
-- ⏳ Additional endpoints (e.g., POST /api/hello for data persistence)
+- ⏳ Additional endpoints (e.g., POST /api/v1/hello for data persistence)
 - ⏳ Rate limiting middleware
 - ⏳ Authentication & authorization
 - ⏳ Swagger UI documentation interface

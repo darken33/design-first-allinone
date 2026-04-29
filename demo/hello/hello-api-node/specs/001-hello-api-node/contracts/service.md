@@ -192,9 +192,9 @@ describe('HelloService', () => {
 ### Call Flow Diagram
 
 ```
-HTTP Request: GET /api/hello/Philippe
+HTTP Request: GET /api/v1/hello/Philippe
     ↓
-EXPRESS ROUTER: Matches /api/hello/{name}
+EXPRESS ROUTER: Matches /api/v1/hello/{name}
     ↓
 HELLO CONTROLLER.getHelloByName()
     ↓
@@ -432,8 +432,8 @@ const helloController = new HelloController(
   serviceContainer.getHelloService()
 );
 
-app.get('/api/hello', helloController.getHello);
-app.get('/api/hello/:name', helloController.getHelloByName);
+app.get('/api/v1/hello', helloController.getHello);
+app.get('/api/v1/hello/:name', helloController.getHelloByName);
 ```
 
 ---
@@ -453,7 +453,7 @@ expect(service.sayHello("Alice")).toBe("Hello Alice");
 ### 2. **Reusability**
 
 Same service used by:
-- REST endpoints (/api/hello/{name})
+- REST endpoints (/api/v1/hello/{name})
 - GraphQL resolvers (future)
 - gRPC handlers (future)
 - CLI commands (future)

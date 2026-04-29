@@ -18,7 +18,7 @@
 
 **Action**: `send` (producer)
 **Description**: Published after every successful greeting response (HTTP 200)
-**Trigger**: Once per valid `GET /api/hello` or `GET /api/hello/:name` request
+**Trigger**: Once per valid `GET /api/v1/hello` or `GET /api/v1/hello/:name` request
 
 ### Kafka Binding
 
@@ -66,8 +66,8 @@ export class HelloMessagePayload {
 
 | Condition | Event Published |
 |-----------|----------------|
-| `GET /api/hello` → HTTP 200 | ✅ Yes — `{ "message": "Hello World" }` |
-| `GET /api/hello/:name` → HTTP 200 | ✅ Yes — `{ "message": "Hello <name>" }` |
+| `GET /api/v1/hello` → HTTP 200 | ✅ Yes — `{ "message": "Hello World" }` |
+| `GET /api/v1/hello/:name` → HTTP 200 | ✅ Yes — `{ "message": "Hello <name>" }` |
 | Validation error → HTTP 400 | ❌ No |
 | Kafka error → HTTP 500 | ❌ No (publish attempted, failed) |
 

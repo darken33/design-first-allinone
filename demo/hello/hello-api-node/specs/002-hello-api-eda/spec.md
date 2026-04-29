@@ -59,7 +59,7 @@ un cycle cohérent et reproductible, indépendamment de la couche REST.
    - Zero `any` types in generated output
 
 2. **Given** Developer implements event publishing in `HelloService`, **When** Calls
-   `GET /api/hello/Philippe`, **Then** Exactly one Kafka event is published on `event.hello.v1`
+   `GET /api/v1/hello/Philippe`, **Then** Exactly one Kafka event is published on `event.hello.v1`
    with payload `{ "message": "Hello Philippe" }`
    - Payload matches `HelloMessagePayload` schema
    - Event published (awaited) before HTTP 200 is returned
@@ -94,13 +94,13 @@ l'événement visible et conforme au schéma AsyncAPI.
 
 **Acceptance Scenarios**:
 
-1. **Given** Présentateur appelle `GET /api/hello/World`, **When** L'API répond HTTP 200,
+1. **Given** Présentateur appelle `GET /api/v1/hello/World`, **When** L'API répond HTTP 200,
    **Then** Un consumer Kafka sur `event.hello.v1` reçoit `{ "message": "Hello World" }` en
    moins d'une seconde
    - Message est du JSON valide
    - Payload est strictement conforme au schéma `HelloMessagePayload`
 
-2. **Given** Kafka est disponible, **When** `GET /api/hello` et `GET /api/hello/:name` sont
+2. **Given** Kafka est disponible, **When** `GET /api/v1/hello` et `GET /api/v1/hello/:name` sont
    tous les deux appelés, **Then** Chaque appel produit exactement un événement sur
    `event.hello.v1` — ni doublon, ni événement manquant
 
@@ -123,7 +123,7 @@ au contrat, pas sur la consommation.
 **User Flow**:
 
 1. Un consumer externe s'abonne à `event.hello.v1` (groupId `my-group-id`)
-2. Appelle `GET /api/hello/Alice`
+2. Appelle `GET /api/v1/hello/Alice`
 3. Reçoit l'événement `{ "message": "Hello Alice" }` sur le topic Kafka
 4. Valide le payload contre le schéma `HelloMessagePayload`
 
@@ -132,14 +132,14 @@ d'un payload correctement formé après chaque appel REST valide.
 
 **Acceptance Scenarios**:
 
-1. **Given** Kafka est disponible et un consumer est abonné, **When** `GET /api/hello` est
+1. **Given** Kafka est disponible et un consumer est abonné, **When** `GET /api/v1/hello` est
    appelé, **Then** Le consumer reçoit `{ "message": "Hello World" }` sur `event.hello.v1`
 
-2. **Given** Kafka est **indisponible** lors de l'appel `GET /api/hello/Philippe`,
+2. **Given** Kafka est **indisponible** lors de l'appel `GET /api/v1/hello/Philippe`,
    **Then** La réponse REST est HTTP 500 avec un corps `ApiErrorResponse` (sans stack trace),
    aucun événement n'est publié
 
-3. **Given** La validation échoue (ex: `name = "a"`), **When** `GET /api/hello/a` est appelé,
+3. **Given** La validation échoue (ex: `name = "a"`), **When** `GET /api/v1/hello/a` est appelé,
    **Then** HTTP 400 est retourné et **aucun** événement n'est publié sur `event.hello.v1`
 
 ---
@@ -241,7 +241,7 @@ d'un payload correctement formé après chaque appel REST valide.
 
 ### Measurable Outcomes
 
-- **SC-001**: Chaque appel API valide (`GET /api/hello`, `GET /api/hello/:name`) produit
+- **SC-001**: Chaque appel API valide (`GET /api/v1/hello`, `GET /api/v1/hello/:name`) produit
   exactement un événement sur `event.hello.v1` — 100 % de corrélation, zéro perte en conditions
   normales
 - **SC-002**: L'indisponibilité de Kafka est détectée et reportée en HTTP 500 dans 100 % des cas,

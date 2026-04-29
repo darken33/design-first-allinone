@@ -13,7 +13,10 @@ import type { ApiErrorResponse } from '../generated/schemas';
  * @param schema - Zod schema to validate against
  * @param source - Where to find the data to validate (params, query, body)
  */
-export const validateRequest = (schema: ZodSchema, source: 'params' | 'query' | 'body' = 'body') => {
+export const validateRequest = (
+  schema: ZodSchema,
+  source: 'params' | 'query' | 'body' = 'body'
+) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     try {
       const dataToValidate = req[source];

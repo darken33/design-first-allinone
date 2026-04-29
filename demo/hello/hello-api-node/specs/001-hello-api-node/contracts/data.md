@@ -220,7 +220,7 @@ export const errorHandler = (
   "status": 400,
   "error": "Bad Request",
   "message": "name must be at least 2 characters",
-  "path": "/api/hello/a"
+  "path": "/api/v1/hello/a"
 }
 ```
 
@@ -234,7 +234,7 @@ export const errorHandler = (
 ```yaml
 # openapi.yaml
 paths:
-  /api/hello/{name}:
+  /api/v1/hello/{name}:
     get:
       parameters:
         - name: name
@@ -512,7 +512,7 @@ export interface ApiErrorResponse {
 ### Example 1: Missing Field (400)
 
 ```bash
-$ curl http://localhost:3000/api/hello
+$ curl http://localhost:3000/api/v1/hello
 # Path parameter required
 < HTTP/1.1 400 Bad Request
 {
@@ -520,14 +520,14 @@ $ curl http://localhost:3000/api/hello
   "status": 400,
   "error": "Bad Request",
   "message": "name is required",
-  "path": "/api/hello"
+  "path": "/api/v1/hello"
 }
 ```
 
 ### Example 2: Invalid Type (400)
 
 ```bash
-$ curl http://localhost:3000/api/hello/123
+$ curl http://localhost:3000/api/v1/hello/123
 # Numbers disallowed
 < HTTP/1.1 400 Bad Request
 {
@@ -535,14 +535,14 @@ $ curl http://localhost:3000/api/hello/123
   "status": 400,
   "error": "Bad Request",
   "message": "name format is invalid",
-  "path": "/api/hello/123"
+  "path": "/api/v1/hello/123"
 }
 ```
 
 ### Example 3: Whitespace Handling (200)
 
 ```bash
-$ curl http://localhost:3000/api/hello/"  Philippe  "
+$ curl http://localhost:3000/api/v1/hello/"  Philippe  "
 # Spaces trimmed: "Philippe"
 < HTTP/1.1 200 OK
 {

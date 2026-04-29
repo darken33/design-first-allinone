@@ -52,7 +52,7 @@ export interface ValidationError {
   status: number;              // HTTP status code (400, 500, etc.)
   error: string;               // HTTP error name (e.g., "Bad Request")
   message: string;             // Human-readable error message
-  path: string;                // Request path (e.g., "/api/hello/a")
+  path: string;                // Request path (e.g., "/api/v1/hello/a")
 }
 ```
 
@@ -63,7 +63,7 @@ export interface ValidationError {
   "status": 400,
   "error": "Bad Request",
   "message": "name must be at least 2 characters",
-  "path": "/api/hello/a"
+  "path": "/api/v1/hello/a"
 }
 ```
 
@@ -247,7 +247,7 @@ describe('HelloService', () => {
 
 ```
 ┌─────────────────────────────────────────┐
-│ HTTP Request (GET /api/hello/Philippe)  │
+│ HTTP Request (GET /api/v1/hello/Philippe)  │
 └─────────────────┬───────────────────────┘
                   ↓
 ┌─────────────────────────────────────────────────────┐
@@ -382,7 +382,7 @@ export const errorHandler = (err: any, req: any, res: any, next: any) => {
 ### Alternate Lifecycle (Validation Error)
 
 ```
-1. HTTP Request arrives: GET /api/hello/a
+1. HTTP Request arrives: GET /api/v1/hello/a
    ↓
 2. Extract: name = "a"
    ↓

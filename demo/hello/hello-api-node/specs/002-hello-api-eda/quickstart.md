@@ -161,8 +161,8 @@ With Kafka running locally (`localhost:9092`):
 npm run dev
 
 # In another terminal — call the API
-curl http://localhost:3000/api/hello
-curl http://localhost:3000/api/hello/Philippe
+curl http://localhost:3000/api/v1/hello
+curl http://localhost:3000/api/v1/hello/Philippe
 
 # Consume the events (kafka CLI or kafkacat)
 kafka-console-consumer --bootstrap-server localhost:9092 --topic event.hello.v1 --from-beginning

@@ -85,7 +85,7 @@ jobs:
           docker run -d -p 3000:3000 --name smoke-test hello-api-node:${{ github.sha }}
           sleep 3
           curl -f http://localhost:3000/health
-          curl -f http://localhost:3000/api/hello
+          curl -f http://localhost:3000/api/v1/hello
           docker stop smoke-test
 
   deploy-staging:

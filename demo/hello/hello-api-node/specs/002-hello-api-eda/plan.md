@@ -7,7 +7,7 @@
 
 Ajouter une couche de publication d'événements Kafka à l'API REST Hello Node.js existante, en
 respectant le contrat AsyncAPI 3.0 (`hello-asyncapi-3-full.yaml`). Chaque appel REST valide
-(`GET /api/hello`, `GET /api/hello/:name`) publiera un événement `HelloMessagePayload` sur le
+(`GET /api/v1/hello`, `GET /api/v1/hello/:name`) publiera un événement `HelloMessagePayload` sur le
 topic `event.hello.v1`. Le code TypeScript du payload sera généré automatiquement depuis la spec
 AsyncAPI via `@asyncapi/modelina`. L'architecture suit le pattern Adapter/interface pour isoler
 `kafkajs` de la couche domaine, permettant le mock complet dans les tests unitaires.

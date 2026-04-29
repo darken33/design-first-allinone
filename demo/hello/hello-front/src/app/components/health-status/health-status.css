@@ -1,0 +1,25 @@
+.health-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.badge-green  { background: #28a745; }
+.badge-orange { background: #fd7e14; }
+.badge-red    { background: #dc3545; }
+.badge-grey   { background: #6c757d; }
+
+.uptime {
+  font-size: 0.8rem;
+  color: #6c757d;
+}

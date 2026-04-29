@@ -145,7 +145,7 @@ describe('HelloService', () => {
 });
 
 // Integration test (hello.api.spec.ts)
-describe('GET /api/hello/:name', () => {
+describe('GET /api/v1/hello/:name', () => {
   let app: Express;
   let request: SuperTest;
   
@@ -155,7 +155,7 @@ describe('GET /api/hello/:name', () => {
   });
   
   it('should return 200 with greeting', async () => {
-    await request.get('/api/hello/Alice').expect(200);
+    await request.get('/api/v1/hello/Alice').expect(200);
   });
 });
 ```

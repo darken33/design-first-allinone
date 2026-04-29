@@ -79,7 +79,7 @@ npm run dev
 
 **Test 1: Generic greeting**
 ```bash
-curl http://localhost:3000/api/hello
+curl http://localhost:3000/api/v1/hello
 
 # Response:
 # {"message":"Hello World"}
@@ -87,7 +87,7 @@ curl http://localhost:3000/api/hello
 
 **Test 2: Personalized greeting**
 ```bash
-curl http://localhost:3000/api/hello/Philippe
+curl http://localhost:3000/api/v1/hello/Philippe
 
 # Response:
 # {"message":"Hello Philippe"}
@@ -103,10 +103,10 @@ curl http://localhost:3000/health
 
 **Test 4: Invalid parameter (validation)**
 ```bash
-curl http://localhost:3000/api/hello/a
+curl http://localhost:3000/api/v1/hello/a
 
 # Response (HTTP 400):
-# {"timestamp":"2026-04-24T10:30:00.000Z","status":400,"error":"Bad Request","message":"name must be at least 2 characters","path":"/api/hello/a"}
+# {"timestamp":"2026-04-24T10:30:00.000Z","status":400,"error":"Bad Request","message":"name must be at least 2 characters","path":"/api/v1/hello/a"}
 ```
 
 ---
@@ -136,10 +136,10 @@ npm test
 npm run test:integration
 
 # Output:
-# PASS  src/api/hello.api.spec.ts
-#   GET /api/hello
+# PASS  src/api/v1/hello.api.spec.ts
+#   GET /api/v1/hello
 #     ✓ should return generic greeting (45ms)
-#   GET /api/hello/:name
+#   GET /api/v1/hello/:name
 #     ✓ should return personalized greeting (40ms)
 #     ✓ should reject invalid parameter (50ms)
 #
@@ -194,7 +194,7 @@ docker run -p 3000:3000 hello-api-node:latest
 
 **In new terminal**:
 ```bash
-curl http://localhost:3000/api/hello/Docker
+curl http://localhost:3000/api/v1/hello/Docker
 
 # Response:
 # {"message":"Hello Docker"}
@@ -254,7 +254,7 @@ kubectl get pods
 kubectl port-forward svc/hello-api-node 3000:3000
 
 # In new terminal:
-curl http://localhost:3000/api/hello/Kubernetes
+curl http://localhost:3000/api/v1/hello/Kubernetes
 
 # Response:
 # {"message":"Hello Kubernetes"}
@@ -277,7 +277,7 @@ curl http://localhost:3000/api/hello/Kubernetes
    # Open editor or browser
    cat specs/001-hello-api-node/openapi.yaml
    # Highlight:
-   # - paths: /api/hello, /api/hello/{name}
+   # - paths: /api/v1/hello, /api/v1/hello/{name}
    # - parameters: name with constraints (minLength, maxLength, pattern)
    # - responses: HelloDto schema
    ```
@@ -330,9 +330,9 @@ curl http://localhost:3000/api/hello/Kubernetes
 3. **Demo Parameter Validation** (2 min)
    ```bash
    # Show validation works
-   curl http://localhost:3000/api/hello/Philippe     # ✅ Works
-   curl http://localhost:3000/api/hello/a            # ❌ Too short
-   curl http://localhost:3000/api/hello/123invalid   # ❌ Invalid chars
+   curl http://localhost:3000/api/v1/hello/Philippe     # ✅ Works
+   curl http://localhost:3000/api/v1/hello/a            # ❌ Too short
+   curl http://localhost:3000/api/v1/hello/123invalid   # ❌ Invalid chars
    # Each returns HTTP 400 with error message matching OpenAPI spec
    ```
 

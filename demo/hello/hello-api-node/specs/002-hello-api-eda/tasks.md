@@ -11,12 +11,12 @@
 **Goal**: Install dependencies, configure AsyncAPI codegen, and set up Kafka test infrastructure.
 **Independent Test**: `npm run generate:events` produces `src/generated/events/HelloMessagePayload.ts` without errors.
 
-- [ ] T001 Add `kafkajs`, `@asyncapi/cli`, and `@asyncapi/modelina` to package.json dependencies and devDependencies in `package.json`
-- [ ] T002 Add `"generate:events"` npm script invoking AsyncAPI modelina CLI in `package.json`: `asyncapi generate models typescript hello-api-java/hello-asyncapi-3-full.yaml -o src/generated/events/`
-- [ ] T003 Confirm `src/generated/` is in `.gitignore` (add if missing) in `.gitignore`
-- [ ] T004 Create `docker-compose.test.yml` with `bitnami/kafka:3.7` in KRaft mode (single container, port 9093→9092, no Zookeeper) at project root `docker-compose.test.yml`
-- [ ] T005 Add `KAFKA_BROKERS`, `KAFKA_CLIENT_ID`, and `KAFKA_TOPIC_HELLO` to `.env.example`
-- [ ] T006 Run `npm install` to install new deps and verify `npm run generate:events` produces `src/generated/events/HelloMessagePayload.ts`
+- [X] T001 Add `kafkajs`, `@asyncapi/cli`, and `@asyncapi/modelina` to package.json dependencies and devDependencies in `package.json`
+- [X] T002 Add `"generate:events"` npm script invoking AsyncAPI modelina CLI in `package.json`: `asyncapi generate models typescript hello-api-java/hello-asyncapi-3-full.yaml -o src/generated/events/`
+- [X] T003 Confirm `src/generated/` is in `.gitignore` (add if missing) in `.gitignore`
+- [X] T004 Create `docker-compose.test.yml` with `bitnami/kafka:3.7` in KRaft mode (single container, port 9093→9092, no Zookeeper) at project root `docker-compose.test.yml`
+- [X] T005 Add `KAFKA_BROKERS`, `KAFKA_CLIENT_ID`, and `KAFKA_TOPIC_HELLO` to `.env.example`
+- [X] T006 Run `npm install` to install new deps and verify `npm run generate:events` produces `src/generated/events/HelloMessagePayload.ts`
 
 ---
 
@@ -25,8 +25,8 @@
 **Goal**: Define the `IEventProducer` interface and verify generated types — the contract all other work depends on.
 **Independent Test**: TypeScript compilation (`npm run build`) succeeds with `IEventProducer` interface and `HelloMessagePayload` imported together.
 
-- [ ] T007 Create `IEventProducer` interface in `src/services/interfaces/event-producer.interface.ts` with `sendHelloMessage(payload: HelloMessagePayload): Promise<void>`
-- [ ] T008 [P] Verify generated `src/generated/events/HelloMessagePayload.ts` has `message: string` field; if modelina output requires adjustment (class vs interface), document in `research.md`
+- [X] T007 Create `IEventProducer` interface in `src/services/interfaces/event-producer.interface.ts` with `sendHelloMessage(payload: HelloMessagePayload): Promise<void>`
+- [X] T008 [P] Verify generated `src/generated/events/HelloMessagePayload.ts` has `message: string` field; if modelina output requires adjustment (class vs interface), document in `research.md`
 
 ---
 
@@ -36,24 +36,24 @@
 
 **Independent Test**: Unit tests for `HelloService` pass with mocked `IEventProducer` — verifying happy path, Kafka error → HTTP 500, and no event on validation failure.
 
-- [ ] T009 [US1] Create `KafkaProducerAdapter` implementing `IEventProducer` in `src/adapters/kafka/kafka-producer.adapter.ts` with `connect()`, `disconnect()`, and `sendHelloMessage()` using `kafkajs` Producer; read `KAFKA_BROKERS`, `KAFKA_CLIENT_ID`, `KAFKA_TOPIC_HELLO` from env vars
-- [ ] T010 [US1] Extend `HelloService` constructor in `src/services/hello.service.ts` to accept `IEventProducer` via constructor injection; update `sayHello()` to `await eventProducer.sendHelloMessage({ message })` after computing greeting, before returning
-- [ ] T011 [US1] Update `src/index.ts` to instantiate `KafkaProducerAdapter`, call `connect()` at startup (log error on failure, do not crash app), and pass adapter instance to `HelloService` constructor
-- [ ] T012 [US1] Update `src/shutdown.ts` SIGTERM handler to call `kafkaProducer.disconnect()` alongside existing cleanup
-- [ ] T013 [P] [US1] Update `src/services/hello.service.spec.ts` unit tests: inject `jest.fn()` mock for `IEventProducer`; add test cases for: (a) happy path — `sendHelloMessage` called with correct `HelloMessagePayload`, (b) Kafka error thrown → HTTP 500 `ApiErrorResponse` returned, (c) `sendHelloMessage` NOT called when validation fails upstream
-- [ ] T014 [P] [US1] Add logging in `KafkaProducerAdapter.sendHelloMessage()`: INFO log before send (topic + message summary), ERROR log on failure — using existing logger in `src/logger.ts`
+- [X] T009 [US1] Create `KafkaProducerAdapter` implementing `IEventProducer` in `src/adapters/kafka/kafka-producer.adapter.ts` with `connect()`, `disconnect()`, and `sendHelloMessage()` using `kafkajs` Producer; read `KAFKA_BROKERS`, `KAFKA_CLIENT_ID`, `KAFKA_TOPIC_HELLO` from env vars
+- [X] T010 [US1] Extend `HelloService` constructor in `src/services/hello.service.ts` to accept `IEventProducer` via constructor injection; update `sayHello()` to `await eventProducer.sendHelloMessage({ message })` after computing greeting, before returning
+- [X] T011 [US1] Update `src/index.ts` to instantiate `KafkaProducerAdapter`, call `connect()` at startup (log error on failure, do not crash app), and pass adapter instance to `HelloService` constructor
+- [X] T012 [US1] Update `src/shutdown.ts` SIGTERM handler to call `kafkaProducer.disconnect()` alongside existing cleanup
+- [X] T013 [P] [US1] Update `src/services/hello.service.spec.ts` unit tests: inject `jest.fn()` mock for `IEventProducer`; add test cases for: (a) happy path — `sendHelloMessage` called with correct `HelloMessagePayload`, (b) Kafka error thrown → HTTP 500 `ApiErrorResponse` returned, (c) `sendHelloMessage` NOT called when validation fails upstream
+- [X] T014 [P] [US1] Add logging in `KafkaProducerAdapter.sendHelloMessage()`: INFO log before send (topic + message summary), ERROR log on failure — using existing logger in `src/logger.ts`
 
 ---
 
 ## Phase 4: User Story 2 — Live Demo Flow (P1 MVP)
 
-**Story Goal**: The full AsyncAPI-First demo chain works end-to-end: `GET /api/hello/World` returns HTTP 200, a Kafka consumer receives `{"message":"Hello World"}`, and the TypeScript→AsyncAPI mapping is clearly visible.
+**Story Goal**: The full AsyncAPI-First demo chain works end-to-end: `GET /api/v1/hello/World` returns HTTP 200, a Kafka consumer receives `{"message":"Hello World"}`, and the TypeScript→AsyncAPI mapping is clearly visible.
 
-**Independent Test**: Integration test subscribes to `event.hello.v1` via `kafkajs` Consumer, calls `GET /api/hello/World`, and asserts the received payload matches `HelloMessagePayload` schema.
+**Independent Test**: Integration test subscribes to `event.hello.v1` via `kafkajs` Consumer, calls `GET /api/v1/hello/World`, and asserts the received payload matches `HelloMessagePayload` schema.
 
-- [ ] T015 [US2] Create `tests/integration/hello-events.spec.ts`: start Kafka consumer subscribed to `event.hello.v1`, call `GET /api/hello` via supertest, assert exactly one message received with `{ "message": "Hello World" }` payload conforming to `HelloMessagePayload` schema
-- [ ] T016 [P] [US2] Extend `tests/integration/hello-events.spec.ts`: add test for `GET /api/hello/Philippe` → consumer receives `{ "message": "Hello Philippe" }`; add test that invalid name `GET /api/hello/a` returns HTTP 400 and zero events published
-- [ ] T017 [P] [US2] Add Jest `globalSetup` script `tests/setup-kafka.js` that runs `docker compose -f docker-compose.test.yml up -d --wait` and `globalTeardown` that runs `docker compose -f docker-compose.test.yml down` in `package.json` integration test configuration
+- [X] T015 [US2] Create `tests/integration/hello-events.spec.ts`: start Kafka consumer subscribed to `event.hello.v1`, call `GET /api/v1/hello` via supertest, assert exactly one message received with `{ "message": "Hello World" }` payload conforming to `HelloMessagePayload` schema
+- [X] T016 [P] [US2] Extend `tests/integration/hello-events.spec.ts`: add test for `GET /api/v1/hello/Philippe` → consumer receives `{ "message": "Hello Philippe" }`; add test that invalid name `GET /api/v1/hello/a` returns HTTP 400 and zero events published
+- [X] T017 [P] [US2] Add Jest `globalSetup` script `tests/setup-kafka.js` that runs `docker compose -f docker-compose.test.yml up -d --wait` and `globalTeardown` that runs `docker compose -f docker-compose.test.yml down` in `package.json` integration test configuration
 
 ---
 
@@ -63,8 +63,8 @@
 
 **Independent Test**: Integration test simulates Kafka unavailability by stopping the container mid-test and verifies HTTP 500 + `ApiErrorResponse` is returned (no stack trace), then restores Kafka and verifies normal operation resumes.
 
-- [ ] T018 [US3] Add integration test in `tests/integration/hello-events.spec.ts`: simulate Kafka unavailable (close producer connection), call `GET /api/hello/Alice`, assert HTTP 500 + `ApiErrorResponse` body without stack trace field
-- [ ] T019 [P] [US3] Add integration test: verify `GET /health` returns HTTP 200 even when Kafka producer is disconnected (health endpoint is independent of Kafka state — FR-022)
+- [X] T018 [US3] Add integration test in `tests/integration/hello-events.spec.ts`: simulate Kafka unavailable (close producer connection), call `GET /api/v1/hello/Alice`, assert HTTP 500 + `ApiErrorResponse` body without stack trace field
+- [X] T019 [P] [US3] Add integration test: verify `GET /health` returns HTTP 200 even when Kafka producer is disconnected (health endpoint is independent of Kafka state — FR-022)
 
 ---
 
@@ -72,10 +72,10 @@
 
 **Goal**: Ensure FR compliance, code quality, and `.gitignore` hygiene.
 
-- [ ] T020 [P] Run `npm run build` (TypeScript strict), `npm run lint`, `npm run format` — fix any errors introduced by EDA changes
-- [ ] T021 [P] Run `npm test` (all unit + integration) — verify coverage ≥ 80% on new files (`kafka-producer.adapter.ts`, updated `hello.service.ts`)
-- [ ] T022 Verify `src/generated/events/` is absent from git tracking via `git status` and `git ls-files`; add to `.gitignore` if needed in `.gitignore`
-- [ ] T023 [P] Update `README.md`: add EDA section documenting `npm run generate:events`, required env vars, and `docker-compose.test.yml` usage
+- [X] T020 [P] Run `npm run build` (TypeScript strict), `npm run lint`, `npm run format` — fix any errors introduced by EDA changes
+- [X] T021 [P] Run `npm test` (all unit + integration) — verify coverage ≥ 80% on new files (`kafka-producer.adapter.ts`, updated `hello.service.ts`)
+- [X] T022 Verify `src/generated/events/` is absent from git tracking via `git status` and `git ls-files`; add to `.gitignore` if needed in `.gitignore`
+- [X] T023 [P] Update `README.md`: add EDA section documenting `npm run generate:events`, required env vars, and `docker-compose.test.yml` usage
 
 ---
 

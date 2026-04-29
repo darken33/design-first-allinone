@@ -117,7 +117,7 @@ HelloService.sayHello()
 ## Data Flow
 
 ```
-GET /api/hello/:name
+GET /api/v1/hello/:name
         │
         ▼
 HelloController (existing)
