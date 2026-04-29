@@ -1,8 +1,8 @@
 {
-  "feature_directory": "specs/001-hello-api-node",
-  "feature_name": "HelloAPI Node.js – Design-First REST API",
-  "short_name": "hello-api-node",
-  "created": "2026-04-24",
-  "conference_context": "BordeauxJS – Design-First APIs avec OpenAPI & AsyncAPI",
+  "feature_directory": "specs/002-hello-api-eda",
+  "feature_name": "Hello API Node.js — AsyncAPI Event-Driven Architecture",
+  "short_name": "hello-api-eda",
+  "created": "2026-04-29",
+  "conference_context": "DevFest Nantes — Design-First APIs avec OpenAPI & AsyncAPI",
   "status": "specification-draft"
 }
