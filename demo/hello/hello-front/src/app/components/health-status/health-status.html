@@ -1,12 +1,15 @@
 <div class="health-container">
   @if (healthState().status === 'loading') {
-    <span class="badge badge-grey">Vérification...</span>
+    <span class="pulse-dot pulse-dot-grey"></span>
+    <span class="badge-text">Vérification…</span>
   } @else if (healthData()) {
-    <span class="badge badge-{{ badgeColor() }}">{{ healthData()!.status }}</span>
+    <span class="pulse-dot pulse-dot-{{ badgeColor() }}"></span>
+    <span class="badge-text">{{ healthData()!.status }}</span>
     @if (healthData()!.uptime !== undefined) {
-      <span class="uptime">Disponible depuis {{ healthData()!.uptime }}s</span>
+      <span class="uptime">{{ healthData()!.uptime }}s</span>
     }
   } @else {
-    <span class="badge badge-grey">Indisponible</span>
+    <span class="pulse-dot pulse-dot-grey"></span>
+    <span class="badge-text">Indisponible</span>
   }
 </div>
