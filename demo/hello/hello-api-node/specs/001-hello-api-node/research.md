@@ -172,10 +172,10 @@ type NameParam = z.infer<typeof NameParamSchema>;
 import request from 'supertest';
 import app from '../src/index';
 
-describe('GET /api/hello/:name', () => {
+describe('GET /api/v1/hello/:name', () => {
   it('should return 200 with greeting', async () => {
     const res = await request(app)
-      .get('/api/hello/Philippe')
+      .get('/api/v1/hello/Philippe')
       .expect(200)
       .expect('Content-Type', /json/);
     

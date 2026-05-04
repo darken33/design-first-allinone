@@ -1,0 +1,40 @@
+.health-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  padding: .35rem .9rem .35rem .55rem;
+}
+
+.pulse-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pulse-dot-green  { background: #4ade80; box-shadow: 0 0 0 0 rgba(74,222,128,.7); animation: pulse-green 2s infinite; }
+.pulse-dot-orange { background: #fb923c; box-shadow: 0 0 0 0 rgba(251,146,60,.7);  animation: pulse-orange 2s infinite; }
+.pulse-dot-red    { background: #f87171; box-shadow: 0 0 0 0 rgba(248,113,113,.7); animation: pulse-red 2s infinite; }
+.pulse-dot-grey   { background: #9ca3af; }
+
+@keyframes pulse-green  { 70% { box-shadow: 0 0 0 8px rgba(74,222,128,0);  } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0);  } }
+@keyframes pulse-orange { 70% { box-shadow: 0 0 0 8px rgba(251,146,60,0);  } 100% { box-shadow: 0 0 0 0 rgba(251,146,60,0);  } }
+@keyframes pulse-red    { 70% { box-shadow: 0 0 0 8px rgba(248,113,113,0); } 100% { box-shadow: 0 0 0 0 rgba(248,113,113,0); } }
+
+.badge-text {
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: rgba(255,255,255,.85);
+  letter-spacing: .03em;
+}
+
+.uptime {
+  font-size: .72rem;
+  color: rgba(255,255,255,.4);
+  border-left: 1px solid rgba(255,255,255,.15);
+  padding-left: .55rem;
+}

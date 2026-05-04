@@ -1,0 +1,5 @@
+/home/pbousquet/DevFestNantes/demo/hello/hello-receiver/src/main/java/com/sqli/pbousquet/hello/service/HelloService.java
+/home/pbousquet/DevFestNantes/demo/hello/hello-receiver/target/generated-sources/src/main/java/com/sqli/pbousquet/hello/receiver/ReceiveHelloMessageConsumer.java
+/home/pbousquet/DevFestNantes/demo/hello/hello-receiver/target/generated-sources/src/main/java/com/sqli/pbousquet/hello/model/HelloMessagePayload.java
+/home/pbousquet/DevFestNantes/demo/hello/hello-receiver/src/main/java/com/sqli/pbousquet/hello/Application.java
+/home/pbousquet/DevFestNantes/demo/hello/hello-receiver/target/generated-sources/src/main/java/com/sqli/pbousquet/hello/receiver/IReceiveHelloMessageConsumerService.java

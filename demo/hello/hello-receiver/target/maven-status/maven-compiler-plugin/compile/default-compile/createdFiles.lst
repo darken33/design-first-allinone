@@ -1,0 +1,6 @@
+com/sqli/pbousquet/hello/service/HelloService.class
+com/sqli/pbousquet/hello/Application.class
+com/sqli/pbousquet/hello/model/HelloMessagePayload.class
+com/sqli/pbousquet/hello/receiver/ReceiveHelloMessageConsumer.class
+com/sqli/pbousquet/hello/receiver/IReceiveHelloMessageConsumerService.class
+com/sqli/pbousquet/hello/receiver/IReceiveHelloMessageConsumerService$HelloMessagePayloadHeaders.class

@@ -33,13 +33,13 @@ curl http://localhost:3000/health
 
 ---
 
-### GET /api/hello
+### GET /api/v1/hello
 
 Returns a generic greeting.
 
 **Request**:
 ```bash
-curl http://localhost:3000/api/hello
+curl http://localhost:3000/api/v1/hello
 ```
 
 **Response** (HTTP 200):
@@ -51,7 +51,7 @@ curl http://localhost:3000/api/hello
 
 ---
 
-### GET /api/hello/{name}
+### GET /api/v1/hello/{name}
 
 Returns a personalized greeting for the given name.
 
@@ -64,16 +64,16 @@ Returns a personalized greeting for the given name.
 **Request examples**:
 ```bash
 # Simple name
-curl http://localhost:3000/api/hello/Philippe
+curl http://localhost:3000/api/v1/hello/Philippe
 
 # Name with space (URL-encoded)
-curl "http://localhost:3000/api/hello/Jean%20Paul"
+curl "http://localhost:3000/api/v1/hello/Jean%20Paul"
 
 # Name with hyphen
-curl http://localhost:3000/api/hello/Marie-Claire
+curl http://localhost:3000/api/v1/hello/Marie-Claire
 
 # Name with apostrophe (URL-encoded)
-curl "http://localhost:3000/api/hello/O%27Brien"
+curl "http://localhost:3000/api/v1/hello/O%27Brien"
 ```
 
 **Response** (HTTP 200):
@@ -95,7 +95,7 @@ All error responses follow the `ApiErrorResponse` structure:
   "status": 400,
   "error": "Bad Request",
   "message": "name must be at least 2 characters",
-  "path": "/api/hello/a"
+  "path": "/api/v1/hello/a"
 }
 ```
 
@@ -119,16 +119,16 @@ All error responses follow the `ApiErrorResponse` structure:
 
 ```bash
 # Name too short (< 2 chars)
-curl -i http://localhost:3000/api/hello/a
+curl -i http://localhost:3000/api/v1/hello/a
 # HTTP/1.1 400 Bad Request
-# {"timestamp":"...","status":400,"error":"Bad Request","message":"...","path":"/api/hello/a"}
+# {"timestamp":"...","status":400,"error":"Bad Request","message":"...","path":"/api/v1/hello/a"}
 
 # Invalid characters (digits)
-curl -i http://localhost:3000/api/hello/123
+curl -i http://localhost:3000/api/v1/hello/123
 # HTTP/1.1 400 Bad Request
 
 # Name too long (> 25 chars)
-curl -i http://localhost:3000/api/hello/ABCDEFGHIJKLMNOPQRSTUVWXYZ
+curl -i http://localhost:3000/api/v1/hello/ABCDEFGHIJKLMNOPQRSTUVWXYZ
 # HTTP/1.1 400 Bad Request
 ```
 
@@ -182,12 +182,12 @@ Default: `http://localhost:3000`
 
 ```javascript
 // Generic greeting
-const response = await fetch('http://localhost:3000/api/hello');
+const response = await fetch('http://localhost:3000/api/v1/hello');
 const data = await response.json(); // { message: "Hello World" }
 
 // Personalized greeting
 const name = 'Philippe';
-const resp = await fetch(`http://localhost:3000/api/hello/${encodeURIComponent(name)}`);
+const resp = await fetch(`http://localhost:3000/api/v1/hello/${encodeURIComponent(name)}`);
 const greeting = await resp.json(); // { message: "Hello Philippe" }
 ```
 
@@ -197,7 +197,7 @@ const greeting = await resp.json(); // { message: "Hello Philippe" }
 import type { HelloDto } from './src/generated/types';
 
 async function greet(name: string): Promise<HelloDto> {
-  const response = await fetch(`/api/hello/${encodeURIComponent(name)}`);
+  const response = await fetch(`/api/v1/hello/${encodeURIComponent(name)}`);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.json() as Promise<HelloDto>;
 }
@@ -206,7 +206,7 @@ async function greet(name: string): Promise<HelloDto> {
 ### HTTPie
 
 ```bash
-http GET http://localhost:3000/api/hello/Philippe
+http GET http://localhost:3000/api/v1/hello/Philippe
 ```
 
 ### Python
@@ -214,7 +214,7 @@ http GET http://localhost:3000/api/hello/Philippe
 ```python
 import requests
 
-response = requests.get('http://localhost:3000/api/hello/Philippe')
+response = requests.get('http://localhost:3000/api/v1/hello/Philippe')
 response.raise_for_status()
 print(response.json())  # {'message': 'Hello Philippe'}
 ```

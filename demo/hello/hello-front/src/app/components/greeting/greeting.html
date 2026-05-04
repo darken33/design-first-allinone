@@ -1,0 +1,9 @@
+<div class="greeting-zone">
+  @if (state.status === 'loading') {
+    <p class="loading">Chargement...</p>
+  } @else if (state.status === 'success') {
+    <p class="message">{{ state.data.message }}</p>
+  } @else if (state.status === 'error') {
+    <p class="error">{{ state.message }}</p>
+  }
+</div>

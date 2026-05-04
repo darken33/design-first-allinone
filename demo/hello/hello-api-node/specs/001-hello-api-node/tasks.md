@@ -148,8 +148,8 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - Verifies TypeScript compilation succeeds with strict mode on generated types
 
 - [x] T036 [P] [US1] Create integration test `tests/integration/hello-contract.spec.ts` verifying:
-  - GET /api/hello returns HTTP 200 with `{ message: "Hello World" }`
-  - GET /api/hello/{name} accepts valid name and returns personalized greeting
+  - GET /api/v1/hello returns HTTP 200 with `{ message: "Hello World" }`
+  - GET /api/v1/hello/{name} accepts valid name and returns personalized greeting
   - Invalid name returns HTTP 400 with structured error
   - Test cases: "Philippe", "Jean Paul", "Marie-Claire", "a" (invalid), "123" (invalid), special chars (invalid)
 
@@ -170,8 +170,8 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - `getHelloByName(req, res)`: Extracts name from path param, validates using NameParamSchema, calls service, returns DTO
 
 - [x] T041 [US1] Create `src/api/routes/hello.routes.ts` registering routes:
-  - GET /api/hello → HelloController.getHello
-  - GET /api/hello/:name → HelloController.getHelloByName (with validation middleware)
+  - GET /api/v1/hello → HelloController.getHello
+  - GET /api/v1/hello/:name → HelloController.getHelloByName (with validation middleware)
 
 - [x] T042 [US1] Update `src/index.ts` to:
   - Import and register hello routes from `src/api/routes/hello.routes.ts`
@@ -182,7 +182,7 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - Catches ZodError, converts to ApiErrorResponse, returns HTTP 400
   - Otherwise passes control to next middleware
 
-- [x] T044 [US1] Update `src/api/routes/hello.routes.ts` to use validation middleware on GET /api/hello/:name route (validates name parameter)
+- [x] T044 [US1] Update `src/api/routes/hello.routes.ts` to use validation middleware on GET /api/v1/hello/:name route (validates name parameter)
 
 **Checkpoint**: User Story 1 complete – Contract-First workflow functional, all tests pass, API responds correctly
 
@@ -223,7 +223,7 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 ### Implementation for User Story 3
 
 - [x] T048 [P] [US3] Create `tests/integration/api-consumption.spec.ts` testing API consumption scenarios:
-  - curl examples: GET /api/hello, GET /api/hello/Alice, GET /api/hello/invalid
+  - curl examples: GET /api/v1/hello, GET /api/v1/hello/Alice, GET /api/v1/hello/invalid
   - Verify Content-Type header is application/json
   - Verify response body structure matches HelloDto
   - Verify error responses have correct structure
@@ -296,7 +296,7 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
 - [ ] T060 [P] Run Docker container: `docker run -p 3000:3000 hello-api-node:test` and verify:
   - Container starts in < 2 sec
   - GET /health responds with HTTP 200
-  - GET /api/hello/Docker responds with greeting
+  - GET /api/v1/hello/Docker responds with greeting
   - Container stops cleanly on SIGTERM
 
 ### Kubernetes Validation
@@ -307,7 +307,7 @@ Within each story: Controllers [P] amd Services [P] can run in parallel (then in
   - Liveness probe passes (GET /health returns 200)
   - Service is accessible on port 3000
 
-- [ ] T062 [P] Run smoke test in K8s: `kubectl run -it curl... -- curl http://hello-api-node:3000/api/hello/Kubernetes` and verify response
+- [ ] T062 [P] Run smoke test in K8s: `kubectl run -it curl... -- curl http://hello-api-node:3000/api/v1/hello/Kubernetes` and verify response
 
 ### Documentation Completeness
 

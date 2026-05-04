@@ -35,7 +35,7 @@
    - Aucune modification manuelle requise
    - Types strictement typés (pas `any`)
 
-2. **Given** Developer implémente le handler `GET /api/hello/:name`, **When** Lance tests d'intégration `npm run test:integration`, **Then** Tous les contrats passent (happy path + validation)
+2. **Given** Developer implémente le handler `GET /api/v1/hello/:name`, **When** Lance tests d'intégration `npm run test:integration`, **Then** Tous les contrats passent (happy path + validation)
    - Endpoint retourne HTTP 200 + `{"message": "Hello Philippe"}`
    - Validation `name` appliquée (minLength: 2, maxLength: 25, pattern)
    - Validation échouée → HTTP 400 + erreur structurée
@@ -86,23 +86,23 @@
 **Why this priority**: Fonctionnalité secondaire ; le focus est sur la construction, pas sur la consommation.
 
 **User Flow**:
-1. Appeler `GET /api/hello` → reçoit salutation générique
-2. Appeler `GET /api/hello/Philippe` → reçoit salutation personnalisée
+1. Appeler `GET /api/v1/hello` → reçoit salutation générique
+2. Appeler `GET /api/v1/hello/Philippe` → reçoit salutation personnalisée
 3. Paramètre invalide → reçoit erreur clara (HTTP 400)
 
 **Independent Test**: API fonctionne comme documenté dans OpenAPI.
 
 **Acceptance Scenarios**:
 
-1. **Given** API tourne (POST-deployment), **When** Client HTTP envoie `GET /api/hello`, **Then** Retourne HTTP 200 + `{ "message": "Hello World" }`
+1. **Given** API tourne (POST-deployment), **When** Client HTTP envoie `GET /api/v1/hello`, **Then** Retourne HTTP 200 + `{ "message": "Hello World" }`
    - Content-Type: application/json
    - Body is valid JSON
 
-2. **Given** Paramètre `name` fourni, **When** Envoie `GET /api/hello/Alice`, **Then** Retourne HTTP 200 + `{ "message": "Hello Alice" }`
+2. **Given** Paramètre `name` fourni, **When** Envoie `GET /api/v1/hello/Alice`, **Then** Retourne HTTP 200 + `{ "message": "Hello Alice" }`
    - Interpolation correcte
    - Aucune injection vulnérabilité (safe string concat)
 
-3. **Given** Paramètre invalide (ex: "a" = trop court), **When** Envoie `GET /api/hello/a`, **Then** Retourne HTTP 400 + erreur structurée
+3. **Given** Paramètre invalide (ex: "a" = trop court), **When** Envoie `GET /api/v1/hello/a`, **Then** Retourne HTTP 400 + erreur structurée
    - Message: "name must be between 2 and 25 characters"
    - Path du paramètre fautif indiqué
 
@@ -130,8 +130,8 @@
 ### Session 2026-04-24
 
 - Q1: Endpoint signature (path vs query parameter, default greeting)? → A: **Option A – Path Parameter**
-  - Two endpoints: `GET /api/hello` (generic) + `GET /api/hello/{name}` (with required path param)
-  - Clean, RESTful URLs: `/api/hello/Philippe`
+  - Two endpoints: `GET /api/v1/hello` (generic) + `GET /api/v1/hello/{name}` (with required path param)
+  - Clean, RESTful URLs: `/api/v1/hello/Philippe`
   - No query parameter ambiguities
   - No "default parameter" complexity
 
@@ -159,8 +159,8 @@
 
 ### Functional Requirements – API Endpoints
 
-- **FR-001**: Endpoint `GET /api/hello` MUST return HTTP 200 with JSON `{ "message": "Hello World" }` (no parameters)
-- **FR-002**: Endpoint `GET /api/hello/{name}` MUST accept `name` as required path parameter
+- **FR-001**: Endpoint `GET /api/v1/hello` MUST return HTTP 200 with JSON `{ "message": "Hello World" }` (no parameters)
+- **FR-002**: Endpoint `GET /api/v1/hello/{name}` MUST accept `name` as required path parameter
 - **FR-003**: Parameter `name` MUST satisfy constraints: minLength=2, maxLength=25, pattern=`^[a-zA-Z ,.'-]+$`
 - **FR-004**: Response MUST include `Content-Type: application/json` header
 - **FR-005**: Invalid `name` parameter MUST return HTTP 400 Bad Request with structured error JSON
@@ -192,7 +192,7 @@
 ### Functional Requirements – Testing
 
 - **FR-021**: Unit tests MUST cover HelloService (mocked dependencies) in `src/services/hello.service.spec.ts`
-- **FR-022**: Integration tests MUST cover all API endpoints using **supertest** in `src/api/hello.api.spec.ts`
+- **FR-022**: Integration tests MUST cover all API endpoints using **supertest** in `src/api/v1/hello.api.spec.ts`
 - **FR-023**: Happy path MUST pass (default name & personalized name)
 - **FR-024**: Validation errors MUST be tested (invalid name patterns, lengths)
 - **FR-025**: Test suite MUST run in isolation (no order dependencies, deterministic)
@@ -248,8 +248,8 @@ All other objects are intermediate (not persisted).
 
 **Measure**: Integration tests validate 100% specification compliance.  
 **Criteria**:
-- GET /api/hello → Returns exactly `{ "message": "Hello World" }` (no extras)
-- GET /api/hello/:name → Validates `name` per spec constraints
+- GET /api/v1/hello → Returns exactly `{ "message": "Hello World" }` (no extras)
+- GET /api/v1/hello/:name → Validates `name` per spec constraints
 - Error codes match OpenAPI (HTTP 400 for validation, etc.)
 - **Target**: 100% test pass rate (all acceptance scenarios)
 
@@ -295,9 +295,9 @@ All other objects are intermediate (not persisted).
 
 ## Assumptions *(Reasonable Defaults for Unspecified Details)*
 
-1. **Endpoints**: Two endpoints – `GET /api/hello` (generic) and `GET /api/hello/{name}` (personalized via path parameter)
+1. **Endpoints**: Two endpoints – `GET /api/v1/hello` (generic) and `GET /api/v1/hello/{name}` (personalized via path parameter)
    - *(Rationale: REST best practice – path params for resource identification)*
-2. **Parameter location**: `name` is a **required path parameter** in `/api/hello/{name}` (e.g., `/api/hello/Philippe`)
+2. **Parameter location**: `name` is a **required path parameter** in `/api/v1/hello/{name}` (e.g., `/api/v1/hello/Philippe`)
    - *(No query parameters; URL is clean and resource-focused)*
 3. **Whitespace handling**: Per Q2 clarification – Trim `name` BEFORE validation
    - Flow: Extract → Trim → Validate → Use cleaned value

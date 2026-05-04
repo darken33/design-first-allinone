@@ -10,14 +10,14 @@ export const configureSecurity = (app: Application): void => {
     helmet({
       contentSecurityPolicy: {
         directives: {
-          defaultSrc: ['\'self\''],
-          scriptSrc: ['\'self\''],
-          styleSrc: ['\'self\''],
-          imgSrc: ['\'self\'', 'data:'],
-          connectSrc: ['\'self\''],
-          fontSrc: ['\'self\''],
-          objectSrc: ['\'none\''],
-          frameSrc: ['\'none\'']
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'"],
+          imgSrc: ["'self'", 'data:'],
+          connectSrc: ["'self'"],
+          fontSrc: ["'self'"],
+          objectSrc: ["'none'"],
+          frameSrc: ["'none'"]
         }
       },
       frameguard: { action: 'deny' },

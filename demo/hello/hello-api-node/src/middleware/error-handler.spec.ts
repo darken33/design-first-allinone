@@ -9,7 +9,7 @@ describe('errorHandler middleware', () => {
 
   beforeEach(() => {
     mockReq = {
-      path: '/api/hello/test'
+      path: '/api/v1/hello/test'
     };
     mockRes = {
       status: jest.fn().mockReturnThis(),
@@ -38,7 +38,7 @@ describe('errorHandler middleware', () => {
         status: 400,
         error: 'Bad Request',
         message: 'name must be at least 2 characters',
-        path: '/api/hello/test'
+        path: '/api/v1/hello/test'
       })
     );
   });
@@ -54,7 +54,7 @@ describe('errorHandler middleware', () => {
         status: 500,
         error: 'Error',
         message: 'Something went wrong',
-        path: '/api/hello/test'
+        path: '/api/v1/hello/test'
       })
     );
   });

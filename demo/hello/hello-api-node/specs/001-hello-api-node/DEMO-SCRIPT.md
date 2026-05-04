@@ -28,7 +28,7 @@ cd hello-api-node
 curl http://localhost:3000/health
 # Attendu: {"status":"healthy","uptime":X}
 
-curl http://localhost:3000/api/hello/Test
+curl http://localhost:3000/api/v1/hello/Test
 # Attendu: {"message":"Hello Test"}
 ```
 
@@ -56,7 +56,7 @@ cat specs/001-hello-api-node/openapi.yaml
 ```
 
 Pointer et expliquer :
-- `paths: /api/hello` et `/api/hello/{name}` – les 2 routes
+- `paths: /api/v1/hello` et `/api/v1/hello/{name}` – les 2 routes
 - `parameters: name` avec `minLength: 2`, `maxLength: 25`, `pattern` – validation définie dans le contrat
 - `responses: HelloDto` – la structure de réponse
 
@@ -143,21 +143,21 @@ code src/services/hello.service.ts
 
 ```bash
 # Happy path
-curl http://localhost:3000/api/hello
+curl http://localhost:3000/api/v1/hello
 # {"message":"Hello World"}
 
-curl http://localhost:3000/api/hello/Philippe
+curl http://localhost:3000/api/v1/hello/Philippe
 # {"message":"Hello Philippe"}
 
-curl http://localhost:3000/api/hello/Jean-Paul
+curl http://localhost:3000/api/v1/hello/Jean-Paul
 # {"message":"Hello Jean-Paul"}
 
 # Validation errors (matching OpenAPI constraints)
-curl -i http://localhost:3000/api/hello/a
+curl -i http://localhost:3000/api/v1/hello/a
 # HTTP/1.1 400 Bad Request
 # {"timestamp":"...","status":400,"error":"Bad Request","message":"...","path":"..."}
 
-curl -i http://localhost:3000/api/hello/123invalid
+curl -i http://localhost:3000/api/v1/hello/123invalid
 # HTTP/1.1 400 Bad Request
 ```
 

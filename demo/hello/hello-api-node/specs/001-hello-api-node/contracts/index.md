@@ -13,7 +13,7 @@ HelloAPI exposes 3 types of contracts:
 ### 1. **HTTP API Contract** → [api.md](./api.md)
 - **Audience**: Frontend, mobile apps, API consumers
 - **Format**: OpenAPI 3.0 YAML (source of truth)
-- **Endpoints**: 3 (GET /api/hello, GET /api/hello/{name}, GET /health)
+- **Endpoints**: 3 (GET /api/v1/hello, GET /api/v1/hello/{name}, GET /health)
 - **Transport**: HTTP/REST
 - **Stability**: Production-ready
 
