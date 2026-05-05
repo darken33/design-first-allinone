@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate:api": "openapi-generator-cli generate -i ../hello.yaml -g typescript-angular -o src/app/hello-api --additional-properties=ngVersion=20.0.0,npmName=restClient,supportsES6=true,npmVersion=10.9.3,withInterfaces=true"
+    "generate:api": "openapi-generator-cli generate -i ../spec/hello-openapi.yaml -g typescript-angular -o src/app/hello-api --additional-properties=ngVersion=20.0.0,npmName=restClient,supportsES6=true,npmVersion=10.9.3,withInterfaces=true"
   },
   "prettier": {
     "printWidth": 100,

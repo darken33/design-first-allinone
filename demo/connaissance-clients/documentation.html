@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connaissance Client — Documentation Développeur v2.1.0</title>
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #f5f6fa; color: #24292e; line-height: 1.6; }
+    a { color: #0366d6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 260px; min-width: 260px;
+      background: #1e2433;
+      color: #c9d1d9;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      padding: 0 0 2rem 0;
+    }
+    .sidebar-header {
+      background: #161b27;
+      padding: 1.25rem 1.25rem 1rem 1.25rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .sidebar-header h1 { font-size: 0.95rem; font-weight: 700; color: #fff; line-height: 1.3; }
+    .sidebar-header .version { font-size: 0.75rem; color: #8b949e; margin-top: 0.25rem; }
+    .sidebar nav { padding: 0.75rem 0; }
+    .sidebar nav ul { list-style: none; }
+    .nav-section-label {
+      padding: 0.6rem 1.25rem 0.25rem 1.25rem;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #6e7681; margin-top: 0.5rem;
+    }
+    .sidebar nav a {
+      display: block; padding: 0.35rem 1.25rem 0.35rem 1.5rem;
+      font-size: 0.85rem; color: #adb5bd;
+      border-left: 3px solid transparent;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .sidebar nav a:hover { background: #2d3549; color: #fff; text-decoration: none; border-left-color: #0366d6; }
+    .sidebar nav a.method-tag { padding-left: 2rem; font-size: 0.8rem; }
+
+    /* ── Main content ── */
+    .main { flex: 1; padding: 2.5rem 3rem; max-width: 1100px; }
+
+    /* ── Page header ── */
+    .page-header {
+      background: #fff; border: 1px solid #e1e4e8; border-radius: 8px;
+      padding: 2rem 2.5rem; margin-bottom: 2rem;
+    }
+    .page-header h1 { font-size: 1.75rem; font-weight: 700; color: #1b1f23; }
+    .page-header .subtitle { font-size: 0.95rem; color: #586069; margin-top: 0.5rem; }
+    .meta-grid { display: flex; gap: 2rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .meta-item { }
+    .meta-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8b949e; }
+    .meta-value { font-size: 0.9rem; color: #24292e; margin-top: 0.1rem; }
+    .meta-value code { background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 4px; padding: 0.1rem 0.4rem; font-size: 0.82rem; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 3rem; }
+    .section-title {
+      font-size: 1.3rem; font-weight: 700; color: #1b1f23;
+      padding-bottom: 0.6rem; border-bottom: 2px solid #e1e4e8;
+      margin-bottom: 1.5rem;
+    }
+    .section-title .section-icon { margin-right: 0.5rem; }
+
+    /* ── Endpoint card ── */
+    .endpoint-card {
+      background: #fff; border: 1px solid #e1e4e8; border-radius: 8px;
+      margin-bottom: 1.5rem; overflow: hidden;
+    }
+    .endpoint-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.5rem; background: #f6f8fa; border-bottom: 1px solid #e1e4e8;
+      cursor: pointer;
+    }
+    .endpoint-header h3 { font-size: 0.95rem; font-weight: 600; color: #24292e; }
+    .endpoint-path { font-size: 0.9rem; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; color: #24292e; }
+    .endpoint-body { padding: 1.5rem; }
+    .endpoint-desc { font-size: 0.88rem; color: #586069; margin-bottom: 1.25rem; line-height: 1.7; }
+    .endpoint-desc strong { color: #24292e; }
+
+    /* ── Method badges ── */
+    .badge {
+      display: inline-block; padding: 0.2rem 0.55rem; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; white-space: nowrap; font-family: 'SFMono-Regular', Consolas, monospace;
+    }
+    .badge-get    { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .badge-post   { background: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+    .badge-put    { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .badge-delete { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .badge-patch  { background: #e2d9f3; color: #4a235a; border: 1px solid #d4c5e9; }
+    .badge-http-200 { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .badge-http-201 { background: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+    .badge-http-400 { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .badge-http-401, .badge-http-403, .badge-http-404 { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .badge-http-409, .badge-http-422, .badge-http-500 { background: #f5c6cb; color: #491217; border: 1px solid #f1b0b7; }
+    .badge-kafka  { background: #1f1f1f; color: #fff; border: 1px solid #444; }
+    .badge-send   { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .badge-receive { background: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+    .badge-required { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; font-size: 0.65rem; }
+    .badge-optional { background: #f6f8fa; color: #586069; border: 1px solid #e1e4e8; font-size: 0.65rem; }
+    .badge-pk     { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; font-size: 0.65rem; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; margin-bottom: 1.25rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead tr { background: #f6f8fa; }
+    th { padding: 0.6rem 0.85rem; text-align: left; font-weight: 600; color: #24292e; border: 1px solid #e1e4e8; white-space: nowrap; }
+    td { padding: 0.55rem 0.85rem; border: 1px solid #e1e4e8; vertical-align: top; color: #444d56; }
+    tr:nth-child(even) td { background: #fafbfc; }
+    td code, th code { background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 3px; padding: 0.05rem 0.3rem; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.82rem; color: #e36209; }
+
+    /* ── Sub-headings ── */
+    .sub-heading {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      color: #586069; margin: 1.25rem 0 0.6rem 0; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .sub-heading::after { content: ''; flex: 1; height: 1px; background: #e1e4e8; }
+
+    /* ── Code blocks ── */
+    pre {
+      background: #1e2433; color: #abb2bf; border-radius: 6px; padding: 1rem 1.25rem;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.82rem; overflow-x: auto; line-height: 1.6; margin-bottom: 1rem;
+      border: 1px solid #30363d;
+    }
+    .json-key   { color: #e06c75; }
+    .json-str   { color: #98c379; }
+    .json-num   { color: #d19a66; }
+    .json-bool  { color: #56b6c2; }
+    .json-null  { color: #56b6c2; }
+
+    /* ── Info box ── */
+    .info-box {
+      background: #f1f8ff; border-left: 4px solid #0366d6; border-radius: 4px;
+      padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.85rem; color: #24292e;
+    }
+    .warn-box {
+      background: #fffbea; border-left: 4px solid #f6a623; border-radius: 4px;
+      padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.85rem; color: #24292e;
+    }
+    .danger-box {
+      background: #ffeef0; border-left: 4px solid #d73a49; border-radius: 4px;
+      padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.85rem; color: #24292e;
+    }
+
+    /* ── Auth ── */
+    .auth-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 20px;
+      padding: 0.2rem 0.75rem; font-size: 0.8rem; color: #586069;
+    }
+    .auth-chip .lock { color: #e36209; }
+
+    /* ── Schema type chip ── */
+    .type-chip {
+      display: inline-block; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 3px;
+      padding: 0.05rem 0.35rem; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.78rem; color: #6f42c1;
+    }
+
+    /* ── Scrollbar ── */
+    .sidebar::-webkit-scrollbar { width: 5px; }
+    .sidebar::-webkit-scrollbar-track { background: #1e2433; }
+    .sidebar::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .layout { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; }
+      .main { padding: 1.5rem; }
+    }
+
+    /* ── Anchor offset for sticky sidebar ── */
+    :target::before { content: ''; display: block; height: 1.5rem; margin-top: -1.5rem; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ═══════════════════════════════════════════ SIDEBAR ═══════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Connaissance Client</h1>
+      <div class="version">Documentation développeur · v2.1.0</div>
+    </div>
+    <nav>
+      <ul>
+        <li class="nav-section-label">Vue d'ensemble</li>
+        <li><a href="#overview">Introduction</a></li>
+        <li><a href="#auth">Authentification</a></li>
+
+        <li class="nav-section-label">API REST</li>
+        <li><a href="#get-all" class="method-tag"><span class="badge badge-get">GET</span> /v1/connaissance-clients</a></li>
+        <li><a href="#post-create" class="method-tag"><span class="badge badge-post">POST</span> /v1/connaissance-clients</a></li>
+        <li><a href="#get-one" class="method-tag"><span class="badge badge-get">GET</span> /v1/connaissance-clients/{id}</a></li>
+        <li><a href="#delete-one" class="method-tag"><span class="badge badge-delete">DELETE</span> /v1/connaissance-clients/{id}</a></li>
+        <li><a href="#put-adresse" class="method-tag"><span class="badge badge-put">PUT</span> /{id}/adresse</a></li>
+        <li><a href="#put-situation" class="method-tag"><span class="badge badge-put">PUT</span> /{id}/situation</a></li>
+
+        <li class="nav-section-label">Contrats de données</li>
+        <li><a href="#schemas">Schémas de données</a></li>
+        <li><a href="#errors">Gestion des erreurs</a></li>
+        <li><a href="#kafka">Événements Kafka</a></li>
+        <li><a href="#domain">Modèle de domaine</a></li>
+        <li><a href="#mongodb">Modèle MongoDB</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ── Page header ── -->
+    <div class="page-header" id="overview">
+      <h1>Connaissance Client — Documentation Développeur</h1>
+      <div class="subtitle">
+        API REST permettant la gestion complète des fiches de connaissance client (création, consultation, mise à jour partielle, suppression).
+      </div>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">Version</div>
+          <div class="meta-value">2.1.0</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Spécification</div>
+          <div class="meta-value">OpenAPI 3.0.1</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Serveur DEV</div>
+          <div class="meta-value"><code>http://localhost:8080</code></div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Format</div>
+          <div class="meta-value">JSON / UTF-8</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Contact</div>
+          <div class="meta-value"><a href="mailto:pbousquet@sqli.com">pbousquet@sqli.com</a> — SQLI</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ AUTHENTIFICATION ══════════════════════════════ -->
+    <div class="section" id="auth">
+      <div class="section-title"><span class="section-icon">🔐</span>Authentification</div>
+      <div class="info-box">
+        La plupart des endpoints nécessitent un token <strong>JWT Bearer</strong> valide transmis dans le header HTTP <code>Authorization</code>.
+        Seul l'endpoint <code>GET /v1/connaissance-clients</code> est accessible sans authentification.
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schéma</th><th>Type</th><th>Format</th><th>Header HTTP</th><th>Exemple</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><code>bearerAuth</code></td>
+              <td>HTTP</td>
+              <td>Bearer JWT</td>
+              <td><code>Authorization</code></td>
+              <td><code>Authorization: Bearer &lt;votre_token_jwt&gt;</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ API REST ══════════════════════════════ -->
+    <div class="section">
+      <div class="section-title"><span class="section-icon">🔗</span>API REST</div>
+
+      <!-- ── GET /v1/connaissance-clients ── -->
+      <div class="endpoint-card" id="get-all">
+        <div class="endpoint-header">
+          <span class="badge badge-get">GET</span>
+          <span class="endpoint-path">/v1/connaissance-clients</span>
+          <div style="margin-left:auto;display:flex;gap:0.4rem;">
+            <span class="auth-chip"><span class="lock">🔓</span> Aucune auth requise</span>
+          </div>
+        </div>
+        <div class="endpoint-body">
+          <div class="endpoint-desc">
+            Récupère la <strong>liste complète</strong> des fiches de connaissance client disponibles.<br/>
+            Retourne un tableau JSON (liste vide si aucun client enregistré).
+            <br/><br/>
+            <strong>Cas d'usage :</strong> affichage de la liste des clients pour sélection, export de données, recherche globale.<br/>
+            <strong>Performance :</strong> limite recommandée — utiliser la pagination pour de gros volumes. Temps de réponse typique &lt; 2 s.
+          </div>
+
+          <div class="sub-heading">Réponses</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code HTTP</th><th>Description</th><th>Schéma</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-200">200</span></td><td>Liste des fiches clients</td><td><code>ConnaissanceClients</code> (tableau de <code>ConnaissanceClient</code>)</td></tr>
+                <tr><td><span class="badge badge-http-400">400</span></td><td>Requête invalide</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-401">401</span></td><td>Non authentifié</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-403">403</span></td><td>Accès refusé</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-409">409</span></td><td>Conflit</td><td><code>ApiErrorResponse</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemple de réponse 200</div>
+          <pre>[
+  {
+    <span class="json-key">"id"</span>: <span class="json-str">"8a9204f5-aa42-47bc-9f04-17caab5deeee"</span>,
+    <span class="json-key">"nom"</span>: <span class="json-str">"Dupont"</span>,
+    <span class="json-key">"prenom"</span>: <span class="json-str">"Jean"</span>,
+    <span class="json-key">"ligne1"</span>: <span class="json-str">"12 rue Victor Hugo"</span>,
+    <span class="json-key">"codePostal"</span>: <span class="json-str">"33000"</span>,
+    <span class="json-key">"ville"</span>: <span class="json-str">"Bordeaux"</span>,
+    <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"CELIBATAIRE"</span>,
+    <span class="json-key">"nombreEnfants"</span>: <span class="json-num">0</span>
+  }
+]</pre>
+        </div>
+      </div>
+
+      <!-- ── POST /v1/connaissance-clients ── -->
+      <div class="endpoint-card" id="post-create">
+        <div class="endpoint-header">
+          <span class="badge badge-post">POST</span>
+          <span class="endpoint-path">/v1/connaissance-clients</span>
+          <div style="margin-left:auto;"><span class="auth-chip"><span class="lock">🔒</span> Bearer JWT</span></div>
+        </div>
+        <div class="endpoint-body">
+          <div class="endpoint-desc">
+            Crée une <strong>nouvelle fiche de connaissance client</strong> dans le système.<br/>
+            <br/>
+            <strong>Cas d'usage :</strong> enregistrement d'un nouveau client lors de l'onboarding, import depuis un système externe, saisie manuelle par un conseiller.<br/>
+            <strong>Règles métier :</strong> un client ne peut avoir qu'une seule fiche active. Les informations personnelles sont chiffrées en base.<br/>
+            <strong>Résultat :</strong> la fiche créée est retournée avec son ID généré. Un événement de création est émis pour notification.
+          </div>
+
+          <div class="sub-heading">Request Body — <code>ConnaissanceClientIn</code></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Type</th><th>Obligatoire</th><th>Contraintes</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>nom</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Dupont</td></tr>
+                <tr><td><code>prenom</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Jean</td></tr>
+                <tr><td><code>ligne1</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>12 rue Victor Hugo</td></tr>
+                <tr><td><code>ligne2</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-optional">optionnel</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>Bâtiment A</td></tr>
+                <tr><td><code>codePostal</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>5 chars exactement, <code>^[A-Z0-9]+$</code></td><td>33000</td></tr>
+                <tr><td><code>ville</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Bordeaux</td></tr>
+                <tr><td><code>situationFamiliale</code></td><td><span class="type-chip">enum</span></td><td><span class="badge badge-required">requis</span></td><td><code>CELIBATAIRE</code> | <code>MARIE</code> | <code>DIVORCE</code> | <code>VEUF</code> | <code>PACSE</code></td><td>CELIBATAIRE</td></tr>
+                <tr><td><code>nombreEnfants</code></td><td><span class="type-chip">integer</span></td><td><span class="badge badge-required">requis</span></td><td>min: 0, max: 20</td><td>0</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemple de Request Body</div>
+          <pre>{
+  <span class="json-key">"nom"</span>: <span class="json-str">"Dupont"</span>,
+  <span class="json-key">"prenom"</span>: <span class="json-str">"Jean"</span>,
+  <span class="json-key">"ligne1"</span>: <span class="json-str">"12 rue Victor Hugo"</span>,
+  <span class="json-key">"codePostal"</span>: <span class="json-str">"33000"</span>,
+  <span class="json-key">"ville"</span>: <span class="json-str">"Bordeaux"</span>,
+  <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"CELIBATAIRE"</span>,
+  <span class="json-key">"nombreEnfants"</span>: <span class="json-num">0</span>
+}</pre>
+
+          <div class="sub-heading">Réponses</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code HTTP</th><th>Description</th><th>Schéma</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-201">201</span></td><td>Fiche créée avec succès</td><td><code>ConnaissanceClient</code></td></tr>
+                <tr><td><span class="badge badge-http-400">400</span></td><td>Requête invalide (champ manquant ou format incorrect)</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-401">401</span></td><td>Non authentifié</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-403">403</span></td><td>Accès refusé</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-409">409</span></td><td>Conflit — client déjà existant</td><td><code>ApiErrorResponse</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GET /v1/connaissance-clients/{id} ── -->
+      <div class="endpoint-card" id="get-one">
+        <div class="endpoint-header">
+          <span class="badge badge-get">GET</span>
+          <span class="endpoint-path">/v1/connaissance-clients/{id}</span>
+          <div style="margin-left:auto;"><span class="auth-chip"><span class="lock">🔒</span> Bearer JWT</span></div>
+        </div>
+        <div class="endpoint-body">
+          <div class="endpoint-desc">
+            Récupère une fiche de connaissance client <strong>spécifique</strong> via son identifiant unique (UUID).<br/>
+            <br/>
+            <strong>Sécurité :</strong> seuls les utilisateurs autorisés peuvent accéder aux données. Audit trail automatique des accès.<br/>
+            <strong>Performance :</strong> cache activé pour 5 minutes sur les données peu modifiées. Temps de réponse typique &lt; 100 ms.
+          </div>
+
+          <div class="sub-heading">Paramètres de chemin</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Paramètre</th><th>Type</th><th>Obligatoire</th><th>Format</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>UUID</td><td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Réponses</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code HTTP</th><th>Description</th><th>Schéma</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-200">200</span></td><td>Fiche client trouvée</td><td><code>ConnaissanceClient</code></td></tr>
+                <tr><td><span class="badge badge-http-400">400</span></td><td>Requête invalide</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-404">404</span></td><td>Client introuvable</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-500">500</span></td><td>Erreur serveur inattendue</td><td><code>ApiErrorResponse</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DELETE /v1/connaissance-clients/{id} ── -->
+      <div class="endpoint-card" id="delete-one">
+        <div class="endpoint-header">
+          <span class="badge badge-delete">DELETE</span>
+          <span class="endpoint-path">/v1/connaissance-clients/{id}</span>
+          <div style="margin-left:auto;"><span class="auth-chip"><span class="lock">🔒</span> Bearer JWT</span></div>
+        </div>
+        <div class="endpoint-body">
+          <div class="danger-box">
+            ⚠️ <strong>Opération irréversible.</strong> La suppression est définitive et entraîne la suppression en cascade des données liées.
+          </div>
+          <div class="endpoint-desc">
+            Supprime <strong>définitivement</strong> une fiche de connaissance client du système.<br/>
+            <br/>
+            <strong>Cas d'usage :</strong> suppression demandée par le client (RGPD / droit à l'oubli), nettoyage de doublons, archivage avec suppression des données sensibles.<br/>
+            <strong>Sécurité :</strong> vérification des droits de suppression, audit trail obligatoire, confirmation requise pour les comptes actifs.<br/>
+            <strong>Conformité :</strong> conforme RGPD, respect des délais de conservation légaux. Archive des métadonnées pour audit (sans données personnelles).
+          </div>
+
+          <div class="sub-heading">Paramètres de chemin</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Paramètre</th><th>Type</th><th>Obligatoire</th><th>Format</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>UUID</td><td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Réponses</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code HTTP</th><th>Description</th><th>Schéma</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-200">200</span></td><td>Suppression effectuée avec succès</td><td>—</td></tr>
+                <tr><td><span class="badge badge-http-400">400</span></td><td>Requête invalide</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-404">404</span></td><td>Client introuvable</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-500">500</span></td><td>Erreur serveur inattendue</td><td><code>ApiErrorResponse</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PUT /v1/connaissance-clients/{id}/adresse ── -->
+      <div class="endpoint-card" id="put-adresse">
+        <div class="endpoint-header">
+          <span class="badge badge-put">PUT</span>
+          <span class="endpoint-path">/v1/connaissance-clients/{id}/adresse</span>
+          <div style="margin-left:auto;"><span class="auth-chip"><span class="lock">🔒</span> Bearer JWT</span></div>
+        </div>
+        <div class="endpoint-body">
+          <div class="info-box">
+            ✅ <strong>Bonne pratique REST :</strong> PUT est utilisé pour la modification complète de la sous-ressource <em>adresse</em>. Seule l'adresse est modifiée — nom, prénom et situation familiale restent inchangés.
+          </div>
+          <div class="endpoint-desc">
+            Modifie <strong>uniquement l'adresse</strong> d'une fiche de connaissance client existante.<br/>
+            <br/>
+            <strong>Cas d'usage :</strong> déménagement du client, correction d'une adresse erronée, mise à jour suite à un changement de domicile.<br/>
+            <strong>Validation externe :</strong> l'adresse est validée via l'API IGN (cohérence code postal / ville). En cas d'échec, erreur 422.<br/>
+            <strong>Résilience :</strong> circuit breaker actif pour l'API IGN (3 échecs consécutifs → skip pendant 60 s).<br/>
+            <strong>Événement :</strong> un message Kafka est publié sur le topic <code>event.adresse.v1</code> après modification réussie.<br/>
+            <strong>Performance :</strong> temps de réponse typique &lt; 2 s (avec validation API IGN).
+          </div>
+
+          <div class="sub-heading">Paramètres de chemin</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Paramètre</th><th>Type</th><th>Obligatoire</th><th>Format</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>UUID</td><td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Request Body — <code>Adresse</code></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Type</th><th>Obligatoire</th><th>Contraintes</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>ligne1</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>10 rue de la Paix</td></tr>
+                <tr><td><code>ligne2</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-optional">optionnel</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>Bâtiment B, Étage 3</td></tr>
+                <tr><td><code>codePostal</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>5 chars exactement, <code>^[A-Z0-9]+$</code></td><td>75002</td></tr>
+                <tr><td><code>ville</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Paris</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemples de Request Body</div>
+          <pre><span class="json-key">// Adresse sans ligne 2</span>
+{
+  <span class="json-key">"ligne1"</span>: <span class="json-str">"10 rue de la Paix"</span>,
+  <span class="json-key">"codePostal"</span>: <span class="json-str">"75002"</span>,
+  <span class="json-key">"ville"</span>: <span class="json-str">"Paris"</span>
+}
+
+<span class="json-key">// Adresse complète avec ligne 2</span>
+{
+  <span class="json-key">"ligne1"</span>: <span class="json-str">"25 avenue des Champs-Elysees"</span>,
+  <span class="json-key">"ligne2"</span>: <span class="json-str">"Batiment B, Etage 3"</span>,
+  <span class="json-key">"codePostal"</span>: <span class="json-str">"75008"</span>,
+  <span class="json-key">"ville"</span>: <span class="json-str">"Paris"</span>
+}</pre>
+
+          <div class="sub-heading">Réponses</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code HTTP</th><th>Description</th><th>Schéma</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-200">200</span></td><td>Adresse modifiée avec succès — retourne la fiche client complète avec la nouvelle adresse. Un message Kafka a été publié.</td><td><code>ConnaissanceClient</code></td></tr>
+                <tr><td><span class="badge badge-http-400">400</span></td><td>Requête invalide (champ manquant ou format incorrect)</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-404">404</span></td><td>Client introuvable</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-422">422</span></td><td>Adresse invalide — le code postal et la ville ne correspondent pas (validation API IGN échouée)</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-500">500</span></td><td>Erreur serveur inattendue</td><td><code>ApiErrorResponse</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PUT /v1/connaissance-clients/{id}/situation ── -->
+      <div class="endpoint-card" id="put-situation">
+        <div class="endpoint-header">
+          <span class="badge badge-put">PUT</span>
+          <span class="endpoint-path">/v1/connaissance-clients/{id}/situation</span>
+          <div style="margin-left:auto;"><span class="auth-chip"><span class="lock">🔒</span> Bearer JWT</span></div>
+        </div>
+        <div class="endpoint-body">
+          <div class="info-box">
+            ✅ <strong>Bonne pratique REST :</strong> PUT est utilisé pour la modification complète de la sous-ressource <em>situation</em>. Seule la situation familiale est modifiée — nom, prénom et adresse restent inchangés.
+          </div>
+          <div class="endpoint-desc">
+            Modifie <strong>uniquement la situation familiale et le nombre d'enfants</strong> d'un client existant.<br/>
+            <br/>
+            <strong>Cas d'usage :</strong> changement d'état civil (mariage, divorce, veuvage), naissance ou adoption d'enfant(s), mise à jour suite à un événement de vie.<br/>
+            <strong>Règles métier :</strong> un client célibataire peut avoir des enfants (garde alternée, adoption). Le nombre d'enfants peut être 0 même si marié. La situation PACSE est acceptée.<br/>
+            <strong>Pas d'événement Kafka :</strong> aucun message n'est publié pour ce type de modification.<br/>
+            <strong>Performance :</strong> temps de réponse typique &lt; 100 ms (pas de validation externe).
+          </div>
+
+          <div class="sub-heading">Paramètres de chemin</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Paramètre</th><th>Type</th><th>Obligatoire</th><th>Format</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td><span class="type-chip">string</span></td><td><span class="badge badge-required">requis</span></td><td>UUID</td><td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Request Body — <code>Situation</code></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Type</th><th>Obligatoire</th><th>Contraintes</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>situationFamiliale</code></td><td><span class="type-chip">enum</span></td><td><span class="badge badge-required">requis</span></td><td><code>CELIBATAIRE</code> | <code>MARIE</code> | <code>DIVORCE</code> | <code>VEUF</code> | <code>PACSE</code></td><td>MARIE</td></tr>
+                <tr><td><code>nombreEnfants</code></td><td><span class="type-chip">integer</span></td><td><span class="badge badge-required">requis</span></td><td>min: 0, max: 20</td><td>2</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemples de Request Body</div>
+          <pre><span class="json-key">// Mariage</span>
+{ <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"MARIE"</span>, <span class="json-key">"nombreEnfants"</span>: <span class="json-num">0</span> }
+
+<span class="json-key">// Divorce avec garde d'enfants</span>
+{ <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"DIVORCE"</span>, <span class="json-key">"nombreEnfants"</span>: <span class="json-num">2</span> }
+
+<span class="json-key">// PACS avec enfant</span>
+{ <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"PACSE"</span>, <span class="json-key">"nombreEnfants"</span>: <span class="json-num">1</span> }</pre>
+
+          <div class="sub-heading">Réponses</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code HTTP</th><th>Description</th><th>Schéma</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-200">200</span></td><td>Situation modifiée avec succès — retourne la fiche client complète</td><td><code>ConnaissanceClient</code></td></tr>
+                <tr><td><span class="badge badge-http-400">400</span></td><td>Requête invalide (situation invalide ou nombre d'enfants hors limites)</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-404">404</span></td><td>Client introuvable</td><td><code>ApiErrorResponse</code></td></tr>
+                <tr><td><span class="badge badge-http-500">500</span></td><td>Erreur serveur inattendue</td><td><code>ApiErrorResponse</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /section API REST -->
+
+    <!-- ══════════════════════════════ SCHÉMAS DE DONNÉES ══════════════════════════════ -->
+    <div class="section" id="schemas">
+      <div class="section-title"><span class="section-icon">📐</span>Schémas de données</div>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;">
+          <strong>ConnaissanceClient</strong>
+          <span style="margin-left:.5rem;font-size:.8rem;color:#586069;">Schéma de réponse principal</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Type / Schéma</th><th>Obligatoire</th><th>Contraintes</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td><span class="type-chip">string (UUID)</span></td><td><span class="badge badge-optional">optionnel</span></td><td>Généré automatiquement à la création</td><td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td></tr>
+                <tr><td><code>nom</code></td><td><span class="type-chip">ChaineAlpha</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Dupont</td></tr>
+                <tr><td><code>prenom</code></td><td><span class="type-chip">ChaineAlpha</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Jean</td></tr>
+                <tr><td><code>ligne1</code></td><td><span class="type-chip">LigneAdresse</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>12 rue Victor Hugo</td></tr>
+                <tr><td><code>ligne2</code></td><td><span class="type-chip">LigneAdresse</span></td><td><span class="badge badge-optional">optionnel</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>Bâtiment A</td></tr>
+                <tr><td><code>codePostal</code></td><td><span class="type-chip">CodePostal</span></td><td><span class="badge badge-required">requis</span></td><td>5 chars exactement, <code>^[A-Z0-9]+$</code></td><td>33000</td></tr>
+                <tr><td><code>ville</code></td><td><span class="type-chip">ChaineAlpha</span></td><td><span class="badge badge-required">requis</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Bordeaux</td></tr>
+                <tr><td><code>situationFamiliale</code></td><td><span class="type-chip">SituationFamiliale</span></td><td><span class="badge badge-required">requis</span></td><td>Enum : voir ci-dessous</td><td>CELIBATAIRE</td></tr>
+                <tr><td><code>nombreEnfants</code></td><td><span class="type-chip">NombreEnfants</span></td><td><span class="badge badge-required">requis</span></td><td>integer, min: 0, max: 20</td><td>0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;"><strong>Types primitifs réutilisables</strong></div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Nom</th><th>Type de base</th><th>Contraintes</th><th>Pattern</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>ChaineAlpha</code></td><td><span class="type-chip">string</span></td><td>minLength: 2, maxLength: 50</td><td><code>^[a-zA-Z ,.'-]+$</code></td><td>Philippe</td></tr>
+                <tr><td><code>LigneAdresse</code></td><td><span class="type-chip">string</span></td><td>minLength: 2, maxLength: 50</td><td><code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>48 rue bauducheu</td></tr>
+                <tr><td><code>CodePostal</code></td><td><span class="type-chip">string</span></td><td>minLength: 5, maxLength: 5</td><td><code>^[A-Z0-9]+$</code></td><td>33800</td></tr>
+                <tr><td><code>SituationFamiliale</code></td><td><span class="type-chip">enum</span></td><td>CELIBATAIRE, MARIE, DIVORCE, VEUF, PACSE</td><td>—</td><td>MARIE</td></tr>
+                <tr><td><code>NombreEnfants</code></td><td><span class="type-chip">integer</span></td><td>minimum: 0, maximum: 20</td><td>—</td><td>1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /section schémas -->
+
+    <!-- ══════════════════════════════ GESTION DES ERREURS ══════════════════════════════ -->
+    <div class="section" id="errors">
+      <div class="section-title"><span class="section-icon">⚠️</span>Gestion des erreurs</div>
+
+      <p style="font-size:.88rem;color:#586069;margin-bottom:1.25rem;">
+        Toutes les erreurs sont retournées avec le schéma <code>ApiErrorResponse</code> au format JSON.
+      </p>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;"><strong>ApiErrorResponse</strong></div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Type</th><th>Description</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>timestamp</code></td><td><span class="type-chip">string (date-time)</span></td><td>Horodatage de l'erreur (ISO 8601)</td><td>2025-12-23T10:30:45.123Z</td></tr>
+                <tr><td><code>status</code></td><td><span class="type-chip">integer (int32)</span></td><td>Code HTTP</td><td>400</td></tr>
+                <tr><td><code>error</code></td><td><span class="type-chip">string</span></td><td>Description courte du code HTTP</td><td>Bad Request</td></tr>
+                <tr><td><code>message</code></td><td><span class="type-chip">string</span></td><td>Message d'erreur détaillé</td><td>Le champ 'codePostal' est obligatoire</td></tr>
+                <tr><td><code>path</code></td><td><span class="type-chip">string</span></td><td>Chemin de la ressource concernée</td><td>/v1/connaissance-clients/...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemple de réponse d'erreur</div>
+          <pre>{
+  <span class="json-key">"timestamp"</span>: <span class="json-str">"2025-12-23T10:30:45.123Z"</span>,
+  <span class="json-key">"status"</span>: <span class="json-num">400</span>,
+  <span class="json-key">"error"</span>: <span class="json-str">"Bad Request"</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Le champ 'codePostal' est obligatoire"</span>,
+  <span class="json-key">"path"</span>: <span class="json-str">"/v1/connaissance-clients/8a9204f5-aa42-47bc-9f04-17caab5deeee/adresse"</span>
+}</pre>
+        </div>
+      </div>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;"><strong>Codes HTTP utilisés</strong></div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Code</th><th>Signification</th><th>Cas d'usage</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-http-200">200 OK</span></td><td>Succès</td><td>Lecture, modification, suppression réussie</td></tr>
+                <tr><td><span class="badge badge-http-201">201 Created</span></td><td>Création réussie</td><td>POST /v1/connaissance-clients</td></tr>
+                <tr><td><span class="badge badge-http-400">400 Bad Request</span></td><td>Requête invalide</td><td>Champ manquant, format incorrect, valeur hors enum</td></tr>
+                <tr><td><span class="badge badge-http-401">401 Unauthorized</span></td><td>Non authentifié</td><td>Token JWT absent ou invalide</td></tr>
+                <tr><td><span class="badge badge-http-403">403 Forbidden</span></td><td>Accès refusé</td><td>Token valide mais droits insuffisants</td></tr>
+                <tr><td><span class="badge badge-http-404">404 Not Found</span></td><td>Ressource introuvable</td><td>Client inexistant avec l'ID fourni</td></tr>
+                <tr><td><span class="badge badge-http-409">409 Conflict</span></td><td>Conflit</td><td>Client déjà existant</td></tr>
+                <tr><td><span class="badge badge-http-422">422 Unprocessable Entity</span></td><td>Entité non traitable</td><td>Adresse invalide (code postal / ville incohérents via API IGN)</td></tr>
+                <tr><td><span class="badge badge-http-500">500 Internal Server Error</span></td><td>Erreur serveur</td><td>Erreur interne inattendue</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /section erreurs -->
+
+    <!-- ══════════════════════════════ ÉVÉNEMENTS KAFKA ══════════════════════════════ -->
+    <div class="section" id="kafka">
+      <div class="section-title"><span class="section-icon">📨</span>Événements Kafka (AsyncAPI 3.0)</div>
+
+      <div class="info-box">
+        Un événement Kafka est publié sur le topic <code>event.adresse.v1</code> à chaque modification d'adresse réussie via <code>PUT /v1/connaissance-clients/{id}/adresse</code>.<br/>
+        Aucun événement n'est publié pour la modification de situation familiale.
+      </div>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;">
+          <span class="badge badge-kafka">KAFKA</span>
+          <span class="endpoint-path" style="margin-left:.5rem;">event.adresse.v1</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Propriété</th><th>Valeur</th></tr></thead>
+              <tbody>
+                <tr><td>Protocole</td><td>Kafka</td></tr>
+                <tr><td>Broker DEV</td><td><code>localhost:9092</code></td></tr>
+                <tr><td>Topic</td><td><code>event.adresse.v1</code></td></tr>
+                <tr><td>Format du contenu</td><td>JSON (<code>application/json</code>)</td></tr>
+                <tr><td>Consumer group ID</td><td><code>my-group-id</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Opérations</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Opération</th><th>Action</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><code>sendAdresseMessage</code></td><td><span class="badge badge-send">SEND (publish)</span></td><td>Publié par le service après modification d'adresse réussie</td></tr>
+                <tr><td><code>receiveAdresseMessage</code></td><td><span class="badge badge-receive">RECEIVE (subscribe)</span></td><td>Consommé par les services abonnés aux changements d'adresse</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Payload — <code>AdresseMessagePayload</code></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Type</th><th>Contraintes</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>clientId</code></td><td><span class="type-chip">string (UUID)</span></td><td>Identifiant unique du client concerné</td><td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td></tr>
+                <tr><td><code>adresse.destinataire</code></td><td><span class="type-chip">ChaineAlpha</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Philippe Bousquet</td></tr>
+                <tr><td><code>adresse.ligne1</code></td><td><span class="type-chip">LigneAdresse</span></td><td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td><td>48 rue bauducheu</td></tr>
+                <tr><td><code>adresse.ligne2</code></td><td><span class="type-chip">LigneAdresse</span></td><td>2–50 chars, optionnel</td><td>maison individuelle</td></tr>
+                <tr><td><code>adresse.codePostal</code></td><td><span class="type-chip">CodePostal</span></td><td>5 chars, <code>^[A-Z0-9]+$</code></td><td>33800</td></tr>
+                <tr><td><code>adresse.ville</code></td><td><span class="type-chip">ChaineAlpha</span></td><td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td><td>Bordeaux</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemple de message Kafka</div>
+          <pre>{
+  <span class="json-key">"clientId"</span>: <span class="json-str">"8a9204f5-aa42-47bc-9f04-17caab5deeee"</span>,
+  <span class="json-key">"adresse"</span>: {
+    <span class="json-key">"destinataire"</span>: <span class="json-str">"Philippe Bousquet"</span>,
+    <span class="json-key">"ligne1"</span>: <span class="json-str">"48 rue bauducheu"</span>,
+    <span class="json-key">"ligne2"</span>: <span class="json-str">"maison individuelle"</span>,
+    <span class="json-key">"codePostal"</span>: <span class="json-str">"33800"</span>,
+    <span class="json-key">"ville"</span>: <span class="json-str">"Bordeaux"</span>
+  }
+}</pre>
+        </div>
+      </div>
+
+    </div><!-- /section kafka -->
+
+    <!-- ══════════════════════════════ MODÈLE DE DOMAINE ══════════════════════════════ -->
+    <div class="section" id="domain">
+      <div class="section-title"><span class="section-icon">🧩</span>Modèle de domaine</div>
+
+      <p style="font-size:.88rem;color:#586069;margin-bottom:1.25rem;">
+        Contrat de données métier (Data Contract v3.1.0 — statut : <em>draft</em>). Définit les types canoniques du domaine Connaissance Client indépendamment des implémentations techniques.
+      </p>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;"><strong>Types du domaine</strong></div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Type</th><th>Type logique</th><th>Description métier</th><th>Contraintes</th><th>Exemples</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><code>Nom</code></td>
+                  <td><span class="type-chip">object → value:string</span></td>
+                  <td>Nom de famille du client</td>
+                  <td>minLength: 2, maxLength: 50, pattern: <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>Bousquet, Martin, Dupond</td>
+                </tr>
+                <tr>
+                  <td><code>Prenom</code></td>
+                  <td><span class="type-chip">object → value:string</span></td>
+                  <td>Prénom du client</td>
+                  <td>minLength: 2, maxLength: 50, pattern: <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>Philippe, Marie, Jean</td>
+                </tr>
+                <tr>
+                  <td><code>LigneAdresse</code></td>
+                  <td><span class="type-chip">object → value:string</span></td>
+                  <td>Ligne d'adresse postale</td>
+                  <td>minLength: 2, maxLength: 50, pattern: <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>48, rue bauducheu</td>
+                </tr>
+                <tr>
+                  <td><code>CodePostal</code></td>
+                  <td><span class="type-chip">object → value:string</span></td>
+                  <td>Code postal français</td>
+                  <td>minLength: 5, maxLength: 5</td>
+                  <td>33800, 75001</td>
+                </tr>
+                <tr>
+                  <td><code>SituationFamiliale</code></td>
+                  <td><span class="type-chip">enum</span></td>
+                  <td>Situation familiale du client</td>
+                  <td>CELIBATAIRE | MARIE | PACSE | DIVORCE | VEUF</td>
+                  <td>CELIBATAIRE, MARIE</td>
+                </tr>
+                <tr>
+                  <td><code>Adresse</code></td>
+                  <td><span class="type-chip">object</span></td>
+                  <td>Adresse postale du client</td>
+                  <td>Agrège : ligne1 (LigneAdresse, requis), ligne2 (LigneAdresse, optionnel), codePostal (CodePostal, requis), ville (Ville, requis)</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>Ville</code></td>
+                  <td><span class="type-chip">object → value:string</span></td>
+                  <td>Ville du client</td>
+                  <td>minLength: 2, maxLength: 50, pattern: <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>Bordeaux, Rodez, Albi</td>
+                </tr>
+                <tr>
+                  <td><code>Client</code></td>
+                  <td><span class="type-chip">object</span></td>
+                  <td>Fiche client agrégée</td>
+                  <td>Agrège : id (UUID, PK), Nom, Prenom, Adresse, SituationFamiliale, NombreEnfants (0–20)</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemple d'objet Client (domaine)</div>
+          <pre>{
+  <span class="json-key">"id"</span>: <span class="json-str">"8a9204f5-aa42-47bc-9f04-17caab5deeee"</span>,
+  <span class="json-key">"nom"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"Bousquet"</span> },
+  <span class="json-key">"prenom"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"Philippe"</span> },
+  <span class="json-key">"adresse"</span>: {
+    <span class="json-key">"ligne1"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"48 rue bauducheu"</span> },
+    <span class="json-key">"ligne2"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"maison individuelle"</span> },
+    <span class="json-key">"codePostal"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"33800"</span> },
+    <span class="json-key">"ville"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"Bordeaux"</span> }
+  },
+  <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"CELIBATAIRE"</span>,
+  <span class="json-key">"nombreEnfants"</span>: <span class="json-num">0</span>
+}</pre>
+        </div>
+      </div>
+
+    </div><!-- /section domaine -->
+
+    <!-- ══════════════════════════════ MODÈLE MONGODB ══════════════════════════════ -->
+    <div class="section" id="mongodb">
+      <div class="section-title"><span class="section-icon">🍃</span>Modèle MongoDB</div>
+
+      <p style="font-size:.88rem;color:#586069;margin-bottom:1.25rem;">
+        Contrat de données physique (Data Contract v3.1.0 — statut : <em>draft</em>). Décrit la structure de la collection MongoDB utilisée pour la persistance des fiches clients.
+      </p>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header" style="cursor:default;">
+          <span class="badge badge-kafka" style="font-family:monospace;font-size:.75rem;">MongoDB</span>
+          <span style="margin-left:.5rem;font-family:'SFMono-Regular',Consolas,monospace;font-size:.9rem;">connaissanceclient</span>
+          <span style="margin-left:.5rem;font-size:.8rem;color:#586069;">Collection</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Champ</th><th>Nom physique</th><th>Type logique</th><th>Obligatoire</th><th>Clé</th><th>Contraintes</th><th>Exemples</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><code>id</code></td>
+                  <td><code>id</code></td>
+                  <td><span class="type-chip">string (UUID)</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td><span class="badge badge-pk">PK · UNIQUE</span></td>
+                  <td>Format UUID, unique</td>
+                  <td>8a9204f5-aa42-47bc-9f04-17caab5deeee</td>
+                </tr>
+                <tr>
+                  <td><code>nom</code></td>
+                  <td><code>nom</code></td>
+                  <td><span class="type-chip">string</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>Bousquet, Martin</td>
+                </tr>
+                <tr>
+                  <td><code>prenom</code></td>
+                  <td><code>prenom</code></td>
+                  <td><span class="type-chip">string</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>philippe, marie</td>
+                </tr>
+                <tr>
+                  <td><code>ligne1</code></td>
+                  <td><code>ligne1</code></td>
+                  <td><span class="type-chip">string</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td>
+                  <td>48, rue bauducheu</td>
+                </tr>
+                <tr>
+                  <td><code>ligne2</code></td>
+                  <td><code>ligne2</code></td>
+                  <td><span class="type-chip">string</span></td>
+                  <td><span class="badge badge-optional">optionnel</span></td>
+                  <td>—</td>
+                  <td>2–50 chars, <code>^[a-zA-Z0-9 ,.'-]+$</code></td>
+                  <td>2eme etage</td>
+                </tr>
+                <tr>
+                  <td><code>codePostal</code></td>
+                  <td><code>codePostal</code></td>
+                  <td><span class="type-chip">string</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>5 chars, <code>^[A-Z0-9]+$</code></td>
+                  <td>33800, 12000</td>
+                </tr>
+                <tr>
+                  <td><code>ville</code></td>
+                  <td><code>ville</code></td>
+                  <td><span class="type-chip">string</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>2–50 chars, <code>^[a-zA-Z ,.'-]+$</code></td>
+                  <td>Bordeaux, Rodez, Albi</td>
+                </tr>
+                <tr>
+                  <td><code>situationFamiliale</code></td>
+                  <td><code>situationFamiliale</code></td>
+                  <td><span class="type-chip">string (enum)</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>CELIBATAIRE | MARIE | DIVORCE | VEUF | PACSE</td>
+                  <td>CELIBATAIRE, MARIE</td>
+                </tr>
+                <tr>
+                  <td><code>nombreEnfants</code></td>
+                  <td><code>nombreEnfants</code></td>
+                  <td><span class="type-chip">integer</span></td>
+                  <td><span class="badge badge-required">requis</span></td>
+                  <td>—</td>
+                  <td>min: 0, max: 20</td>
+                  <td>0, 2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-heading">Exemple de document MongoDB</div>
+          <pre>{
+  <span class="json-key">"id"</span>: <span class="json-str">"8a9204f5-aa42-47bc-9f04-17caab5deeee"</span>,
+  <span class="json-key">"nom"</span>: <span class="json-str">"Bousquet"</span>,
+  <span class="json-key">"prenom"</span>: <span class="json-str">"Philippe"</span>,
+  <span class="json-key">"ligne1"</span>: <span class="json-str">"48 rue bauducheu"</span>,
+  <span class="json-key">"ligne2"</span>: <span class="json-str">"maison individuelle"</span>,
+  <span class="json-key">"codePostal"</span>: <span class="json-str">"33800"</span>,
+  <span class="json-key">"ville"</span>: <span class="json-str">"Bordeaux"</span>,
+  <span class="json-key">"situationFamiliale"</span>: <span class="json-str">"CELIBATAIRE"</span>,
+  <span class="json-key">"nombreEnfants"</span>: <span class="json-num">0</span>
+}</pre>
+        </div>
+      </div>
+
+    </div><!-- /section mongodb -->
+
+    <footer style="margin-top:3rem;padding:1.5rem 0;border-top:1px solid #e1e4e8;font-size:.8rem;color:#8b949e;">
+      Connaissance Client API v2.1.0 — SQLI — Documentation générée le 4 mai 2026
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>

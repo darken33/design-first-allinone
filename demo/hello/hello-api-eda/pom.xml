@@ -146,7 +146,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/../hello.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/../spec/hello-openapi.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <generateApis>true</generateApis>
                             <generateApiDocumentation>false</generateApiDocumentation>
@@ -186,7 +186,7 @@
                         </goals>
                         <configuration>
                             <generatorName>jsonschema2pojo</generatorName>
-                            <inputSpec>${project.basedir}/../hello-asyncapi-3-full.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/../spec/hello-asyncapi-3-full.yaml</inputSpec>
                             <targetFolder>${project.build.directory}/generated-sources</targetFolder>
                             <configOptions>
                                 <apiPackage>com.sqli.pbousquet.helloapi.generated.producer</apiPackage>
@@ -204,7 +204,7 @@
                         </goals>
                         <configuration>
                             <generatorName>spring-cloud-streams3</generatorName>
-                            <inputSpec>${project.basedir}/../hello-asyncapi-3-full.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/../spec/hello-asyncapi-3-full.yaml</inputSpec>
                             <targetFolder>${project.build.directory}/generated-sources</targetFolder>
                             <configOptions>
                                 <operationIds>sendHelloMessage</operationIds>
